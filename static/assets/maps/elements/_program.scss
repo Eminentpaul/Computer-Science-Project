@@ -1,0 +1,108 @@
+/* ======= Program Area CSS ======= */
+.program__single--item{
+    padding: 60px;
+    @include mq($lg){
+        padding: 38px;
+    }
+    position: relative;
+    z-index: 1;
+    & *{
+        position: relative;
+    }
+    &::before{
+        position: absolute;
+        inset: 0;
+        content: '';
+        background: #f6f6f6;
+        transition: var(--transition);
+    }
+    &:hover{
+        &::before{
+            opacity: 0;
+        }
+        .program__single--item{
+            &--title{
+                color: var(--rt-white);
+            }
+            &--list--item{
+                .link__list{
+                    color: var(--rt-white);
+                    border-color: var(--rt-white);
+                    &:hover{
+                        border-color: var(--rt-primary-1);
+                    }
+                }
+            }
+        }
+    }
+
+    &--bg{
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: -1;
+        &::before{
+            position: absolute;
+            inset: 0;
+            content: '';
+            background: rgba(0,0,0, 0.7);
+            z-index: 1;
+        }
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+    }
+    &.v__2{
+        &::before{
+            position: absolute;
+            inset: 0;
+            content: '';
+            background: var(--rt-primary-2);
+            transition: var(--transition);
+        }
+        .program__single--item{
+            &--title{
+                color: var(--rt-white);
+            }
+            &--list--item{
+                .link__list{
+                    color: var(--rt-white);
+                    border-color: var(--rt-white);
+                }
+            }
+        }
+    }
+    &--title{
+        font-size: 32px;
+        margin-bottom: 25px;
+        text-transform: capitalize;
+    }
+    &--list{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+            flex-direction: column;
+            gap: 10px;
+        &--item{
+            margin: 0 0;
+            .link__list{
+                padding: 11px 20px;
+                border: 1px solid var(--rt-heading);
+                display: inline-flex;
+                color: var(--rt-heading);
+                gap: 10px;
+                transition: var(--transition);
+                &:hover{
+                    background: var(--rt-primary-1);
+                    color: var(--rt-white);
+                    border-color: var(--rt-primary-1);
+                }
+            }
+        }
+    }
+    
+}

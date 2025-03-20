@@ -1,0 +1,18 @@
+<div class="d-flex d-column justify-content-center gap-3">
+    <span class="dwqa-vote-count mt-3">{{comment.likes.all.count}}</span>
+    
+    {% if user in comment.likes.all %}
+        <i style="cursor: pointer;" class="bi bi-heart-fill text-danger fs-3"
+        hx-post="{% url 'comment_like' comment.id post.id %}"
+        hx-trigger="click"
+        hx-target="#body"
+        ></i>
+    {% else %}
+        <i style="cursor: pointer;" class="bi bi-heart fs-3"
+        hx-post="{% url 'comment_like' comment.id post.id %}"
+        hx-trigger="click"
+        hx-target="#body"
+        ></i>
+    {% endif %}
+        
+</div>

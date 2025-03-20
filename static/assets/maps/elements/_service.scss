@@ -1,0 +1,75 @@
+// service css
+.rts-service{
+    &.v_2{
+
+    }
+}
+.single-service-content{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    @include mq($md){
+        grid-template-columns: repeat(2, minmax(25%, 1fr));
+    }
+    @include mq($xs){
+        grid-template-columns: repeat(1, minmax(25%, 1fr));
+
+    }
+    .single-service{
+        @include align-center;
+        gap: 20px;
+        background: var(--rt-primary);
+        padding: 20px 60px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        @include mq($xl){
+            padding: 20px;
+        }
+        @include mq($md){
+            padding: 20px 50px;
+        }
+        @include mq($sm){
+            padding: 20px;
+        }
+        &::before{
+            @include position;
+            inset: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--rt-secondary);
+            z-index: -1;
+            left: -50%;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        &:hover{
+            &::before{
+                opacity: 1;
+                left: 0;
+            }
+        }
+        &:nth-child(2n){
+            background: var(--rt-theme);
+            &::before{
+                background: var(--rt-secondary);
+            }
+        }
+        .icon{
+            min-width: 50px;
+            max-width: max-content;
+            height: 50px;
+        }
+        .content{
+            color: var(--rt-white);
+            .service-title{
+                margin-bottom: 5px;
+                color: var(--rt-white);
+                font-weight: 600;
+            }
+            p{
+                color: var(--rt-white);
+            }
+        }
+    }
+}

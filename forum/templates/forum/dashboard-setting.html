@@ -1,0 +1,243 @@
+{% extends 'forum_nav.html' %}
+{% load static %}
+
+{% block content  %} 
+    <!-- Breadcrumb Area -->
+    <section class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-contents">
+                        <h2 class="page-title">Author Profile</h2>
+                        <div class="breadcrumb">
+                            <ul>
+                                <li>
+                                    <a href="#">Home</a>
+                                </li>
+                                <li class="active">
+                                    <a href="#">Author Profile</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- end .col-md-12 -->
+            </div><!-- end .row -->
+        </div><!-- end .container -->
+    </section><!-- ends: .breadcrumb-area -->
+
+    <section class="dashboard-area">
+        
+    
+        
+    
+
+    
+
+
+        <div class="dashboard_contents section--padding">
+            <div class="container">
+                <form action="" method="post" class="setting_form">
+                    {% csrf_token %}
+
+                    {% include 'message.html' %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+    <div class="information_module">
+        <div class="information__set profile_images">
+            <div class="information_wrapper">
+                <div class="profile_image_area">
+                    <div>
+                        <img style="max-width: 150px;" id="avatar" src="{% static 'img/authplc.png' %}" alt="Author profile area">
+                        <div class="img_info">
+                            <p class="bold">Profile Image</p>
+                            <p class="subtitle">JPG, GIF or PNG 100x100 px</p>
+                        </div>
+                    </div>
+                    <label for="cover_photo" class="upload_btn">
+                        <input type="file" name="image" id="cover_photo">
+                        <span class="btn btn-sm btn-primary"
+                              aria-hidden="true">Upload New Image</span>
+                        <a href="" class="btn btn-sm btn-danger">Delete Image</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div><!-- ends: .information_module -->
+
+                        </div><!-- ends: .col-md-12 -->
+
+                        <div class="col-md-12">
+                            
+    <div class="information_module">
+        <div class="toggle_title">
+            <h4>Personal Information</h4>
+        </div>
+
+        <div class="information__set">
+            <div class="information_wrapper form--fields row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="acname">First Name
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" name="first_name" id="acname" class="text_field" placeholder="First Name" value="{{user.first_name}}" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="usrname">Last Name
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" name="last_name" id="usrname" class="text_field" placeholder="Account name" value="{{user.last_name}}" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="emailad">Email Address
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" id="emailad" class="text_field" placeholder="Email address" value="{{user.email}}" readonly>
+                    </div>
+                </div>
+
+               
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="country">Class Level
+                            <sup>*</sup>
+                        </label>
+                        <div class="select-wrap select-wrap2">
+                            <select name="country" id="country" class="text_field">
+                                <option value="">Select one</option>
+                                
+                                {% if user.level  %}
+                                    <option value="{{user.level}}" selected >{{user.level}}</option>
+                                {% endif %}
+                                    
+                                <option value="ND 1">ND 1</option>
+                                <option value="ND 2">ND 2</option>
+                                <option value="HND 1">HND 1</option>
+                                <option value="HND 2">HND 2</option>
+                                
+                            </select>
+                            <span class="lnr icon-arrow-down"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <div class="">
+                        <label for="authbio">Author Bio</label>
+                        <textarea name="author_bio" id="authbio" class="text_field" placeholder="Short brief about yourself or your account...">{% if user.profile.bio  %}{{user.profile.bio}}{% endif %}</textarea>
+                    </div>
+                </div>
+            </div><!-- ends: .information_wrapper -->
+        </div><!-- ends: .information__set -->
+    </div><!-- ends: .information_module -->
+
+                        </div><!-- ends: .col-md-12 -->
+
+                       
+
+                       
+
+                        <div class="col-md-12">
+                            
+    <div class="information_module">
+        <div class="toggle_title">
+            <h4>Social Profiles</h4>
+        </div>
+
+        <div class="information__set social_profile">
+            <div class="information_wrapper">
+                <div class="social__single">
+                    <div class="social_icon">
+                        <span class="fa fa-facebook"></span>
+                    </div>
+
+                    <div class="link_field">
+                        <input type="url" name="facebook" class="text_field" placeholder="ex: www.facebook.com/aazztech">
+                    </div>
+                </div><!-- ends: .social__single -->
+
+                <div class="social__single">
+                    <div class="social_icon">
+                        <i class="bi bi-twitter-x fs-1"></i>
+                    </div>
+
+                    <div class="link_field">
+                        <input type="text" name="x" class="text_field" placeholder="aazztech">
+                    </div>
+                </div><!-- ends: .social__single -->
+
+                <div class="social__single">
+                    <div class="social_icon">
+                        <i class="bi bi-instagram fs-1 text-danger"></i>
+                    </div>
+
+                    <div class="link_field">
+                        <input type="text" name="instagram" class="text_field" placeholder="aazztech">
+                    </div>
+                </div><!-- ends: .social__single -->
+
+                <div class="social__single">
+                    <div class="social_icon">
+                        <i class="bi bi-tiktok fs-1 text-black"></i>
+                    </div>
+
+                    <div class="link_field">
+                        <input type="text" name="tiktok" class="text_field" placeholder="@aazztech">
+                    </div>
+                </div><!-- ends: .social__single -->
+
+                <div class="social__single">
+                    <div class="social_icon">
+                        <i class="bi bi-github fs-1 text-black"></i>
+                    </div>
+
+                    <div class="link_field">
+                        <input type="text" name="github" class="text_field" placeholder="aazztech">
+                    </div>
+                </div><!-- ends: .social__single -->
+            </div><!-- ends: .information_wrapper -->
+        </div><!-- ends: .social_profile -->
+    </div><!-- ends: .information_module -->
+
+                        </div><!-- ends: .col-md-6 -->
+
+                        <div class="col-md-12">
+                            <div class="dashboard_setting_btn">
+                                <button type="submit" class="btn btn--md btn-primary">Save Change</button>
+                                <button type="reset" class="btn btn-md btn-danger">Cancel</button>
+                            </div>
+                        </div><!-- ends: .col-md-12 -->
+                    </div><!-- ends: .row -->
+                </form><!-- end /form -->
+            </div><!-- ends: .container -->
+        </div><!-- ends: .dashboard_menu_area -->
+    </section><!-- ends: .dashboard-area -->
+
+
+
+    <script>
+        // This updates the Profile Picture
+        const profilePhoto = document.querySelector('input[name="image"]');
+
+        profilePhoto.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const image = document.querySelector('#avatar');
+
+        if (file && file.type.includes('image')) {
+            const url = URL.createObjectURL(file);
+            image.src = url;
+        }
+        });
+    </script>
+
+   {% endblock %}

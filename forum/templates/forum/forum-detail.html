@@ -1,0 +1,149 @@
+{% extends 'forum_nav.html' %}
+{% load static %}
+
+{% block content  %}
+    
+    <!-- Breadcrumb Area -->
+    <section class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-contents">
+                        <h2 class="page-title">Support Forum Details</h2>
+                        <div class="breadcrumb">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'forum' %}">Home</a>
+                                </li>
+                                <li class="active">
+                                    <a href="#">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- end .col-md-12 -->
+            </div><!-- end .row -->
+        </div><!-- end .container -->
+    </section><!-- ends: .breadcrumb-area -->
+
+
+    <section class="support_details_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="dwqa-container">
+                        <div class="dwqa-single-question">
+                            <div class="dwqa-breadcrumbs">
+                                <a href="">Forum</a>
+                                <span class="dwqa-sep"> › </span>
+                                <a href="">Category: Item Discussion</a>
+                                <span class="dwqa-sep"> › </span>
+                                <span class="dwqa-current">{{post.title}}</span>
+                            </div><!-- Ends: .dwqa-breadcrumbs -->
+                            <div style="min-height: 150px;" class="dwqa-question-item">
+                                <div class="dwqa-question-vote" data-nonce="d7368a240e" data-post="6395">
+                                {% include 'forum/likes.html' %}
+                                    
+                                </div>
+                                <div class="dwqa-question-meta">
+                                    <span>
+                                        <a href="{% url 'dashboard' post.author.profile.id %}">
+                                            <img alt="" src="{{post.author.profile.avatar}}" class="avatar avatar-48 photo" height="48" width="48">{{post.author.first_name}}
+                                        </a> asked {{post.updated | timesince}} ago
+                                    </span>
+                                    <span class="dwqa-question-actions"></span>
+                                </div>
+                                <div class="dwqa-question-content">
+                                    <p>{{post.description | linebreaks }}
+                                    </p>
+                                </div>
+                            </div><!-- Ends: .dwqa-question-item -->
+
+
+
+                            <!-- COMMENTS -->
+
+
+                            <div class="dwqa-answers">
+                                <div class="dwqa-answers-title">
+                                    <h5 class="mb-3">Write Your Comment</h5>
+                                    <form
+                                        hx-post="{% url 'forum_detail' post.id %}" 
+                                        hx-trigger="submit"
+                                        hx-target="#body"
+                                        hx-swap="outerHTML"
+                                    >
+                                        <textarea name="comment" id="authbio" rows="2" cols="1" class="text_field mb-3" placeholder="Comment" required></textarea>
+                                        <button class="btn btn--md btn-primary" type="submit">Comment</button>
+                                    </form>
+                                </div>
+                                <div class="dwqa-answers-title">
+                                    <h5>{{comments.count}} Comment(s)</h5>
+                                    
+                                </div>
+                                <div class="dwqa-answers-list">
+                                   
+                                   {% for comment  in comments  %}
+                                         <div style="min-height: 150px;" class="dwqa-answer-item">
+                                            <div class="dwqa-answer-vote" data-nonce="5d2ccf7ff2" data-post="6399">
+                                                
+                                                {% include 'forum/comment.html' %}
+
+                                            </div>
+                                            <div class="dwqa-answer-meta">
+                                                <span>
+                                                    <a href="{% url 'dashboard' comment.user.profile.id %}">
+                                                        <img alt="" src="{{comment.user.profile.avatar}}"
+                                                            class="avatar avatar-48 photo" height="48" width="48">{{comment.user}} - {{comment.user.level}}
+                                                    </a>
+                                                    replied {{comment.created | timesince}} ago</span>
+                                            </div>
+                                            <div class="dwqa-answer-content">
+                                                <p>{{comment.comment | linebreaks}}
+                                                </p>
+                                            </div>
+                                        </div><!-- dwqa-answer-item -->
+                                   {% endfor %}
+                                    
+                                    
+                                </div><!-- dwqa-answers-list -->
+                            </div><!-- Ends: .dwqa-answers -->
+                        </div><!-- Ends: .dwqa-single-question -->
+                    </div><!-- Ends: .dwqa-container -->
+                </div><!-- end .col-lg-9 -->
+
+                <div class="col-lg-3">
+                    <aside class="sidebar support--sidebar">
+                        <a href="{% url 'forum_post' %}" class="login_promot">Make a Post</a>
+
+
+                        
+    <div class="sidebar-card card--top_discussion p-0">
+        <div class="card-title">
+            <h4>Popular Posts</h4>
+        </div>
+        <div class="collapsible-content">
+            <ul class="card-content">
+                
+                {% for op in other_post %}
+                    <li>
+                        <a href="{% url 'forum_detail' op.id %}">{{op.title}}
+                            <span>{{op.created | timesince}} Ago</span>
+                        </a>
+                    </li>
+                {% endfor %}
+                    
+                
+            </ul>
+        </div><!-- ends: .collapsible_content -->
+    </div><!-- ends: .card--forum_categories -->
+
+                    </aside><!-- end .sidebar -->
+                </div><!-- end .col-md-4 -->
+            </div><!-- end .row -->
+        </div><!-- end .container -->
+    </section><!-- ends: .support_threads_area -->
+
+
+
+{% endblock %}

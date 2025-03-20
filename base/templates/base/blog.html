@@ -1,0 +1,84 @@
+{% extends 'nav.html' %}
+{% load static %}
+    <!-- header banner -->
+
+
+{% block title %}
+    IMT - Computer Science
+{% endblock title %}
+    
+    
+    {% block content %}
+
+    <!-- BREADCRUMB AREA -->
+    <section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({% static 'assets/images/banner/breadcrumb.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">blogs</li>
+                        </ul>
+                        <h2 class="section-title">Departmental News</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BREADCRUMB AREA END -->
+
+
+    <!-- university blog list -->
+    <div class="rts-blog v_3 rts-section-padding">
+        <div class="container">
+            <div class="row justify-content-md-start justify-content-sm-center g-5">
+                <!-- single blog item -->
+                
+                {% for blog  in all_blogs  %}
+                    <div class="col-sm-10 col-md-6 col-lg-6 col-xl-4">
+                        <div class="single-blog">
+                            <div class="blog single-blog__content">
+                                <div class="blog__thumb" style="max-height: 200px; overflow: hidden;">
+                                    
+                                    {% for img  in all_images %}
+                                        
+                                        {% if img.blog == blog %}
+                                            <a href="{% url 'blog_details' blog.id %}">
+                                                <img src="{{img.blog_image}}" alt="blog thumbnail">
+                                            </a>
+                                        {% endif %}
+                                            
+                                    {% endfor %}
+                                        
+                                </div>
+                                <div class="blog__meta">
+                                    <div class="blog__meta--da">
+                                        <div class="blog-date">
+                                            <span><i class="fal fa-calendar"></i></span>
+                                            <span>{{blog.created}}</span>
+                                        </div>
+                                        <div class="blog-author">
+                                            <span><i class="far fa-user"></i>
+                                            </span>
+                                            <span><a href="#">{{blog.author}}</a></span>
+                                        </div>
+                                    </div>
+                                    <h5 class="blog__title"> <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:70}} </a></h5>
+                                    <a href="{% url 'blog_details' blog.id %}" class="rts-theme-btn primary with-arrow lh-100">Read More <span><i class="fa-thin fa-arrow-right"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+                <!-- single blog item end -->
+                
+            </div>
+            <!-- <div class="rts-load-more-btn rt-center mt--60">
+                <a href="#" class="rts-theme-btn primary primary lh-100">Load More</a>
+            </div> -->
+        </div>
+    </div>
+    <!-- university blog list end -->
+{% endblock %}

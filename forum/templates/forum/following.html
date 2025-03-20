@@ -1,0 +1,24 @@
+
+{% for  follower  in following  %}
+
+            <div class="col-lg-4 col-md-6">
+                <div class='user-single card '>
+                    <div class="card-body">
+                        <img style="max-height: 60px; border-radius: 50%;" src="{{follower.user.profile.avatar}}" alt=""
+                            class="rounded-circle img-fluid">
+                        <h6>{{follower.user.first_name}} {{follower.user.last_name}}</h6>
+                        <p>Member Since: {{follower.user.date_joined | date }}</p>
+                        
+                    </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <p><span>{{follower.user.profile.followers.all.count}}</span> Follower(s)</p>
+                        <!-- <p><span>9864</span> Sales</p> -->
+                    </div>
+                    <div class="user__status user--followindg"><a href="{% url 'dashboard' follower.user.profile.id %}" class="btn btn-sm btn-secondary">View Profile</a></div>
+                </div>
+            </div>
+        </div>
+       
+{% endfor %}
+    

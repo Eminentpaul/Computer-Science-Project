@@ -1,0 +1,125 @@
+{% load static %}
+<!doctype HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- viewport meta -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="DigiPro - Digital Products Marketplace ">
+    <meta name="keywords" content="marketplace, easy digital download, digital product, digital, html5">
+    <title>CS - Login </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600" rel="stylesheet">
+
+    <!-- inject:css-->
+
+    <link rel="stylesheet" href="{% static 'css/plugin.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- endinject -->
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-32x32.png">
+</head>
+<body class="preload">
+    
+    
+
+
+
+     
+    
+    <!-- Breadcrumb Area -->
+    <section class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-contents">
+                        <h2 class="page-title">Login</h2>
+                        <div class="breadcrumb">
+                            <ul>
+                                <li>
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="active">
+                                    <a href="#">Login</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- end .col-md-12 -->
+            </div><!-- end .row -->
+        </div><!-- end .container -->
+    </section><!-- ends: .breadcrumb-area -->
+
+
+    <section class="login_area section--padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+                    <form action="" method="post">
+                        {% csrf_token %}
+
+                        {% include 'message.html' %}
+                        <div class="cardify login">
+                            <div class="login--header">
+                                <h3>Welcome Back</h3>
+                                <p>You can sign in with your username</p>
+                            </div><!-- end .login_header -->
+
+                            <div class="login--form">
+                                <div class="form-group">
+                                    <label for="user_name">Email</label>
+                                    <input id="user_name" name="email" type="text" class="text_field" placeholder="Enter your Email...">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pass">Password</label>
+                                    <input id="pass" name="password" type="password" class="text_field" placeholder="Enter your password...">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom_checkbox">
+                                        <input type="checkbox" id="ch2">
+                                        <label for="ch2">
+                                            <span class="shadow_checkbox"></span>
+                                            <span class="label_text">Remember me</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn--md btn-primary" type="submit">Login Now</button>
+
+                                <div class="login_assist">
+                                    <p class="recover">Lost your
+                                        <a href="recover-pass.html">username</a> or
+                                        <a href="recover-pass.html">password</a>?</p>
+                                    <p style="font-size: 25px;" class="signup">Don't have an
+                                        <a href="{% url 'register' %}">account</a>?</p>
+                                </div>
+                            </div><!-- end .login--form -->
+                        </div><!-- end .cardify -->
+                    </form>
+                </div><!-- end .col-md-6 -->
+            </div><!-- end .row -->
+        </div><!-- end .container -->
+    </section><!-- ends: .login_area -->
+
+
+
+     
+
+
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDxflHHc5FlDVI-J71pO7hM1QJNW1dRp4U"></script>
+    <!-- inject:js-->
+
+     <script src="{% static 'js/plugins.min.js' %}"></script>
+
+     <script src="{% static 'js/script.min.js' %}"></script>
+
+     <!-- endinject-->
+</body>
+</html>

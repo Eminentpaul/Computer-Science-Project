@@ -1,0 +1,470 @@
+// campus css
+.rts-campus {
+    & * {
+        position: relative;
+        z-index: 1;
+    }
+
+    &.mobile-padding {
+        @include mq($md) {
+            padding-bottom: 100px;
+        }
+    }
+
+    .rt-shape {
+        @include shape;
+
+        @include mq($sm) {
+            display: none;
+        }
+
+        &__1 {
+            position: absolute;
+            top: 15%;
+            left: -25%;
+        }
+
+        &__2 {
+            position: absolute;
+            top: 0;
+            left: -8.5%;
+        }
+
+        &__3 {
+            position: absolute;
+            top: 50%;
+            left: 35%;
+        }
+
+        &__4 {
+            position: absolute;
+            bottom: 40%;
+            right: -11%;
+        }
+
+    }
+
+    &.rts-campus-bg {
+        position: relative;
+
+        &::before {
+            @include position;
+            height: 80%;
+            width: 100%;
+            background: var(--rt-primary);
+            z-index: -1;
+            top: 0;
+        }
+    }
+
+    .about-btn::before {
+        position: absolute;
+        content: "";
+        height: 1px;
+        bottom: 0;
+        width: 90%;
+        background: var(--rt-white);
+    }
+
+    .rts-left-section {
+        margin-right: 30px;
+
+        h2 {
+            line-height: 58px;
+            @include mq($lg) {
+                line-height: 1.2;
+            }
+
+            @include mq($md) {
+                &.mb--55 {
+                    margin-bottom: 40px !important;
+
+                }
+            }
+        }
+    }
+
+    .rts-right-section {
+        @include mq($md) {
+            margin-top: 40px;
+        }
+        img.round{
+            border-radius: 10px;
+        }
+        .rts-round-shape {
+            height: 102px;
+            width: 102px;
+            border-radius: 50%;
+            background: #fff;
+            position: absolute;
+            top: 75px;
+            right: -40px;
+            z-index: -1;
+            animation: topbottom 5s infinite alternate;
+
+            @include mq($sm) {
+                display: none;
+            }
+        }
+    }
+
+    .bottom-text {
+        position: absolute;
+        bottom: 7%;
+        font-size: 96px;
+        left: -22.5%;
+        font-weight: 700;
+        color: #DADADA;
+        font-family: var(--font-hind);
+
+        @include mq($xxl) {
+            font-size: 80px;
+            left: -70px;
+        }      
+        @include mq($xl) {
+            font-size: 60px;
+            left: 15px;
+        }
+
+        @include mq($lg) {
+            font-size: 65px;
+            left: 15px;
+        }
+
+        @include mq($sm) {
+            font-size: 60px;
+        }
+
+        @include mq($xs) {
+            font-size: 45px;
+        }
+
+        @include mq($md) {
+            bottom: -75px;
+            left: 100%;
+            transform: translateX(-80%);
+            width: 100%;
+        }
+
+        @include mq($sm) {
+            left: 90%;
+        }
+    }
+
+    &.v_2 {
+        padding-top: 140px;
+
+        @include mq($sm) {
+            padding-top: 80px;
+        }
+
+        &.rts-campus-bg {
+            background: linear-gradient(180deg, #F6F6F6 0%, rgba(246, 246, 246, 0) 100%);
+            position: relative;
+
+            &::before {
+                background: transparent;
+                background-repeat: no-repeat;
+                top: 32%;
+                background-image: url(../images/campus/bg-line.svg);
+                z-index: 1;
+                @include mq($xs) {
+                    display: none;
+                }
+            }
+        }
+
+        .rts-left-section {
+            position: relative;
+
+            &::before {
+                @include position;
+                left: 0;
+                height: 70%;
+                width: 1px;
+                background: var(--rt-heading);
+                bottom: -5%;
+                @include mq($xs){
+                    display: none;
+                }
+            }
+
+            .section-title {
+                font-size: 100px;
+
+                @include mq($xs) {
+                    font-size: 60px;
+                }
+
+                line-height: 110%;
+                margin-bottom: 45px;
+
+                @include mq($sm) {
+                    font-size: 70px;
+                }
+
+                span {
+                    display: block;
+
+                    @include mq($sm) {
+                        display: inline-block;
+                        margin-left: 0;
+                    }
+
+                    margin-left: 100px;
+                }
+            }
+
+            .rts-theme-btn {
+                margin-top: 35px;
+            }
+
+            .left-section-content {
+                margin-left: 25px;
+                @include mq($xs){
+                    margin-left: 0;
+                }
+            }
+        }
+
+        .rt-rounded-shape {
+            border: 1px solid #C3B8FF;
+            display: inline-block;
+            position: absolute;
+            z-index: 9;
+            border-radius: 50%;
+            top: -50px;
+            left: -50px;
+            background: linear-gradient(180deg, #CAC0FF 0%, #E1FFFB 100%);
+
+            @include mq($md) {
+                left: unset;
+                right: -10px;
+            }
+
+            svg {
+
+                animation: rotate 10s linear infinite;
+            }
+
+            span {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) rotate(-35deg);
+                color: var(--rt-secondary);
+            }
+
+        }
+
+        .rts-right-section {
+            margin-top: 50px;
+            position: relative;
+
+            .campus-video {
+                position: relative;
+                margin-top: 50px;
+
+                // for hide saveform.net helper plugin download icon
+                span {
+                    display: none;
+                }
+
+                >img {
+                    min-height: 440px;
+                    width: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    position: relative;
+                }
+
+                .video-play {
+                    position: absolute;
+                    content: "";
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 1;
+                    cursor: pointer;
+
+                    img.round {
+                        height: 82px;
+                        width: 82px;
+                        animation: rotate 10s linear infinite;
+                        position: relative;
+
+                        @include mq($md) {
+                            height: 80px;
+                            width: 80px;
+                        }
+                    }
+
+                    img.play-icon {
+                        height: 30px;
+                        width: 30px;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+
+                        @include mq($md) {
+                            height: 30px;
+                            width: 30px;
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+}
+
+/* ===== campus CSS ========*/
+.campus {
+    position: relative;
+
+    &>* {
+        position: relative;
+        z-index: 2;
+    }
+
+    .rts__shape {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        @include mq($sm){
+            display: none;
+        }
+        &--1 {
+            position: absolute;
+            top: 15%;
+            left: 25%;
+        }
+
+        &--2 {
+            position: absolute;
+            top: 50%;
+            left: 3%;
+        }
+
+        &--3 {
+            position: absolute;
+            right: 20%;
+            top: 25%;
+        }
+    }
+    &.v__2{
+        background: var(--rt-heading);
+    }
+    &.v__3{
+        background: var(--rt-primary-2);
+        .campus__right--text--description{
+            color: var(--rt-white);
+        }
+    }
+}
+
+.campus__single--item {
+    &:hover{
+        .campus__single--item--title{
+            a::before{
+                opacity: 1;
+                width: 90%;
+            }
+        }
+        .campus__single--item--thumb{
+            img{
+                transform: scale(1.1);
+            }
+        }
+    }
+    &--thumb {
+        overflow: hidden;
+        width: 100%;
+        img{
+            width: 100%;
+            transform: scale(1);
+            transition: var(--transition);
+        }
+    }
+
+    &--title {
+        font-size: 26px;
+        font-weight: 400;
+        margin-top: 35px;
+        margin-bottom: 0;
+        @include mq($sm){
+            font-size: 22px;
+        }
+        a {
+            display: inline-flex;
+            gap: 10px;
+            color: var(--rt-white);
+            position: relative;
+            align-items: center;
+            &::before {
+                position: absolute;
+                content: '';
+                bottom: 0;
+                width:     10%;
+                height: 1px;
+                background: var(--rt-white);
+                transition: var(--transition);
+                opacity: 0;
+                left: 0;
+            }
+
+            span {
+                transform: rotate(-30deg);
+                transition: var(--transition);
+            }
+        }
+        &:hover{
+            span{
+                transform: rotate(0);
+            }
+        }
+    }
+}
+.campus__wrapper{
+    .campus__link{
+        @include mq($md){
+            margin-bottom: 50px;
+        }
+    }
+}
+.campus__link--btn{
+    border: 1px solid var(--rt-white);
+    padding: 10px 30px;
+    border-radius: 30px;
+    color: var(--rt-white);
+    display: inline-block;
+    font-size: 24px;
+    transition: var(--transition);
+    &:hover{
+        background: var(--rt-white);
+    }
+}
+.campus__right--text{
+    &--title{
+        color: var(--rt-white);
+        margin-bottom: 30px;
+        margin-top: -15px;
+    }
+    &--description{
+        max-width: 500px;
+        margin-left: 0;
+    }
+}
+.campus__paralax--image{
+    @include background;
+    height: 600px;
+    background-attachment: fixed;
+    @include mq($lg){
+        height: 500px;
+    }
+    @include mq($sm){
+        height: 250px;
+    }
+}
