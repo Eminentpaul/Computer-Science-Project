@@ -1,133 +1,145 @@
 {% load static %}
-
-<!doctype HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-
-    <!-- viewport meta -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="DigiPro - Digital Products Marketplace ">
-    <meta name="keywords" content="marketplace, easy digital download, digital product, digital, html5">
-    <title>CS - Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Forum - Account Registration</title>
+    <meta name="description" content="Forum & Community Discussions HTML Template">
+    <meta name="keywords" content="bootstrap 5, forum, community, support, social, q&a, mobile, html">
+    <meta name="robots" content="all,follow">
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600" rel="stylesheet">
+    <script>
+        //Check local storage
+        let localS = localStorage.getItem('theme')
+            themeToSet = localS
+        
+        // If local storage is not set, we check the OS preference	
+        if(!localS){
+            themeToSet = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
 
-    <!-- inject:css-->
+        //Set the correct theme
+        document.documentElement.setAttribute('data-theme', themeToSet)
+    </script>
 
-    <link rel="stylesheet" href="{% static 'css/plugin.min.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-
-    <!-- endinject -->
-
-    <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-32x32.png">
-</head>
-<body class="preload">
-
-
-     
+    <!-- ==============================================
+     CSS Styles
+    =============================================== -->	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/simplebar/simplebar.min.css' %}">	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/aos/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/responsive.css' %}">
     
-    <!-- Breadcrumb Area -->
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="breadcrumb-contents">
-                        <h2 class="page-title">Student Signup</h2>
-                        <div class="breadcrumb">
-                            <ul>
-                                <li>
-                                    <a href="/">Home</a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">Signup</a>
-                                </li>
-                            </ul>
+    <!-- ==============================================
+     Fonts
+    =============================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+
+</head>
+
+    <!-- Switcher Icon -->
+    <div class="switcher switcher-show" id="theme-switcher">
+        <i id="switcher-icon" class="bi bi-moon"></i>
+    </div>
+
+    <!-- Back to Top -->
+	<a href="#" id="back-to-top"></a>  
+
+	<div class="vine-wrapper">
+
+		<!-- ==============================================
+		 Main
+		=============================================== -->
+        <div class="login p-3 p-xxl-5">
+            <div class="shape">
+                <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="140px" viewBox="20 -20 300 100" xml:space="preserve">
+                  <path d="M30.913 43.944s42.911-34.464 87.51-14.191c77.31 35.14 113.304-1.952 146.638-4.729 48.654-4.056 69.94 16.218 69.94 16.218v54.396H30.913V43.944z" class="vine-svg fill" opacity=".4"></path>
+                  <path d="M-35.667 44.628s42.91-34.463 87.51-14.191c77.31 35.141 113.304-1.952 146.639-4.729 48.653-4.055 69.939 16.218 69.939 16.218v54.396H-35.667V44.628z" class="vine-svg fill" opacity=".4"></path>
+                  <path d="M-34.667 62.998s56-45.667 120.316-27.839C167.484 57.842 197 41.332 232.286 30.428c53.07-16.399 104.047 36.903 104.047 36.903l1.333 36.667-372-2.954-.333-38.046z" class="vine-svg fill"></path>
+                </svg>
+            </div>
+        </div> 
+
+		<div class="vine-login">   
+			<div class="container">
+
+                <div class="row gy-5 justify-content-center">
+                    <div class="col-md-6 col-lg-6 col-xxl-6">
+                        <div class="card">
+                            <div class="card-body p-4 p-xl-5">
+                                <div class="login-header">
+                                    <img src="{% static 'assets/images/fav.svg' %}" alt="Logo">
+                                    <p class="small mb-4">Join our CS awesome community.</p>
+                                </div>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    {% include 'message.html' %}
+                                    <div class="pb-3">
+                                        <label class="form-label">First Name</label> 
+                                        <input type="text" name="first_name" class="" placeholder="Ekwe" required>
+                                    </div>
+                                    <div class="pb-3">
+                                        <label class="form-label">Last Name</label> 
+                                        <input type="text" name="last_name" class="" placeholder="Chikamso" required>
+                                    </div>
+                                    <div class="pb-3">
+                                        <label class="form-label">Email address</label> 
+                                        <input type="email" name="email" class="" placeholder="name@example.com" required>
+                                    </div>
+                                    <div class="pb-3">
+                                        <label class="form-label">Registration Number</label> 
+                                        <input type="text" name="regno" class="" placeholder="IMT/CS/N2024/0/000" required>
+                                    </div>
+                                    <div class="pb-3">
+                                        <label class="form-label">Password</label> 
+                                        <input type="password" name="password1" class="" placeholder="***********'" required>
+                                    </div>
+                                    <div class="pb-3">
+                                        <label class="form-label">Confrim Password</label> 
+                                        <input type="password" name="password2" class="" placeholder="***********'" required>
+                                    </div>
+                                    <div class="form-check m-0 pb-3">
+                                        <input class="form-check-input" type="checkbox" value="" required id="flexCheckDefault"> 
+                                        <label class="form-check-label" for="flexCheckDefault">I agree to the <a href="#">terms and conditions</a></label>
+                                    </div>
+                                    <div class="pb-3"><button class="w-100 btn btn-mint">Create account</button></div>
+                                    <div class="text-center"><small>Already have an account?</small> <a href="{% url 'login' %}" class="small font-weight-bold">Login</a></div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div><!-- end .col-md-12 -->
-            </div><!-- end .row -->
-        </div><!-- end .container -->
-    </section><!-- ends: .breadcrumb-area -->
+                </div>
 
+			</div>
+		</div>
 
-    <section class="signup_area section--padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {% include 'message.html' %}
-                        <div class="cardify signup_form">
-                            <div class="login--header">
-                                <h3>Create Your Account</h3>
-                                <p>Please fill the following fields with appropriate information to register a new Computer Science Student Account.
-                                </p>
-                            </div><!-- end .login_header -->
+    </div><!--/vine-wrapper-->
 
-                            <div class="login--form">
-                                <div class="form-group">
-                                    <label for="urname">First Name</label>
-                                    <input id="urname" name="first_name" type="text" class="text_field" placeholder="Enter your First Name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="urname">Last Name</label>
-                                    <input id="urname" name="last_name" type="text" class="text_field" placeholder="Enter your Last Name" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email_ad">Email Address</label>
-                                    <input id="email_ad" name="email" type="email" class="text_field" placeholder="Enter your email address" required>
-                                    
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="user_name">Reg. Number</label>
-                                    <input id="user_name" name="regno" type="text" class="text_field" placeholder="Enter your Registration Number">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input id="password" name="password1" type="password" class="text_field" placeholder="Enter your password...">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="con_pass">Confirm Password</label>
-                                    <input id="con_pass" name="password2" type="password" class="text_field" placeholder="Confirm password">
-                                </div>
-
-                                <button class="btn btn--md register_btn btn-primary" type="submit">Register Now</button>
-
-                                <div class="login_assist">
-                                    <p>Already have an account?
-                                        <a href="{% url 'login' %}">Login</a>
-                                    </p>
-                                </div>
-                            </div><!-- end .login--form -->
-                        </div><!-- end .cardify -->
-                    </form>
-                </div><!-- end .col-md-6 -->
-            </div><!-- end .row -->
-        </div><!-- end .container -->
-    </section><!-- ends: .signup_area -->
-
-
-
-     
-     
- 
-
-
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDxflHHc5FlDVI-J71pO7hM1QJNW1dRp4U"></script>
-    <!-- inject:js-->
-
-     <script src="{% static 'js/plugins.min.js' %}"></script>
-
-     <script src="{% static 'js/script.min.js' %}"></script>
-
-     <!-- endinject-->
+	<!-- ==============================================
+	Scripts
+	=============================================== -->
+	<script src="{% static 'assets/assets/vendors/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/assets/vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+	<script src="{% static 'assets/assets/vendors/popper/popper.min.js' %}"></script>	
+	<script src="{% static 'assets/assets/vendors/simplebar/simplebar.min.js' %}"></script>
+	<script src="{% static 'assets/assets/vendors/aos/aos.js' %}"></script>
+	<script src="{% static 'assets/assets/js/main.js' %}"></script>
+    <script>
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+        });
+        
+        document.querySelectorAll('.disabled').forEach(element => {
+            element.style.pointerEvents = 'none';
+        });
+    </script>
 </body>
 </html>

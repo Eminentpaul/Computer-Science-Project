@@ -1,117 +1,322 @@
 {% extends 'forum_nav.html' %}
 {% load static %}
 
-{% block content  %}
-    
-     
-    <!-- Breadcrumb Area -->
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="breadcrumb-contents">
-                        <h2 class="page-title">Support Forum</h2>
-                        <div class="breadcrumb">
-                            <ul>
-                                <li>
-                                    <a href="{% url 'forum' %}">Home</a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">Logout</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!-- end .col-md-12 -->
-            </div><!-- end .row -->
-        </div><!-- end .container -->
-    </section><!-- ends: .breadcrumb-area -->
+{% block content %}
+		<!-- ==============================================
+		 Hero
+		=============================================== -->
+		<section class="vine-hero-2 bg-img-1">
+			<div class="container">
+				<div class="row">
+
+					<!-- HERO TEXT -->
+					<div class="col-lg-12">
+						<div class="hero-content" data-aos="fade-down" data-aos-easing="linear">
+
+							<!-- Title -->
+							<h1>Ask Questions, Get Answers</h1>
+
+							<!-- Text -->
+							<p>Ask questions, find support, and connect with the community.</p>
+			  
+							<!-- Vine Join -->
+							<div class="vine-join">
+							      <!-- <a href="" class="btn btn-md btn-mint rounded-pill">Create an Account</a> -->
+								  <ul class="ms-3">
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/6.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/7.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/8.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/9.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/10.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/11.jpg' %}" class="avatar-sm" alt="image"></a></li>
+								  </ul>
+								  <p>Over 300+ CS Students Joined.</p>
+							</div><!--/vine-join-->
+													
+						</div>
+					</div>	<!-- END HERO TEXT -->
 
 
-    <section class="support_threads_area section--padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="dwqa-container">
-                        <div class="dwqa-questions-archive">
-                            <form id="dwqa-search" class="dwqa-search">
-                                <input data-nonce="8c3dbe4be6" type="text" placeholder="What do you want to know?"
-                                       name="qs"
-                                       value="" class="ui-autocomplete-input"
-                                       autocomplete="off">
-                            </form>
-                            <!-- Ends: .dwqa-search -->
-                            <div class="dwqa-question-filter">
+				</div>
+			</div>
+		</section>    
+		<!-- ==============================================
+		 Main
+		=============================================== -->
+		<section class="vine-main">
+			<div class="container">
+				<div class="row">
+
+                    <div class="col-lg-9 ps-lg-5">
+
+						<div class="filter">
+							<form class="form">
+								<div class="filter-toolbar">
+									
+									<!-- Nav Search START -->
+									<div class="w-100 mt-3 mb-3">
+										<div class="nav px-4 flex-nowrap align-items-center">
+											<div class="search-form nav-item w-100">
+													<input class="border-0" type="search" placeholder="Search" aria-label="Search">
+											</div>
+										</div>
+									</div>
+									<!-- Nav Search END -->
+									<button type="submit" class="btn btn-md btn-mint">Search</button>
+								</div>
+							</form>					
+						</div><!--/filter-->
+
+						<div class="discussions">
+		
+							
+		
+							
+                            {% for post in page_obj %}
+                                <div class="post-box d-flex" data-aos="fade-up" data-aos-easing="linear">
+                                        <div class="vote d-none d-lg-block">
+                                            
+                                            {% if user in post.likes.all  %}
+                                                <a style="cursor: pointer;"
+                                                hx-post="{% url 'post_like' post.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container"
+                                                class="up-arrow text-danger"><i class="bi bi-hand-thumbs-up"></i></a>
+                                            {% else %}
+                                                <a style="cursor: pointer;"
+                                                hx-post="{% url 'post_like' post.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container"
+                                                class="up-arrow"><i class="bi bi-hand-thumbs-up"></i></a>
+                                            {% endif %}
+                                                
+                                            <p class="mb-3">{{post.likes.all.count}}</p>
+                                            {% comment %} <p>24</p>
+                                            <a href="" class="down-arrow"><i class="bi bi-hand-thumbs-down"></i></a> {% endcomment %}
+                                        </div>  
+                                        <div class="card">
+                                            <div class="card-header card-header-action">
+                                                <div class="media align-items-center">
+                                                    <div class="media-head me-2">
+                                                        <div class="avatar">
+                                                            <a href="{% url 'dashboard' post.author.profile.id %}"><img src="{{post.author.profile.avatar}}" alt="user" class="avatar-img rounded-circle"></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <div><a href="{% url 'dashboard' post.author.profile.id %}">{{post.author.full_name | upper}}</a></div>
+                                                        <div class="fs-7"><span> {{post.created | timesince}} ago
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {% if user == post.author  %}
+                                                    <div class="card-action-wrap">
+                                                        <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i> Edit Post</a>
+                                                            
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#"><i class="bi bi-trash3 me-2"></i> Delete Post</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                    
+                                            </div>
+                                            <div class="card-body">
+                                                <h3>
+                                                <a href="{% url 'forum_detail' post.id %}">{{post.title}}</a>
+                                                </h3>
+                                                <p>{{post.description | truncatechars:300}}
+                                                </p>
+                
+                                               
+                                            </div>
+                
+                                            <div class="card-footer">
+
+                                                <div class="post-stats">
+                                                    <div class="post-item d-lg-none d-xl-none">
+                                                    <a href="#">
+                                                        {% if user in post.likes.all  %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'post_like' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container"
+                                                            class="up-arrow text-danger"><i class="bi bi-hand-thumbs-up"></i></a>
+                                                        {% else %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'post_like' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container"
+                                                            class="up-arrow"><i class="bi bi-hand-thumbs-up"></i></a>
+                                                        {% endif %}
+                                                        
+                                                        <div class="post-text">{{post.likes.all.count}}</div>
+                                                    </a>	
+                                                    </div>
+                                                    
+                                                    <div class="post-item">
+                                                    <ul>
+                                                        
+                                                        {% for view  in post.views.all|slice:":8" %}
+                                                            
+                                                            {% if post.views.all.count >= 1  %}
+                                                                <li><a href="{% url 'dashboard' view.profile.id %}"><img src="{{view.profile.avatar}}" alt="User"></a></li>
+                                                            {% endif %}
+                                                                
+                                                        {% endfor %}
+                                                            
+                                                        
+                                                    </ul>
+                                                    <div class="post-text">+{{post.views.all.count}}</div>
+                                                    <div class="post-text">Views</div>
+                                                    </div>
+                                                    <div class="post-item me-lg-5">
+                                                    <a href="#">
+                                                        <div class="post-icon"><i class="bi bi-chat-dots"></i></div>
+                                                        <div class="post-text">{{post.comment_count}}</div>
+                                                    </a>
+                                                    </div>
+                                                    <div class="post-item">
+                                                    <a href="#">
+                                                        <div class="post-icon"><i class="bi bi-bookmark"></i></div>
+                                                        <div class="post-text">0</div>
+                                                    </a>
+                                                    </div>
+                                                    <div class="post-item">
+                                                    <a href="#">
+                                                        <div class="post-icon"><i class="bi bi-share"></i></div>
+                                                        <div class="post-text">12</div>
+                                                    </a>
+                                                    </div>
+                                                    <div class="post-item">
+                                                    <a href="#">
+                                                        <div class="post-icon"><i class="bi bi-flag"></i></div>
+                                                        <div class="post-text">Report</div>
+                                                    </a>
+                                                    </div>
+                                                </div>
+
+                                            </div> 
+                
+                                        </div>	
+                                    </div><!--/post-box-->
+                            {% endfor %}
                                 
-                                    <aside class="sidebar support--sidebar">
-                                        <a style="color: white; padding: 5px 10px;" href="{% url 'forum_post' %}" class="login_promot">Make a Post</a>
+		
+							
+											   
+						</div><!--/discussions--> 
 
-                                    </aside><!-- end .sidebar -->
-                                <select id="dwqa-sort-by" class="dwqa-sort-by">
-                                    <option selected="" disabled="">Sort by</option>
-                                    <option value="">Views</option>
-                                    <!-- <option value="">Comments</option> -->
-                                    <option value="">Likes</option>
-                                </select>
-                            </div>
-                            <!-- Ends: .dwqa-question-filter -->
+						<div class="pagination ps-lg-3" data-aos="fade-up" data-aos-easing="linear">
+
+							<a href="{% url 'forum' %}" class="page-numbers btn-start">
+								<i class="b bi-chevron-double-left"></i>
+							</a>
                             
-                            
-                            <div class="dwqa-questions-list">
+	
+							{% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}" class="page-numbers btn--prev">
+                                <i class="bi bi-chevron-left"></i>
+                                </a>
+                            {% endif %}
+							<span class="page-numbers pagination-space"> <i class="bi bi-three-dots"></i> </span>
+							<a href="#" class="page-numbers current"><span>{{ page_obj.number }}</span></a>
+							{% comment %} <a href="#" class="page-numbers"><span>2</span></a>
+							<a href="#" class="page-numbers"><span>3</span></a>
+							<a href="#" class="page-numbers"><span>4</span></a>
+							<a href="#" class="page-numbers"><span>5</span></a>
+							<a href="#" class="page-numbers"><span>6</span></a> {% endcomment %}
+	
+							<span class="page-numbers pagination-space"> <i class="bi bi-three-dots"></i></span>
+							
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.paginator.num_pages }}" class="page-numbers btn--next">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            {% endif %}
                                 
-                                {% for post  in page_obj %}
-                                    <div class="dwqa-question-item">
-                                        <div class="dwqa-question-title">
-                                            <a href="{% url 'forum_detail' post.id %}"><h3>{{post.title}} </h3></a>
-                                        </div>
-                                        <div class="dwqa-question-meta">
-                                            <span title="Open" class="dwqa-status dwqa-status-open">Open</span>
-                                            <span>
-                                                <a href="{% url 'dashboard' post.author.profile.id %}"><img style="max-width: 70px; border-radius: 50%;" alt="" src="{{post.author.profile.avatar}}" class="avatar avatar-48 photo avatar-default">{{post.author.first_name}}
-                                                </a> posted {{post.created | timesince}} ago
-                                            </span>
-                                            <span class="dwqa-question-category">&nbsp;•&nbsp;
-                                                <a href="" rel="tag">Item discussion</a>
-                                            </span>
-                                        </div>
-                                        <div class="dwqa-question-stats">
-                                            <span class="dwqa-views-count"><strong>{{post.views.all.count}}</strong> views</span>
-                                            <span class="dwqa-answers-count"><strong>{{post.comment_count}}</strong> replies</span>
-                                            <span class="dwqa-votes-count"><strong>{{post.likes.count}}</strong> Likes</span>
-                                        </div>
-                                    </div><!-- Ends: .dwqa-question-item -->
-                                {% endfor %}
-                                    
-                                
-                            </div><!-- Ends: .dwqa-questions-list -->
-                            
-                            
-                            
-                            
-                            <div class="dwqa-questions-footer">
-                                <div class="dwqa-pagination">
+	
+							{% comment %} <a href="#" class="page-numbers btn-end">
+								<i class="bi bi-chevron-double-right"></i>
+							</a> {% endcomment %}
+	
+							<span class="page-numbers all-pages">
+								of {{ page_obj.paginator.num_pages }} Page(s)
+							</span>
+	
+						</div><!--/pagination--> 						
 
-                                    
-                                    {% if page_obj.has_previous %}
-                                        <a class="dwqa-next dwqa-page-numbers" href="?page={{ page_obj.previous_page_number }}"><< Previous</a>
-                                    {% endif %}
-                                        
-                                    
-                                    <a class="dwqa-page-numbers dwqa-current" href="">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
-                                    
-                                    <a class="dwqa-next dwqa-page-numbers" href="?page={{ page_obj.paginator.num_pages }}">Next »</a>
-                                </div>
-                            </div><!-- Ends: .dwqa-questions-footer -->
-                        </div><!-- Ends: .dwqa-questions-archive -->
-                    </div><!-- Ends: .dwqa-container -->
-                </div><!-- end .col-lg-9 -->
+					</div><!--/col-lg-9-->
 
-              
-            </div><!-- end .row -->
-        </div><!-- end .container -->
-    </section><!-- ends: .support_threads_area -->
+					<div class="col-lg-3 pe-lg-3 border-end">
+
+						<div class="vine-categories mb-4 pb-3">
+
+							<ul class="navbar-nav flex-column">
+
+							 <li class="mb-3"><h5 data-aos="fade-up" data-aos-easing="linear">Categories (2k)</h5> </li>
+							 <li class="nav-item" data-aos="fade-up" data-aos-easing="linear">
+							   <a class="nav-link" href="index.html">
+								<span class="nav-icon-wrap"><img src="{% static 'assets/assets/img/categories/10.jpg' %}" class="img-fluid rounded-2" alt="Category"></span>
+								 <span class="nav-link-text">Community (20k)</span>
+							   </a>
+							 </li> 
+							  
+							  
+							</ul>                                                          
+	   
+						</div><!--/Vine-categories--> 
+
+						<div class="top-users mb-4" data-aos="fade-right" data-aos-easing="linear">
+							<div class="card-header d-block py-2">
+								<h5>Leaderboard</h5>
+		
+								<!-- <ul class="nav nav-tabs" id="myTab">
+                                    <li class="nav-item">
+										<a href="#profile" class="nav-link active" data-bs-toggle="tab">Posts</a>
+									</li>
+									
+									
+								</ul> -->
+		
+							</div>
+							<div class="tab-content">
+                                <div class="tab-pane fade show active" id="profile">
+		
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item border-0">
+											<div class="media align-items-center">
+												<div class="media-head me-3">
+													<div class="avatar avatar-sm">
+													 <a href=""><img src="{% static 'assets/assets/img/avatar/1.jpg' %}" alt="user" class="avatar-img avatar-rounded"></a>
+													</div>
+												</div>
+												<div class="media-body">
+													<a href="" class="d-block text-capitalize">Abram Marvyn</a>
+												</div>
+												<p><i class="bi bi-chat"></i> 138</p>
+											</div>
+										</li>
+										
+									</ul>						
+								</div>
+								
+								
+							</div>
+						</div><!--/top-users-->
+		
+						
+		
+						
 
 
-
-{% endblock content  %}
-    
+					</div><!--/col-lg-3-->
+					
+				</div>
+			</div>
+		</section>
+ {% endblock %}

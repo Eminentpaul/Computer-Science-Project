@@ -186,6 +186,18 @@ def post_like(request, pk):
 
     if request.user in post.likes.all():
         post.likes.remove(request.user)
+        return redirect('forum')
+    else:
+        post.likes.add(request.user)
+        return redirect('forum')
+
+
+@login_required(login_url='login') 
+def post_detail_like(request, pk):
+    post = Forum.objects.get(id=pk)
+
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
         return redirect('forum_detail', post.id)
     else:
         post.likes.add(request.user)

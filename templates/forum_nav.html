@@ -1,214 +1,476 @@
 {% load static %}
-
-<!doctype HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-
-    <!-- viewport meta -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="DigiPro - Digital Products Marketplace ">
-    <meta name="keywords" content="marketplace, easy digital download, digital product, digital, html5">
-    <title>CS - Student Forum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science Forum - Ultimate Forum & Community Discussions </title>
+    <meta name="description" content="Forum & Community Discussions HTML Template">
+    <meta name="keywords" content="bootstrap 5, forum, community, support, social, q&a, mobile, html">
+    <meta name="robots" content="all,follow">
 
-    <!-- htmx start -->
-        <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.js" integrity="sha384-oeUn82QNXPuVkGCkcrInrS1twIxKhkZiFfr2TdiuObZ3n3yIeMiqcRzkIcguaof1" crossorigin="anonymous"></script>
-    <!-- htmx ends -->
+    {% comment %} Start Htmx {% endcomment %}
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
 
-    <!-- icon  -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script>
+        //Check local storage
+        let localS = localStorage.getItem('theme')
+            themeToSet = localS
+        
+        // If local storage is not set, we check the OS preference	
+        if(!localS){
+            themeToSet = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
 
-    <!-- inject:css-->
+        //Set the correct theme
+        document.documentElement.setAttribute('data-theme', themeToSet)
+    </script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <!-- ==============================================
+     CSS Styles
+    =============================================== -->	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/simplebar/simplebar.min.css' %}">	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/aos/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/responsive.css' %}">
     
+    <!-- ==============================================
+     Fonts
+    =============================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/plugin.min.css' %}">
-
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-
-    <!-- endinject -->
-
-    <!-- Favicon Icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
 </head>
-<body class="preload" id="body">
-    
-  
-    
+<body id="container">
 
-                            
-    <div class="author-menu">
-        <!-- start .author-area -->
-        <div class="author-area">
-            <div class="text-center" style="margin-right: 20px;">
-                <a href="{% url 'forum_post' %}" class="author-area__seller-btn inline">Make a Post</a>
-            </div>
-            <div class="search-wrapper">
-                <div class="nav_right_module search_module">
-                    <span class="icon-magnifier search_trigger"></span>
+    <!-- Switcher Icon -->
+    <div class="switcher switcher-show" id="theme-switcher">
+        <i id="switcher-icon" class="bi bi-moon"></i>
+    </div>
 
+    <!-- Back to Top -->
+	<a href="#" id="back-to-top"></a>  
 
-                    <div class="search_area">
-                        <form action="#">
-                            <div class="input-group input-group-light">
-                                <span class="icon-left" id="basic-addon1">
-                                    <i class="icon-magnifier"></i>
-                                </span>
-                                <input type="text" class="form-control search_field"
-                                       placeholder="Type words and hit enter...">
+	<div class="vine-wrapper">
+		
+		<!-- ==============================================
+		 Navbar
+		=============================================== -->
+		<header class="vine-navbar fixed-top">
+			<nav class="navbar navbar-expand-lg">
+				<div class="container align-items-center">
+					<div class="logo">
+						<a class="navbar-brand" href="{% url 'forum' %}">
+							<img class="logo-dark" src="{% static 'assets/images/fav.svg' %}" alt="Logo"> 
+						</a>
+					</div>
+					<div class="offcanvas nav-offcanvas offcanvas-start" tabindex="-1" id="offcanvas_Header_01" aria-labelledby="offcanvas_Header_01">
+						<div class="offcanvas-header flex-wrap border-bottom border-gray-200">
+							<div class="offcanvas-title">
+								<div class="d-flex align-items-center">
+									<div class="avatar"><img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/1.jpg' %}" alt="User"></div>
+									<div class="col ps-3">
+										<h6 class="mb-0">Abram Marvyn</h6><span class="fs-xs fw-400">@abram_marvyn</span></div>
+								</div>
+							</div>
+							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvas_Header_01" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body">
+
+                            <!-- Nav Search START -->
+                            <div class="col-xl-5">
+                                <div class="nav d-none mt-3 mt-lg-0 px-lg-4 flex-nowrap align-items-center">
+                                    <div class="search-form nav-item w-100">
+                                        <form class="rounded position-relative">
+                                            <input class="ps-5 bg-opacity-10 border-0" type="search" placeholder="Search" aria-label="Search">
+                                            <button class="btn bg-transparent px-3 position-absolute top-50 start-0 translate-middle-y"
+                                                type="submit"><i class="bi bi-search fs-6 text-green pe-2"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-            <!--start .author-author__info-->
-            <div class="author-author__info has_dropdown">
-                <div class="author__avatar online">
-                    <img style="max-width: 70px;" src="{{user.profile.avatar}}" alt="user avatar"
-                         class="rounded-circle">
-                </div>
+                            <!-- Nav Search END -->
+							
+						</div>
+					</div>
+					<div class="header-end d-flex justify-content-end">	
 
-                <div class="dropdown dropdown--author">
-                    <div class="author-credits d-flex">
-                        <div class="author__avatar">
-                            <img src="{{user.profile.avatar}}" alt="user avatar"
-                                 class="rounded-circle">
-                        </div>
-                        <div class="autor__info">
-                            <p class="name">
-                                {{user | title}}
-                            </p>
-                            <p class="amount">{{user.regno}}</p>
-                            <p class="amount">{{user.level}}</p>
-                        </div>
-                    </div>
-                    <ul>
-                        <li>
-                            <a href="{% url 'dashboard' user.profile.id %}">
-                                <span class="icon-user"></span>Profile</a>
-                        </li>
-                        
-                        <li>
-                            <a href="{% url 'edit_profile' user.profile.id %}">
-                                <span class="icon-settings"></span> Setting</a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a href="{% url 'logout' %}">
-                                <span class="icon-logout"></span>Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--end /.author-author__info-->
-        </div>
-        <!-- end .author-area -->
+						<!--  Add Post Start -->
+						<div class="h-col h-plus-toggle">
+							<a class="btn btn-mint rounded-circle" title="Add Post" href="{% url 'forum_post' %}">
+								<i class="bi bi-plus-lg"></i>
+							</a>
+						</div>
+						<!-- Add Post END -->	
+                                
+						 
+				
+						<!-- Messages dropdown START -->
+						{% comment %} <div class="nav-item dropdown h-col d-none d-lg-block">
 
-        <!-- author area restructured for mobile -->
-        <div class="mobile_content ">
-            <span class="icon-user menu_icon"></span>
+							<a class="h-message-icon h-icon" href="#header_message_bar"  data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+								<i class="bi bi-chat-left-text"></i> <sup>4</sup>
+							</a>
 
-            <!-- offcanvas menu -->
-            <div class="offcanvas-menu closed">
-                <span class="icon-close close_menu"></span>
-                <div class="author-author__info">
-                    <div class="author__avatar v_middle">
-                        <img src="{{user.profile.avatar}}" style="max-width: 70px;" alt="user avatar">
-                    </div>
-                </div>
-                <!--end /.author-author__info-->
+							<!-- Notification dropdown menu START -->
+							<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+								<div class="card bg-transparent border-0">
+									<div class="card-header bg-transparent py-4 d-flex justify-content-between align-items-center">
+										<h6 class="m-0">Messages <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
+										<a class="small" href="#">Clear all</a>
+									</div>
+									<div data-simplebar class="card-body p-0 dropdown-body">
+										<ul class="list-group list-unstyled list-group-flush">
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/17.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Oliver Carpenter</h6>
+														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
+														<small class="text-muted fs-xs">5 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/16.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Samantha Hall</h6>
+														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
+														<small class="text-muted fs-xs">10 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/15.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Jorge Dean</h6>
+														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
+														<small class="text-muted fs-xs">14 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/14.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Kathleen Murray</h6>
+														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
+														<small class="text-muted fs-xs">1 hr ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/13.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Timothy Spencer</h6>
+														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
+														<small class="text-muted fs-xs">3 hr ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/12.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Stacey Long</h6>
+														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
+														<small class="text-muted fs-xs">5 hr ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+										</ul>
+									</div>
+									<!-- Button -->
+									<div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
+										<a href="#" class="stretched-link">See all incoming activity</a>
+									</div>
+								</div>
+							</div>
+							<!-- Notification dropdown menu END -->
+						</div> {% endcomment %}
+						<!-- Messages dropdown END -->						
+				
+						<!-- Notification dropdown START -->
+						{% comment %} <div class="nav-item dropdown h-col d-none d-lg-block">
 
-                
-                <!--start .author__notification_area -->
+							<a class="h-notification-icon h-icon" href="#header_notification_bar"  data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+								<i class="bi bi-bell"></i> <sup>10</sup>
+							</a>
 
-                <div class="dropdown dropdown--author">
-                    <ul>
-                        <li>
-                            <a href="{% url 'dashboard' user.profile.id %}">
-                                <span class="icon-user"></span>Profile</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'edit_profile' user.profile.id %}">
-                                <span class="icon-settings"></span> Setting</a>
-                        </li>
-                        
-                        <li>
-                            <a href="{% url 'logout' %}">
-                                <span class="icon-logout"></span>Logout</a>
-                        </li>
-                    </ul>
-                </div>
+							<!-- Notification dropdown menu START -->
+							<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+								<div class="card bg-transparent border-0">
+									<div class="card-header bg-transparent py-4 d-flex justify-content-between align-items-center">
+										<h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">10 new</span></h6>
+										<a class="small" href="#">Clear all</a>
+									</div>
+									<div data-simplebar class="card-body p-0 dropdown-body">
+										<ul class="list-group list-unstyled list-group-flush">
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/2.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Adaline added a new comment</h6>
+														<p class="small m-0">Quidem consequuntur modi atque..</p>
+														<small class="text-muted fs-xs">5 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/3.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Buster posted a Post</h6>
+														<p class="small m-0">Quidem consequuntur modi atque..</p>
+														<small class="text-muted fs-xs">10 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/4.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Louisa replied to your Comment</h6>
+														<p class="small m-0">Quidem consequuntur modi atque..</p>
+														<small class="text-muted fs-xs">15 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/5.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Damon shared to your Post</h6>
+														<p class="small m-0">Quidem consequuntur modi atque..</p>
+														<small class="text-muted fs-xs">20 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/6.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Charlene bookmarked your Post</h6>
+														<p class="small m-0">Quidem consequuntur modi atque..</p>
+														<small class="text-muted fs-xs">30 min ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+											<li>
+												<a href="#" class="list-group-item-action border-0 d-flex p-3">
+													<div class="me-3">
+														<div class="avatar avatar-md">
+															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/7.jpg' %}" alt="avatar">
+														</div>
+													</div>
+													<div>
+														<h6 class="mb-1">Rafael commented on your Post</h6>
+														<p class="small m-0">Quidem consequuntur modi atque..</p>
+														<small class="text-muted fs-xs">1 hr ago</small>
+													</div>
+												</a>
+											</li><!-- Notif item -->
+											
+										</ul>
+									</div>
+									<!-- Button -->
+									<div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
+										<a href="#" class="stretched-link">See all incoming activity</a>
+									</div>
+								</div>
+							</div>
+							<!-- Notification dropdown menu END -->
+						</div> {% endcomment %}
+						<!-- Notification dropdown END -->						
+					
+						<!-- Account -->
+						<div class="nav-item ms-3 dropdown h-col">
+							<a href="#" id="navbarShoppingCartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
+							<div class="d-flex">	
+							<img class="avatar-sm avatar-img rounded-circle" src="{{user.profile.avatar}}" alt="Image Description">
+							<div class="profile-text d-none d-sm-block">
+								<div class="profile-head text-muted">Hello,</div>
+								<div class="text-nowrap">{{user.full_name}} </div>
+							</div>
+							</div> 
+							</a>
 
-                <div class="text-center">
-                    <a href="" class="author-area__seller-btn inline">Make a Post</a>
-                </div>
-            </div>
-        </div>
-        <!-- end /.mobile_content -->
-    </div>
+							<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-2 shadow-lg border-0" aria-labelledby="navbarShoppingCartDropdown" style="min-width: 16rem;">
+							<a class="d-flex align-items-center p-2" href="#">
+								<div class="flex-shrink-0">
+								<img class="avatar" src="{{user.profile.avatar}}" alt="Image Description">
+								</div>
+								<div class="flex-grow-1 ms-3">
+								<span class="d-block fw-semibold">{{user.full_name}} </span>
+								<span class="d-block text-muted small">{{user.level}}</span>
+								</div>
+							</a>
 
+							<div class="dropdown-divider my-3"></div>
 
-                        </div>
-                    </div>
-                </div>
-                <!-- end /.row -->
-            </div>
-            <!-- end /.container -->
-        </div>
-        <!-- end  -->
-    </div>
-    <!-- end /.menu-area -->
+							<a class="dropdown-item" href="{% url 'dashboard' user.profile.id %}"><span class="dropdown-item-icon"><i class="bi-person"></i></span> Dashboard</a>
+							<a class="dropdown-item" href="{% url 'edit_profile' user.profile.id %}"><span class="dropdown-item-icon"><i class="bi bi-gear"></i></span> Settings </a>
+							
+
+							<div class="dropdown-divider"></div>
+
+							
+							<a class="dropdown-item" href="{% url 'logout' %}">
+								<span class="dropdown-item-icon">
+								<i class="bi-box-arrow-right"></i>
+								</span> Log out
+							</a>
+							</div>
+						</div><!-- End Account -->
+
+						<!-- Mobile Toggle -->
+						<div class="h-col h-toggler d-xl-none">
+							<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_Header_01" aria-controls="offcanvas_Header_01">
+							 <span class="px-navbar-toggler-icon"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+    
 
 
 {% block content %}
     
 {% endblock content %}
     
+   
+		<!-- ==============================================
+		 Footer
+		=============================================== -->
+        <footer class="footer">
+            
+            <div class="footer-bottom" data-aos="fade-right" data-aos-easing="linear">
+                <div class="container">
+                    <div class="inner">
+                        <div class="copyright">© 2025 Computer Science Department. All rights reserved</div>
+                        <div class="menu">
+                            <ul>
+                                <li><a href="#terms.html" title="Terms">Terms</a></li>
+                                <li><a href="#privacy.html" title="Privacy Policy">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </footer> 
 
+    </div><!--/vine-wrapper-->
 
-
-
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDxflHHc5FlDVI-J71pO7hM1QJNW1dRp4U"></script>
-    <!-- inject:js-->
-
-     <script src="{% static 'js/plugins.min.js' %}"></script>
-
-     <script src="{% static 'js/script.min.js' %}"></script>
-
-     <!-- endinject-->
-
-     <!-- {% csrf_token %} -->
-      <script>
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        const csrftoken = getCookie('csrftoken');
-
-
-        document.body.addEventListener('htmx:configRequest', function(evt) {
-            evt.detail.headers['X-CSRFToken'] = csrftoken; // add a new header into the request
+    <!-- ==============================================
+    Scripts
+    =============================================== -->
+    <script src="{% static 'assets/assets/vendors/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/assets/vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'assets/assets/vendors/popper/popper.min.js' %}"></script>	
+    <script src="{% static 'assets/assets/vendors/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/assets/vendors/aos/aos.js' %}"></script>
+    <script src="{% static 'assets/assets/js/main.js' %}"></script>
+    <script>
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+        });
+        
+        document.querySelectorAll('.disabled').forEach(element => {
+            element.style.pointerEvents = 'none';
         });
     </script>
+
+    <!-- {% csrf_token %} -->
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
+
+            document.body.addEventListener('htmx:configRequest', function(evt) {
+                evt.detail.headers['X-CSRFToken'] = csrftoken; // add a new header into the request
+            });
+        </script>
 </body>
 </html>

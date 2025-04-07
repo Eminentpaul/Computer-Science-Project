@@ -8,6 +8,7 @@ urlpatterns = [
     path('post/', views.forum_post, name='forum_post'),
     path('<str:pk>/post/details/', views.forum_detail, name='forum_detail'),
     path('post/<str:pk>/likes', views.post_like, name='post_like'),
+    path('post/<str:pk>/likes/details', views.post_detail_like, name='post_detail_like'),
     path('comment/<str:pk>/<str:pd>/likes',
          views.comment_like, name='comment_like'),
     path('user/<str:pk>/follow', views.follow, name='follow'),
