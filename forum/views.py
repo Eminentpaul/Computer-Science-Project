@@ -28,8 +28,6 @@ def dashboard(request, pk):
         total_comments += int(post.comment_count)
         total_likes += post.likes.all().count()
     
-    print(total_comments, total_likes)
-    
 
     context = {
         'user_profile': user_profile,
@@ -51,7 +49,9 @@ def edit_profile(request, pk):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         level = request.POST.get('level')
+        username = request.POST.get('username')
         tiktok = request.POST.get('tiktok')
+        print(level)
 
         tiktok = tiktok.strip()
 
@@ -65,6 +65,7 @@ def edit_profile(request, pk):
             user.first_name = first_name
             user.last_name = last_name
             user.level = level
+            user.username = username
             user.save()
 
             profile = form.save(commit=False)
@@ -207,13 +208,14 @@ def delete_post(request, pk):
 @login_required(login_url='login')
 def post_like(request, pk):
     post = Forum.objects.get(id=pk)
+    referer = request.META.get('HTTP_REFERER')
 
     if request.user in post.likes.all():
         post.likes.remove(request.user)
-        return redirect('forum')
+        return redirect(referer)
     else:
         post.likes.add(request.user)
-        return redirect('forum')
+        return redirect(referer)
 
 
 @login_required(login_url='login') 

@@ -9,6 +9,8 @@ class UserAdmin(ModelAdmin):
     list_filter = ['level']
     search_fields = ['first_name', 'last_name', 'regno']
     list_per_page = 50
+
+    readonly_fields = ['password']
     
 
 class ProfileAdmin(ModelAdmin):

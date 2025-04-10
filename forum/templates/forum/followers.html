@@ -1,24 +1,22 @@
+{% load static %}
+
 
 {% for  follower  in user_profile.followers.all  %}
 
-            <div class="col-lg-4 col-md-6">
-                <div class='user-single card '>
-                    <div class="card-body">
-                        <img src="{{follower.profile.avatar}}" alt=""
-                            class="rounded-circle">
-                        <h6>{{follower.first_name}} {{follower.last_name}}</h6>
-                        <p>Member Since: {{follower.date_joined | date }}</p>
-                        
-                    </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <p><span>{{follower.profile.followers.all.count}}</span> Follower(s)</p>
-                        <!-- <p><span>9864</span> Sales</p> -->
-                    </div>
-                    <div class="user__status user--followindg"><a href="{% url 'dashboard' follower.profile.id %}" class="btn btn-sm btn-secondary">View Profile</a></div>
-                </div>
+<div class="col-6">
+
+    <div class="card mb-5">
+        <div class="media media-xs card-body">
+            <img src="{{follower.profile.avatar}}" class="avatar avatar-lg rounded-circle me-3" alt="avatar-img">
+            <div class="media-body valign-middle">
+                <a class="fw-semibold" href="javascript:void(0)">{{follower.full_name}}</a>
+                <p class="text-muted mb-0" style="color: #20c997 !important;> <i class="bi bi-geo-alt"></i>{{follower.profile.state | upper}} STATE | {{follower.level}} </p>
             </div>
+            <div class="media-body valign-middle text-end mt-2"><a href="{% url 'dashboard' follower.profile.id %}" class="btn btn-mint" type="button">View Profile</a></div> 
         </div>
+    </div>
+
+</div>
        
 {% endfor %}
     

@@ -74,9 +74,9 @@
 						<div class="offcanvas-header flex-wrap border-bottom border-gray-200">
 							<div class="offcanvas-title">
 								<div class="d-flex align-items-center">
-									<div class="avatar"><img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/1.jpg' %}" alt="User"></div>
+									<div class="avatar"><img class="avatar-img rounded-circle" src="{{user.profile.avatar}}" alt="User"></div>
 									<div class="col ps-3">
-										<h6 class="mb-0">Abram Marvyn</h6><span class="fs-xs fw-400">@abram_marvyn</span></div>
+										<h6 class="mb-0">{{user.full_name | title}}</h6><span class="fs-xs fw-400">@{{user.username | lower}}</span></div>
 								</div>
 							</div>
 							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvas_Header_01" aria-label="Close"></button>
@@ -362,7 +362,7 @@
 							</a>
 
 							<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-2 shadow-lg border-0" aria-labelledby="navbarShoppingCartDropdown" style="min-width: 16rem;">
-							<a class="d-flex align-items-center p-2" href="#">
+							<a class="d-flex align-items-center p-2" href="{% url 'dashboard' user.profile.id %}">
 								<div class="flex-shrink-0">
 								<img class="avatar" src="{{user.profile.avatar}}" alt="Image Description">
 								</div>

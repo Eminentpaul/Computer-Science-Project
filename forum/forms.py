@@ -12,4 +12,4 @@ class ForumForm(ModelForm):
 class ProfileEditForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['facebook', 'instagram', 'x', 'tiktok', 'github', 'bio', 'image'] 
+        fields = ['facebook', 'instagram', 'x', 'tiktok', 'github', 'state', 'bio', 'image'] 

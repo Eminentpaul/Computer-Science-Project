@@ -46,6 +46,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(
         upload_to='Users', default='../media/Users/user-avater.png', null=True, blank=True)
+    state = models.CharField(max_length=200, null=True, blank=True)
     bio = models.TextField(blank=True, null=True)
     followers = models.ManyToManyField(
         User, blank=True, related_name='user_follower')
