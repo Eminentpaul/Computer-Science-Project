@@ -12,6 +12,10 @@ urlpatterns = [
 ]
 
 
+# 404 handler
+handler404 = 'base.views._404'
+
+
 urlpatterns.append(re_path(f'^{settings.MEDIA_URL.lstrip("/")}(?P<path>.*)$', mediaserve, {'document_root': settings.MEDIA_ROOT}))
 
 urlpatterns += [

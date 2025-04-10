@@ -112,3 +112,7 @@ def contact(request):
         'images': AllBlogs().images(),
     }
     return render(request, 'base/contact.html', context)
+
+
+def _404(request, exception):
+    return render(request, '404.html', {})

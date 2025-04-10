@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science - Ultimate Forum & Community Discussions</title>
+    <meta name="description" content="Forum & Community Discussions HTML Template">
+    <meta name="keywords" content="bootstrap 5, forum, community, support, social, q&a, mobile, html">
+    <meta name="robots" content="all,follow">
+
+    <script>
+        //Check local storage
+        let localS = localStorage.getItem('theme')
+            themeToSet = localS
+        
+        // If local storage is not set, we check the OS preference	
+        if(!localS){
+            themeToSet = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+
+        //Set the correct theme
+        document.documentElement.setAttribute('data-theme', themeToSet)
+    </script>
+
+    <!-- ==============================================
+     CSS Styles
+    =============================================== -->	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">	
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/simplebar/simplebar.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/vendors/aos/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/responsive.css' %}">
+    
+    <!-- ==============================================
+     Fonts
+    =============================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+
+</head>
+
+    <!-- Switcher Icon -->
+    <div class="switcher switcher-show" id="theme-switcher">
+        <i id="switcher-icon" class="bi bi-moon"></i>
+    </div>
+
+    <!-- Back to Top -->
+	<a href="#" id="back-to-top"></a>  
+
+	<div class="vine-wrapper">
+
+    
+
+		<!-- ==============================================
+		 Main
+		=============================================== -->
+		<section class="vine-top">
+			<div class="container">
+				<div class="row">
+
+                    <div class="col-lg-8 col-md-8 offset-lg-2 offset-md-2 d-flex justify-content-center">
+                        <div class="error-content" data-aos="fade-up" data-aos-easing="linear">
+                            <h1>4<span>0</span>4</h1>
+                            <h2>Sorry Page Was Not Found!</h2>
+                            {% comment %} <p>Eu incididunt proident commodo occaecat commodo occaecat eiusmod ex qui et.</p> {% endcomment %}
+                            <a class="btn btn-mint w-100 mt-4" href="/">Back To Home</a>
+                        </div>
+                    </div>
+
+				</div>
+
+			</div>
+		</section>
+    
+
+	<!-- ==============================================
+	Scripts
+	=============================================== -->
+	<script src="{% static 'assets/assets/vendors/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/assets/vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+	<script src="{% static 'assets/assets/vendors/popper/popper.min.js' %}"></script>	
+	<script src="{% static 'assets/assets/vendors/simplebar/simplebar.min.js' %}"></script>
+	<script src="{% static 'assets/assets/vendors/aos/aos.js' %}"></script>
+	<script src="{% static 'assets/assets/js/main.js' %}"></script>
+    <script>
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+        });
+        
+        document.querySelectorAll('.disabled').forEach(element => {
+            element.style.pointerEvents = 'none';
+        });
+    </script>
+</body>
+</html>
