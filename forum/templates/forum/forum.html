@@ -1,5 +1,6 @@
 {% extends 'forum_nav.html' %}
 {% load static %}
+{% load highlight %}
 
 {% block content %}
 		<!-- ==============================================
@@ -40,6 +41,8 @@
 				</div>
 			</div>
 		</section>    
+
+        {% include 'message.html' %}
 		<!-- ==============================================
 		 Main
 		=============================================== -->
@@ -114,11 +117,11 @@
                                                         <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i> Edit Post</a>
+                                                            <a class="dropdown-item" href="{% url 'edit_forum' post.id %}"><i class="bi bi-pencil me-2"></i> Edit Post</a>
                                                             
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#"><i class="bi bi-trash3 me-2"></i> Delete Post</a>
-                                                            <div class="dropdown-divider"></div>
+                                                            {% comment %} <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="{% url 'delete' post.id%}"><i class="bi bi-trash3 me-2"></i> Delete Post</a>
+                                                            <div class="dropdown-divider"></div> {% endcomment %}
                                                             
                                                         </div>
                                                     </div>
@@ -129,8 +132,11 @@
                                                 <h3>
                                                 <a href="{% url 'forum_detail' post.id %}">{{post.title}}</a>
                                                 </h3>
-                                                <p>{{post.description | truncatechars:300}}
-                                                </p>
+                                                
+                                                {% autoescape off %}
+                                                    <p>{{post.description | truncatechars:300 }}</p>
+                                                {% endautoescape %}
+                                                
                 
                                                
                                             </div>
@@ -213,12 +219,13 @@
 
 						<div class="pagination ps-lg-3" data-aos="fade-up" data-aos-easing="linear">
 
-							<a href="{% url 'forum' %}" class="page-numbers btn-start">
-								<i class="b bi-chevron-double-left"></i>
-							</a>
+							
                             
 	
 							{% if page_obj.has_previous %}
+                                <a href="{% url 'forum' %}" class="page-numbers btn-start">
+                                    <i class="b bi-chevron-double-left"></i>
+                                </a>
                                 <a href="?page={{ page_obj.previous_page_number }}" class="page-numbers btn--prev">
                                 <i class="bi bi-chevron-left"></i>
                                 </a>
@@ -234,8 +241,12 @@
 							<span class="page-numbers pagination-space"> <i class="bi bi-three-dots"></i></span>
 							
                             {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.paginator.num_pages }}" class="page-numbers btn--next">
+                                <a href="?page={{ page_obj.next_page_number }}" class="page-numbers btn--next">
                                     <i class="bi bi-chevron-right"></i>
+                                </a>
+
+                                <a href="?page={{ page_obj.paginator.num_pages }}" class="page-numbers btn--next">
+                                    <i class="bi bi-chevron-double-right"></i>
                                 </a>
                             {% endif %}
                                 

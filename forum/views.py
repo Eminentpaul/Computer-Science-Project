@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from .models import Forum, Comment
 from django.db import transaction
 from django.core.paginator import Paginator
@@ -9,21 +10,34 @@ from django.contrib import messages as mg
 
 # Create your views here.
 
+# Checking and keeping track of pages
+pages = []
+
 
 @login_required(login_url='login')
 def dashboard(request, pk):
     user_profile = Profile.objects.get(id=pk)
     user_posts = Forum.objects.all().filter(author=user_profile.user)
+    total_comments = 0
+    total_likes = 0
 
     following = [follow for follow in Profile.objects.all() if user_profile.user in follow.followers.all()]
     num_following = len(following)
+
+    for post in user_posts:
+        total_comments += int(post.comment_count)
+        total_likes += post.likes.all().count()
+    
+    print(total_comments, total_likes)
     
 
     context = {
         'user_profile': user_profile,
         'user_post': user_posts,
         'num_following': num_following,
-        'following': following 
+        'following': following,
+        'total_comments': total_comments,
+        'total_likes': total_likes
     }
     return render(request, 'forum/author.html', context)
 
@@ -86,7 +100,7 @@ def follow(request, pk):
 def forum(request):
     forum = Forum.objects.all()
 
-    paginator = Paginator(forum, 10)
+    paginator = Paginator(forum, 10)  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -97,11 +111,14 @@ def forum(request):
     return render(request, 'forum/forum.html', context)
 
 
+
 @login_required(login_url='login')
 def edit_forum(request, pk):
     forum = Forum.objects.get(id=pk)
     form = ForumForm(instance=forum)
     edit = True
+    referer = request.META.get('HTTP_REFERER')
+    pages.append(referer)
     other_forum = [x for x in Forum.objects.all()[:5] if x != forum]
 
     if request.method == 'POST':
@@ -109,7 +126,7 @@ def edit_forum(request, pk):
 
         if form.is_valid(): 
             form.save()
-            return redirect('dashboard', forum.author.profile.id)
+            return redirect(f'{pages[-2]}')
 
     context = {
         'title': forum.title,
@@ -124,6 +141,9 @@ def edit_forum(request, pk):
 def forum_detail(request, pk):
     forum = Forum.objects.get(id=pk)
     forum_comment = forum.comment_set.all()
+
+    # TRACING THE VISTED PAGES 
+    pages.append(request.META.get('HTTP_REFERER'))
 
     # Checking and increasing the number of views
     if request.user not in forum.views.all():
@@ -174,9 +194,13 @@ def forum_post(request):
 
 
 def delete_post(request, pk):
+    referer = request.META.get('HTTP_REFERER')
+    pages.append(referer)
+    print(pages)
     post = Forum.objects.get(id=pk)
     post.delete()
-    return redirect('dashboard', post.author.profile.id)
+    mg.error(request, 'Post Deleted Successfully!!!')
+    return redirect(f'{pages[-2]}')
 
 
 

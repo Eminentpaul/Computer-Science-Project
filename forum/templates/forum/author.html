@@ -1,320 +1,338 @@
-
-
 {% extends 'forum_nav.html' %}
 {% load static %}
+{% load humanize %}
 
-{% block content  %}
-    
-    
-    <!-- Breadcrumb Area -->
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="breadcrumb-contents">
-                        <h2 class="page-title">Author Profile</h2>
-                        <div class="breadcrumb">
-                            <ul>
-                                <li>
-                                    <a href="{% url 'forum' %}">Home</a>
-                                </li>
-                                <li class="active">
+{% block content %}
+
+    {% include 'message.html' %}
+		<!-- ==============================================
+		 Hero
+		=============================================== -->
+        <div class="profile-banner"></div>
+
+		<!-- ==============================================
+		 Main
+		=============================================== -->
+		<section class="vine-main">
+			<div class="container">
+				<div class="row">
+
+                    <div class="col-lg-3" data-aos="fade-right" data-aos-easing="linear">
+
+                        <div class="user-profile-img">
+                            <img src="{{user_profile.avatar}}" alt="{{user_profile.user.full_name}}">
+                        </div>    
+
+                        <div class="user-profile-details">
+                            <div class="user-profile-name">
+                                <h4>{{user_profile.user.full_name}}</h4>
+                                
+                                {% if user_profile.user.username %}
+                                <p>@{{user_profile.user.username | lower}}</p>
+                                {% endif %}
                                     
-                                    {% if user == user_profile.user %}
-                                        <a href="#">User Profile</a>
+                                <p class="fs-7 mt-3">Joined {{user_profile.user.date_joined | date:'M, Y'}}</p>
+                            </div>
+                            <div class="user-profile-stats">
+                                <ul>
+                                    <li><span class="item-number">{{user_profile.followers.all.count}}</span> <span class="item-text">Followers</span></li>
+                                    <li><span class="item-number">{{num_following}}</span> <span class="item-text">Following</span></li>
+                                    
+                                    {% if user_profile.user == user  %}
                                     {% else %}
-                                        <a href="#">Author Profile</a>
+                                        
+                                        {% if user in user_profile.followers.all  %}
+                                            <li> <a style="cursor: pointer;"
+                                                hx-post="{% url 'follow' user_profile.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container" 
+                                                class="btn btn-sm btn-danger rounded fw-bold"> Unfollow</a> </li>
+                                        {% else %}
+                                            <li> <a style="cursor: pointer;"
+                                                hx-post="{% url 'follow' user_profile.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container"
+                                                class="btn btn-sm btn-mint rounded fw-bold"> Follow</a> </li>
+                                        {% endif %}
+                                            
                                     {% endif %}
                                         
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div><!-- end .col-md-12 -->
-            </div><!-- end .row -->
-        </div><!-- end .container -->
-    </section><!-- ends: .breadcrumb-area -->
-
-
-    <section class="author-profile-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="author-profile">
-                        <div class="row">
-                            <div class="col-lg-5 col-md-7">
-                                
-                                <div class="author-desc">
-                                    <img style="max-width: 150px; min-width: 150px;" src="{{user_profile.avatar}}" alt="">
-                                    <div class="infos">
-                                        <h4>{{user_profile.user | title}}</h4>
-                                        <span>Member Since {{user_profile.user.date_joined | date:"M, Y"}}</span>
-                                        <ul>
-                                           
-                                           {% if user != user_profile.user %}
-                                             
-                                             {% if user in user_profile.followers.all  %}
-                                                <li>
-                                                    <button
-                                                    hx-post="{% url 'follow' user_profile.id %}" 
-                                                    hx-trigger="click"
-                                                    hx-target="#body"
-                                                    hx-swap="outerHTML"
-                                                    class="btn btn-danger btn--xs">Unfollow</button>
-                                                </li>
-                                            {% else %}
-                                                <li>
-                                                    <button 
-                                                    hx-post="{% url 'follow' user_profile.id %}" 
-                                                    hx-trigger="click"
-                                                    hx-target="#body"
-                                                    hx-swap="outerHTML" class="btn btn-primary btn--xs">Follow</button>
-                                                </li>
-                                                
-                                             {% endif %}
-                                                
-                                           {% endif %}
-                                            
-                                            
-                                        </ul>
-                                    </div>
-                                </div><!-- ends: .author-desc -->
-
-                            </div><!-- ends: .col-lg-5 -->
-                            <div class="col-lg-4 order-lg-1 col-md-12 order-md-2">
-                                
-                            <div class="author-social social social--color--filled">
+                                </ul>                                
+                            </div>
+                            <div class="user-profile-followers">
+                                <h6 class="mb-3">Followers</h6>
                                 <ul>
                                     
-                                    {% if user_profile.facebook %}
-                                        <li>
-                                            <a href="{{user_profile.facebook}}" target="_blank">
-                                                <span class="fa fa-facebook"></span> Facebook
-                                            </a>
-                                        </li>
-                                    {% endif %}
-
-                                    {% if user_profile.instagram %}
-                                        <li>
-                                            <a href="https://www.instagram.com/{{user_profile.instagram}}" target="_blank">
-                                                <svg xmlns="http://www.w3.org/2000/svg" style="color: rgb(243, 14, 121)" width="30" height="30" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
-                                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-                                                </svg>{{user_profile.instagram}}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-
-                                    {% if user_profile.x %}
-                                        <li>
-                                            <a href="https://www.x.com/{{user_profile.x}}" target="_blank">
-                                                <svg xmlns="http://www.w3.org/2000/svg" style="color: black;" width="30" height="30" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
-                                                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-                                                </svg>{{user_profile.x}}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-
-                                    {% if user_profile.tiktok and user_profile.tiktok != '@' %}
-                                        <li>
-                                            <a href="https://www.tiktok.com/{{user_profile.tiktok}}" target="_blank">
-                                                <svg xmlns="http://www.w3.org/2000/svg" style="color: black;"  width="30" height="30" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
-                                                <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/>
-                                                </svg> 
-                                                {{user_profile.tiktok}}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-
-                                    {% if user_profile.github %}
-                                        <li>
-                                            <a href="https://www.github.com/{{user_profile.github}}" target="_blank">
-                                                <svg xmlns="http://www.w3.org/2000/svg" style="color: black;" width="30" height="30" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-                                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-                                                </svg> {{user_profile.github}}
-                                            </a>
-                                        </li>
-                                    {% endif %}
+                                    {% for follow  in user_profile.followers.all|slice:"6" %}
+                                        <li><a href="{% url 'dashboard' follow.profile.id %}"><img src="{{follow.profile.avatar}}" alt="User"></a></li>
+                                    {% endfor %}
                                         
                                     
-                                </ul>
-                            </div><!-- ends: .author-social -->
+                                </ul> 
+                                                         
+                            </div> 
 
-                            </div><!-- ends: .col-lg-3 -->
-                            <div class="col-lg-3 order-lg-2 col-md-5 order-md-1">
+                            <ul class="achivement-fact">
+                                <li>
+                                    <div class="icon"><i class="bi bi-layers"></i></div>
+                                    <h5 class="counter">{{user_post.count | intcomma}}</h5>
+                                    <p>Posts</p>
+                                </li>
+                                <li>
+                                    <div class="icon"><i class="bi bi-chat-dots"></i></div>
+                                    <h5 class="counter">{{total_comments | intcomma}}</h5>
+                                    <p>Comments</p>
+                                </li>
+                                <li>
+                                    <div class="icon"><i class="bi bi-heart"></i></div>
+                                    <h5 class="counter">{{total_likes| intcomma}}</h5>
+                                    <p>Likes</p>
+                                </li>
+                            </ul>
+
+                            <div class="user-profile-bio">
+                                <h6 class="mb-3">About</h6>
                                 
-    
-
-                            </div><!-- ends: .col-lg-4 -->
-                        </div>
-                    </div>
-                </div><!-- ends: .col-lg-12 -->
-
-                <div class="col-md-12 author-info-tabs">
-                    <ul class="nav nav-tabs" id="author-tab" role="tablist">
-                        <li>
-                            <a class="active" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                               aria-controls="profile" aria-selected="true">Profile</a>
-                        </li>
-                        <li>
-                            <a id="items-tab" data-toggle="tab" href="#items" role="tab" aria-controls="items"
-                               aria-selected="false">User Posts ({{user_post.count}})</a>
-                        </li>
-                        
-                        <li>
-                            <a id="followers-tab" data-toggle="tab" href="#followers" role="tab"
-                               aria-controls="followers" aria-selected="false">Followers ({{user_profile.followers.all.count}})</a>
-                        </li>
-                        <li>
-                            <a id="following-tab" data-toggle="tab" href="#following" role="tab"
-                               aria-controls="following" aria-selected="false">Following ({{num_following}})</a>
-                        </li>
-                    </ul><!-- Ends: .nav-tabs -->
-
-                    <div class="tab-content" id="author-tab-content">
-                        <div class="tab-pane fade show active" id="profile" role="tabpanel"
-                             aria-labelledby="profile-tab">
-                            <div class="author_module about_author">
-                                <h3>Hi,
-                                    <span>I am {{user_profile.user | title}}</span>
-                                </h3>
-                                <p>{{user_profile.bio}}</p>
-                            </div>
-                            
-                        </div><!-- Ends: .profile-tab -->
-
-                        <div class="tab-pane fade" id="items" role="tabpanel" aria-labelledby="items-tab">
-                            <h3>All Items By
-                                <span>{{user_profile.user | title}}</span>
-                            </h3>
-                            <div class="row">
-                                
-                                {% for post  in user_post  %}
-                                    <div class="col-lg-4 col-md-6">         
-                                        <div class="product-single latest-single">
-                                            <div class="product-excerpt">
-                                                <h5>
-                                                    
-                                                    {% if user == user_profile.user %}
-                                                        <a href="{% url 'edit_forum' post.id %}">EDIT: {{post.title | truncatechars:25}}</a>
-                                                        {% else %}
-                                                        <a href="#"> {{post.title | truncatechars:25}}</a>
-                                                    {% endif %}
-                                                        
-                                                </h5>
-                                            <ul class="titlebtm">
-                                                <li>
-                                                    
-                                                    {% if user == user_profile.user  %}
-                                                        <p><a href="{% url 'edit_forum' post.id %}">{{post.description | truncatechars:50}}</a></p>
-                                                        {% else %}
-                                                        <p><a href="#">{{post.description | truncatechars:50}}</a></p>
-                                                    {% endif %}
-                                                        
-                                                </li>
-                                                
-                                            </ul>
-                                            <ul class="product-facts clearfix">
-                                                <li class="price">Views: {{post.views.all.count}}</li>
-                                                <li class="sells">
-                                                    <span class="icon-"></span>Comments: {{post.comment_count}}
-                                                </li>
-                                                <li class="product-fav">
-                                                    <span class="icon-heart" title="Add to collection" data-toggle="tooltip"></span>{{post.likes.all.count}}
-                                                </li>
-                                                </ul>
-
-                                                
-                                                {% if user == post.author %}
-                                                    <div class="mt-3 user__status user--followindg"><a href="{% url 'delete' post.id %}" class="btn btn-sm btn-danger">Delete</a></div>
-                                                {% endif %}
-                                                    
-                                        </div>
-                                        <!-- Ends: .product-excerpt -->
-                                    </div><!-- Ends: .product-single -->
-
-                                </div><!-- Ends: .col-md-4 -->
-                                {% endfor %}
+                                {% autoescape off %}
                                     
+                                <p>{{user_profile.bio | urlize | linebreaks}}</p> 
+                                {% endautoescape %}
                                 
                             </div>
-                            <!-- Start Pagination -->
-                            
-    <!-- Start Pagination -->
-    <!-- <nav class="pagination-default">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true"><i class="fa fa-long-arrow-left"></i></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-            <li class="page-item"><a class="page-link" href="#">10</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true"><i class="fa fa-long-arrow-right"></i></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>Ends: .pagination-default -->
 
-                        </div><!-- Ends: .items-tab -->
-
-                        <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="product-title-area">
-                                        <div class="product__title">
-                                            <h3><span class="bold">{{user_profile.followers.all.count}}</span> Follower(s)</h3>
-                                        </div>
-                                    </div><!-- ends: .product-title-area -->
-
-                                    <div class="user_area">
-                                        <div class="row">
-                                            {% include 'forum/followers.html' %}
-                                        </div>
-                                    </div><!-- ends: .user_area -->
-                                    <!-- Start Pagination -->
-
-
-                                </div><!-- ends: .col-md-12 -->
-                            </div><!-- ends: .row -->
                         </div>
-                        <!-- Ends: followers-tab -->
+                    </div>    
 
-                        <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="product-title-area">
-                                        <div class="product__title">
-                                            <h3><span class="bold">{{num_following}}</span> Following</h3>
-                                        </div>
-                                    </div><!-- ends: .product-title-area -->
+                    <div class="col-12 col-lg-9">
 
-                                    <div class="user_area">
-                                        <div class="row">
-                                            {% include 'forum/following.html' %}
-                                        </div>
-                                    </div><!-- ends: .user_area -->
-                                    <!-- Start Pagination -->
-                                    
- 
+						<div class="row g-4" data-aos="fade-down" data-aos-easing="linear">
+							<div class="col-12">
+								<div class="vine-tabs pb-0 px-2 px-lg-0 rounded-top">
+									<ul class="nav nav-tabs nav-bottom-line nav-responsive border-0 nav-justified" role="tablist">
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0 active" data-bs-toggle="tab" href="#tab-1" aria-selected="true" role="tab">
+                                                <i class="bi bi-gear fa-fw me-2"></i>Posts
+                                            </a> 
+                                        </li>
+										<!-- <li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2" aria-selected="false" role="tab" tabindex="-1">
+                                                <i class="bi bi-chat-dots fa-fw me-2"></i>Comments
+                                            </a> 
+                                        </li> -->
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3" aria-selected="false" role="tab" tabindex="-1">
+                                                <i class="bi bi-people me-2"></i> Following
+                                            </a> 
+                                        </li>
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-4" aria-selected="false" role="tab" tabindex="-1">
+                                                <i class="bi bi-people me-2"></i> Followers
+                                            </a> 
+                                        </li>
+									</ul>
+								</div>
+							</div>
+						</div>
 
-                                </div><!-- ends: .col-md-12 -->
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="tab-content mt-5">
+                                    <div class="tab-pane active show" id="tab-1" role="tabpanel">
+
+
+										<div class="discussions">
+		
+											
+						
+											<div class="post-box d-flex mx-0" data-aos="fade-up" data-aos-easing="linear">
+												<div class="vote d-none d-lg-block">
+													<a href="" class="up-arrow"><i class="bi bi-hand-thumbs-up"></i></a>
+													<p class="mb-3">70</p>
+													<p>24</p>
+													<a href="" class="down-arrow"><i class="bi bi-hand-thumbs-down"></i></a>
+												</div>  
+												<div class="card">
+													<div class="card-header card-header-action">
+														<div class="media align-items-center">
+															<div class="media-head me-2">
+																<div class="avatar">
+																	<a href="#"><img src="{% static 'assets/assets/img/avatar/1.jpg' %}" alt="user" class="avatar-img rounded-circle"></a>
+																</div>
+															</div>
+															<div class="media-body">
+																<div><a href="#">Abram Marvyn</a></div>
+																<div class="fs-7"><span> 03 hrs ago in </span> <a href="#" class="cat">AI</a></div>
+															</div>
+														</div>
+														<div class="card-action-wrap">
+															<a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
+															<div class="dropdown-menu dropdown-menu-end">
+																<a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i> Edit Post</a>
+																<!-- <a class="dropdown-item" href="#"><i class="bi bi-eye-slash me-2"></i> Hide Post</a> -->
+																<a class="dropdown-item" href="#"><i class="bi bi-trash3 me-2"></i> Delete Post</a>
+																<div class="dropdown-divider"></div>
+																<!-- <a class="dropdown-item" href="#"><i class="bi bi-pin me-2"></i> Pin Post</a> -->
+															</div>
+														</div>
+													</div>
+													<div class="card-body">
+														<h3>
+														   <a href="">What is your favorite AI project you found recently?</a>
+														</h3>
+														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et facilis, soluta vitae porro, praesentium deserunt explicabo optio laborum.
+															Quidem consequuntur modi atque, placeat repellat, perferendis aperiam, fugiat harum ullam aspernatur dicta doloribus qui quo corrupti natus reprehenderit...
+														</p>
+						  
+														
+													</div>
+						
+													<div class="card-footer">
+				
+														<div class="post-stats">
+															<div class="post-item d-lg-none d-xl-none">
+															   <a href="#">
+																 <div class="post-icon"><i class="bi bi-hand-thumbs-up"></i></div>
+																 <div class="post-text">70</div>
+															   </a>	
+															</div>
+															<div class="post-item d-lg-none d-xl-none">
+															   <a href="#">
+																 <div class="post-icon"><i class="bi bi-hand-thumbs-down"></i></div>
+																 <div class="post-text">24</div>
+															   </a>	
+															</div>
+															<div class="post-item">
+															   <ul>
+																  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/1.jpg' %}" alt="User"></a></li>
+																  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/2.jpg' %}" alt="User"></a></li>
+																  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/3.jpg' %}" alt="User"></a></li>
+																  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/4.jpg' %}" alt="User"></a></li>
+																  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/5.jpg' %}" alt="User"></a></li>
+																  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/6.jpg' %}" alt="User"></a></li>
+															   </ul>
+															   <div class="post-text">+170</div>
+															   <div class="post-text">Views</div>
+															</div>
+															<div class="post-item me-lg-5">
+															   <a href="#">
+																  <div class="post-icon"><i class="bi bi-chat-dots"></i></div>
+																  <div class="post-text">1200</div>
+															   </a>
+															</div>
+															<div class="post-item">
+															   <a href="#">
+																 <div class="post-icon"><i class="bi bi-bookmark"></i></div>
+																 <div class="post-text">32</div>
+															   </a>
+															</div>
+															<div class="post-item">
+															   <a href="#">
+																 <div class="post-icon"><i class="bi bi-share"></i></div>
+																 <div class="post-text">12</div>
+															   </a>
+															</div>
+															<div class="post-item">
+															   <a href="#">
+																 <div class="post-icon"><i class="bi bi-flag"></i></div>
+																 <div class="post-text">Report</div>
+															   </a>
+															</div>
+														 </div>
+				
+													</div> 
+						
+												  </div>	
+											</div><!--/post-box-->
+						
+											
+
+											<div class="pagination" data-aos="fade-up" data-aos-easing="linear">
+					
+												<a href="#" class="page-numbers btn-start">
+													<i class="b bi-chevron-double-left"></i>
+												</a>
+						
+												<a href="#" class="page-numbers btn--prev">
+												  <i class="bi bi-chevron-left"></i>
+												</a>
+												<span class="page-numbers pagination-space"> <i class="bi bi-three-dots"></i> </span>
+												<a href="#" class="page-numbers current"><span>1</span></a>
+												<a href="#" class="page-numbers"><span>2</span></a>
+												<a href="#" class="page-numbers"><span>3</span></a>
+												<a href="#" class="page-numbers"><span>4</span></a>
+												<a href="#" class="page-numbers"><span>5</span></a>
+												<a href="#" class="page-numbers"><span>6</span></a>
+						
+												<span class="page-numbers pagination-space"> <i class="bi bi-three-dots"></i></span>
+												<a href="#" class="page-numbers btn--next">
+												   <i class="bi bi-chevron-right"></i>
+												</a>
+						
+												<a href="#" class="page-numbers btn-end">
+													<i class="bi bi-chevron-double-right"></i>
+												</a>
+						
+												<span class="page-numbers all-pages">
+													70 Pages
+												</span>
+						
+											</div><!--/pagination--> 
+
+										</div>	
+
+                                    </div><!-- Tab content 1 END -->
+
+                                    <div class="tab-pane" id="tab-3" role="tabpanel">
+
+										<div class="row">
+											<div class="col-6">
+
+												<div class="card mb-5">
+													<div class="media media-xs card-body">
+														<img src="{% static 'assets/assets/img/avatar/2.jpg' %}" class="avatar avatar-lg rounded-circle me-3" alt="avatar-img">
+														<div class="media-body valign-middle">
+															<a class="fw-semibold" href="javascript:void(0)">Adaline Riley</a>
+															<p class="text-muted mb-0"> <i class="bi bi-geo-alt"></i> New York, USA </p>
+														</div>
+														<div class="media-body valign-middle text-end mt-2"><button class="btn btn-mint" type="button">View Profile</button></div>
+													</div>
+												</div>
+
+											</div>
+											
+											
+										</div>
+										
+                                    </div><!-- Tab content 3 END -->
+
+                                    <div class="tab-pane" id="tab-4" role="tabpanel">
+
+										<div class="row">
+											<div class="col-6">
+
+												<div class="card mb-5">
+													<div class="media media-xs card-body">
+														<img src="{% static 'assets/assets/img/avatar/8.jpg' %}" class="avatar avatar-lg rounded-circle me-3" alt="avatar-img">
+														<div class="media-body valign-middle">
+															<a class="fw-semibold" href="javascript:void(0)">Lynda Briggs</a>
+															<p class="text-muted mb-0"> <i class="bi bi-geo-alt"></i> New York, USA </p>
+														</div>
+														<div class="media-body valign-middle text-end mt-2"><button class="btn btn-mint" type="button">View Profile</button></div>
+													</div>
+												</div>
+
+											</div>
+											
+										</div>
+										
+                                    </div><!-- Tab content 3 END -->
+                                </div>
                             </div>
-                        </div><!-- Ends: following-tab -->
+                        </div>
 
-                    </div><!-- ends: .tab-content -->
-                </div><!-- Ends: .author-info-tabs -->
-            </div>
-        </div>
-    </section><!-- ends: .author-profile-area -->
+                    </div><!--/col-lg-9-->
 
-
-     
-   
-{% endblock %}
+				</div>
+			</div>
+		</section>
+ {% endblock %}

@@ -1,137 +1,93 @@
+{% extends 'forum_nav.html' %}
 {% load static %}
-{% load humanize %}
 
-<!doctype HTML>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% block content %}
 
-    <!-- viewport meta -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="DigiPro - Digital Products Marketplace ">
-    <meta name="keywords" content="marketplace, easy digital download, digital product, digital, html5">
-    <title>CS - Post to Forum</title>
+		<!-- ==============================================
+		 Dashboard
+		=============================================== -->
+        <section class="dashboard">
+            <div class="container">
+                <div class="row">
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600" rel="stylesheet">
+                   
+                    <div class="col-12 col-lg-9">
 
-    <!-- inject:css-->
+                        <h4 class="mb-0" data-aos="fade-down" data-aos-easing="linear"><i class="bi bi-plus-circle-dotted me-2"></i> Add Post</h4>
 
-    <link rel="stylesheet" href="{% static 'css/plugin.min.css' %}">
+                        <div class="row g-0">
+                            <div class="col-12">
+                                <div class="dashboard-card">
+                                    <div class="dashboard-body">
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
 
-    <!-- endinject -->
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <div class="row g-3">
+                                                <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                                    <label class="form-label">Title</label> 
+                                                    <input class="fw-bold" type="text"
+                                                    
+                                                   value="{% if edit %}{{title}}{% endif %}"
+                                                        
+                                                    name="title" placeholder="Title" required>
+                                                </div>           
+                                                {% comment %} <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                                    <label class="form-label">Categories</label> 
+                                                    <select name="category">
+                                                        <option value="Community">Community</option>
+                                                        <option value="Design">Design</option>
+                                                        <option value="AI">AI</option>
+                                                        <option value="Cyrpto & NFT">Cyrpto & NFT</option>
+                                                    </select>
+                                                </div>  {% endcomment %}
+                                                
+                                                <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                                    <label class="form-label">Description</label> 
+                                                    <div class="comment-form-2 d-flex flex-column my-2">
+                    
+                                                                            
+                                                        <!-- Form Textarea -->
+                                                        <textarea class="form-custom form-custom-textarea" name="description" rows="5">{% if edit %}{{description}}{% endif %}</textarea>
+                                                        <!-- Form Textarea -->
+                    
+                                                        <!-- Form Bottom Toolbar -->
+                                                        {% comment %} <div class="form-toolbar form-toolbar-bottom row justify-content-between g-2 p-2">
+                                                            <div class="col">
+                                                                <button class="btn btn-sm btn-base btn-icon" type="button" title="Attachment"><i class="bi bi-paperclip"></i></button>
+                                                                <button class="btn btn-sm btn-base btn-icon" type="button" title="Link"><i class="bi bi-link-45deg"></i></button>
+                                                                <button class="btn btn-sm btn-base btn-icon" type="button" title="Image"><i class="bi bi-image"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>                                         {% endcomment %}
+                                                        <!-- Form Bottom Toolbar -->
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            {% if edit  %}
+                                                <div class="d-flex pt-5" data-aos="fade-up" data-aos-easing="linear">
+                                                    <button class="btn btn-mint me-3 fw-bold fs-4 w-25 py-3">UPDATE POST</button> 
+                                                    <!-- <button class="btn btn-secondary">Save as Draft</button> -->
+                                                </div>
+                                            {% else %}
+                                                <div class="d-flex pt-5" data-aos="fade-up" data-aos-easing="linear">
+                                                    <button class="btn btn-mint me-3 fw-bold fs-4 w-25 py-3">Submit</button> 
+                                                    <!-- <button class="btn btn-secondary">Save as Draft</button> -->
+                                                </div>
+                                            {% endif %}
+                                                
+                                            </form> 												
 
-    <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-32x32.png">
-</head>
-<body class="preload">
-    
-
-    <!-- Breadcrumb Area -->
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="breadcrumb-contents">
-                        <h2 class="page-title">Make a Post</h2>
-                        <div class="breadcrumb">
-                            <ul>
-                                <li>
-                                    <a href="{% url 'forum' %}">Home</a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">Logout</a>
-                                </li>
-                            </ul>
+                                    </div>
+                                </div><!--/dashboard-card-->
+                            </div>
                         </div>
-                    </div>
-                </div><!-- end .col-md-12 -->
-            </div><!-- end .row -->
-        </div><!-- end .container -->
-    </section><!-- ends: .breadcrumb-area -->
 
+                    </div><!--/col-lg-9-->
 
-    <section class="support_threads_area section--padding2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9">
-                    <div class="question-form">
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label>Post Title</label>
-                                <input type="text" name="title" value="{{title}}" placeholder="Enter title here" required >
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" id="authbio" rows="2" cols="1" class="text_field mb-3" placeholder="Some Descriptions" required
-                                
-                                {% if edit %}
-                                    value="{{form.description}}"
-                                {% endif %}
-                                    
-                                ></textarea>
-                            </div>
-                            
-                            
-                            
-                            {% if edit %}
-                                <div class="form-group">
-                                <button type="submit" class="btn btn--md btn-primary">Update Post</button>
-                            </div>
-                            {% else %}
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn--md btn-primary">Submit Post</button>
-                                </div>
-                            {% endif %}
-                                
-                        </form>
-                    </div><!-- ends: .question-form -->
-                </div><!-- end .col-lg-9 -->
-
-                <div class="col-lg-3">
-                    <aside class="sidebar support--sidebar">
-                        <a href="" class="login_promot">Most Recent Posts</a>
-                        
-
-
-                        
-    <div class="sidebar-card card--top_discussion p-0">
-        
-        <div class="collapsible-content">
-            <ul class="card-content">
-                
-                {% for post  in forum  %}
-                    <li>
-                        <a href="{% url 'forum_detail' post.id %}">{{post.title}}
-                            <span>{{post.created | timesince }} Ago</span>
-                        </a>
-                    </li>
-                {% endfor %}
-
-                
-            </ul>
-        </div><!-- ends: .collapsible_content -->
-    </div><!-- ends: .card--forum_categories -->
-
-                    </aside><!-- end .sidebar -->
                 </div>
-                <!-- end .col-md-4 -->
-            </div><!-- end .row -->
-        </div><!-- end .container -->
-    </section><!-- ends: .support_threads_area -->
-
-
-
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDxflHHc5FlDVI-J71pO7hM1QJNW1dRp4U"></script>
-    <!-- inject:js-->
-
-     <script src="{% static 'js/plugins.min.js' %}"></script>
-
-     <script src="{% static 'js/script.min.js' %}"></script>
-
-     <!-- endinject-->
-</body>
-</html>
+            </div>
+        </section>
+{% endblock %}
