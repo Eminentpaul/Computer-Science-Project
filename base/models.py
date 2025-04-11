@@ -13,7 +13,7 @@ categories = (
 class HomeSlide(models.Model):
     title = models.CharField(max_length=100)
     tag = models.CharField(max_length=300)
-    image = models.ImageField(upload_to='home')
+    image = models.ImageField(upload_to='home/')
 
     def __str__(self):
         return self.title
