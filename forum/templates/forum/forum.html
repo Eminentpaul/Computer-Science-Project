@@ -1,6 +1,6 @@
 {% extends 'forum_nav.html' %}
 {% load static %}
-{% load highlight %}
+{% load humanize %}
 
 {% block content %}
 		<!-- ==============================================
@@ -107,8 +107,21 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <div><a href="{% url 'dashboard' post.author.profile.id %}">{{post.author.full_name | upper}}</a></div>
-                                                        <div class="fs-7"><span> {{post.created | timesince}} ago
+
+                                                        {% if post.created|date:"Y-m-d" == date %}      
+                                                            <div class="fs-7">
+                                                                <span> {{post.created | timesince}} ago
+                                                            </div>
+                                                        {% else %}
+
+                                                        <div class="fs-7">
+                                                            <span>Posted on: {{post.created |naturalday|title}} 
                                                         </div>
+                                                        
+                             
+                                                        {% endif %}
+
+                                                        
                                                     </div>
                                                 </div>
                                                 
@@ -135,6 +148,9 @@
                                                 
                                                 {% autoescape off %}
                                                     <p>{{post.description | truncatechars:300 }}</p>
+                                                    {% if post.description|length > 300 %}
+                                                        <a style="max-width: 100px;" href="{% url 'forum_detail' post.id %}" class="nav-link btn btn-mint ">Read More.</a>
+                                                    {% endif %}
                                                 {% endautoescape %}
                                                 
                 
@@ -170,7 +186,7 @@
                                                         {% for view  in post.views.all|slice:":8" %}
                                                             
                                                             {% if post.views.all.count >= 1  %}
-                                                                <li><a href="{% url 'dashboard' view.profile.id %}"><img src="{{view.profile.avatar}}" alt="User"></a></li>
+                                                                <li><a href="{% url 'dashboard' view.profile.id %}"><img src="{{view.profile.avatar}}" alt="User" class="avatar-sm avatar-img"></a></li>
                                                             {% endif %}
                                                                 
                                                         {% endfor %}
@@ -181,22 +197,56 @@
                                                     <div class="post-text">Views</div>
                                                     </div>
                                                     <div class="post-item me-lg-5">
-                                                    <a href="#">
+                                                    <a href="{% url 'forum_detail' post.id %}">
                                                         <div class="post-icon"><i class="bi bi-chat-dots"></i></div>
                                                         <div class="post-text">{{post.comment_count}}</div>
                                                     </a>
                                                     </div>
                                                     <div class="post-item">
-                                                    <a href="#">
-                                                        <div class="post-icon"><i class="bi bi-bookmark"></i></div>
-                                                        <div class="post-text">0</div>
-                                                    </a>
+                                                        {% if user == post.author  %}
+                                                    
+                                                    {% else %}
+                                                        
+                                                        {% if user in post.saved.all  %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'save_post' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container">
+                                                                <div class="post-icon"><i class="bi bi-bookmark-fill text-danger"></i></div>
+                                                                <div class="post-text">{{post.saved.all.count}}</div>
+                                                            </a>
+                                                        {% else %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'save_post' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container">
+                                                                <div class="post-icon"><i class="bi bi-bookmark"></i></div>
+                                                                <div class="post-text">{{post.saved.all.count}}</div>
+                                                            </a>
+                                                        {% endif %}
+                                                            
                                                     </div>
                                                     <div class="post-item">
-                                                    <a href="#">
-                                                        <div class="post-icon"><i class="bi bi-share"></i></div>
-                                                        <div class="post-text">12</div>
-                                                    </a>
+                                                    
+                                                    
+                                                        
+                                                        {% if user in post.repost.all  %}
+                                                            <a href="#repost">
+                                                                <div class="post-icon"><i class="bi bi-recycle text-danger"></i></div>
+                                                                <div class="post-text">{{post.repost.all.count}}</div>
+                                                            </a>
+                                                        {% else %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'repost' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container">
+                                                                <div class="post-icon"><i class="bi bi-recycle"></i></div>
+                                                                <div class="post-text">{{post.repost.all.count}}</div>
+                                                            </a>
+                                                        {% endif %}
+                                                            
+                                                    {% endif %}
+                                                        
                                                     </div>
                                                     <div class="post-item">
                                                     <a href="#">
@@ -265,7 +315,7 @@
 
 					<div class="col-lg-3 pe-lg-3 border-end">
 
-						<div class="vine-categories mb-4 pb-3">
+						{% comment %} <div class="vine-categories mb-4 pb-3">
 
 							<ul class="navbar-nav flex-column">
 
@@ -280,7 +330,7 @@
 							  
 							</ul>                                                          
 	   
-						</div><!--/Vine-categories--> 
+						</div><!--/Vine-categories-->  {% endcomment %}
 
 						<div class="top-users mb-4" data-aos="fade-right" data-aos-easing="linear">
 							<div class="card-header d-block py-2">
@@ -299,19 +349,23 @@
                                 <div class="tab-pane fade show active" id="profile">
 		
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item border-0">
-											<div class="media align-items-center">
-												<div class="media-head me-3">
-													<div class="avatar avatar-sm">
-													 <a href=""><img src="{% static 'assets/assets/img/avatar/1.jpg' %}" alt="user" class="avatar-img avatar-rounded"></a>
-													</div>
-												</div>
-												<div class="media-body">
-													<a href="" class="d-block text-capitalize">Abram Marvyn</a>
-												</div>
-												<p><i class="bi bi-chat"></i> 138</p>
-											</div>
-										</li>
+										
+                                        {% for lead  in leaderboard %}
+                                            <li class="list-group-item border-0">
+                                                <div class="media align-items-center">
+                                                    <div class="media-head me-3">
+                                                        <div class="avatar avatar-sm">
+                                                        <a href=""><img src="{% static 'assets/assets/img/avatar/1.jpg' %}" alt="user" class="avatar-img avatar-rounded"></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <a href="" class="d-block text-capitalize">{{lead.user | title}}</a>
+                                                    </div>
+                                                    <p><i class="bi bi-broadcast-pin"></i> {{lead.score}}</p>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                            
 										
 									</ul>						
 								</div>

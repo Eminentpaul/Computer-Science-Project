@@ -1,6 +1,6 @@
 {% extends 'forum_nav.html' %}
 {% load static %}
-{% load highlight %}
+{% load humanize %}
 
 {% block content %}
 		<!-- ==============================================
@@ -43,7 +43,15 @@
 											</div>
 											<div class="media-body">
 												<div><a href="{% url 'dashboard' post.author.profile.id %}">{{post.author.full_name}}</a> <i class="bi bi-patch-check-fill color-11"></i></div>
-                                                <div class="fs-7"><span> {{post.created | timesince}} ago </span></div>
+                                                    {% if post.created|date:"Y-m-d" == date %}      
+                                                        <div class="fs-7">
+                                                            <span> {{post.created | timesince}} ago
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="fs-7">
+                                                            <span>Posted on: {{post.created |naturalday|title}} 
+                                                        </div>
+                                                    {% endif %}
 												{% comment %} <div class="fs-7"><span> 01 hrs ago in </span> <a href="#" class="cat">AI</a></div> {% endcomment %}
 											</div>
 										</div>
@@ -119,16 +127,45 @@
 											   </a>
 											</div>
 											<div class="post-item">
-											   <a href="#">
-												 <div class="post-icon"><i class="bi bi-bookmark"></i></div>
-												 <div class="post-text">0</div>
-											   </a>
+                                                {% if user in post.saved.all  %}
+                                                    <a style="cursor: pointer;"
+                                                    hx-post="{% url 'save_post' post.id %}"
+                                                    hx-trigger="click"
+                                                    hx-target="#container">
+                                                        <div class="post-icon"><i class="bi bi-bookmark-fill text-danger"></i></div>
+                                                        <div class="post-text">{{post.saved.all.count}}</div>
+                                                    </a>
+                                                {% else %}
+                                                    <a style="cursor: pointer;"
+                                                    hx-post="{% url 'save_post' post.id %}"
+                                                    hx-trigger="click"
+                                                    hx-target="#container">
+                                                        <div class="post-icon"><i class="bi bi-bookmark"></i></div>
+                                                        <div class="post-text">{{post.saved.all.count}}</div>
+                                                    </a>
+                                                {% endif %}
 											</div>
 											<div class="post-item">
-											   <a href="#">
-												 <div class="post-icon"><i class="bi bi-share"></i></div>
-												 <div class="post-text">12</div>
-											   </a>
+                                                {% if user == post.author  %}
+                                                    
+                                                {% else %}
+                                                    
+                                                    {% if user in post.repost.all  %}
+                                                        <a href="#repost">
+                                                            <div class="post-icon"><i class="bi bi-recycle text-danger"></i></div>
+                                                            <div class="post-text">{{post.repost.all.count}}</div>
+                                                        </a>
+                                                    {% else %}
+                                                        <a style="cursor: pointer;"
+                                                        hx-post="{% url 'repost' post.id %}"
+                                                        hx-trigger="click"
+                                                        hx-target="#container">
+                                                            <div class="post-icon"><i class="bi bi-recycle"></i></div>
+                                                            <div class="post-text">{{post.repost.all.count}}</div>
+                                                        </a>
+                                                    {% endif %}
+                                                        
+                                                {% endif %}
 											</div>
 											<div class="post-item">
 											   <a href="#">

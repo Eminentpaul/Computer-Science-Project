@@ -13,5 +13,7 @@ urlpatterns = [
          views.comment_like, name='comment_like'),
     path('user/<str:pk>/follow', views.follow, name='follow'),
     path('post/<str:pk>/edit', views.edit_forum, name='edit_forum'),
+    path('post/<str:pk>/save', views.save_post, name='save_post'),
+    path('post/<str:pk>/repost', views.repost, name='repost'),
     path('post/<str:pk>/delete', views.delete_post, name='delete')
 ]
