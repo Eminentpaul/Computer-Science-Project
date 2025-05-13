@@ -27,7 +27,7 @@ def leader():
         for v in n:
             if str(user.id) == str(v[0]):
                 leaders.append(
-                    {'user': user.user.full_name, 'score': str(v[1])}
+                    {'user': user.user.full_name, 'score': str(v[1]), 'image': user.user.profile.avatar}
                 )
 
                 
