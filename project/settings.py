@@ -47,6 +47,7 @@ CUSTOM_APPS = [
 
 THIRD_PARTY_APP = [
     # "django_htmx",
+    'django_social_share'
 ]
 
 INSTALLED_APPS = PROJECT_APPS + CUSTOM_APPS + THIRD_PARTY_APP
@@ -76,6 +77,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Third Party Context Proccessor
+                'django.template.context_processors.request',
             ],
         },
     },
