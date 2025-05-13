@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from .models import Forum, Comment
+from .models import Forum, Comment, SaveItem, Notification
 from django.db import transaction
 from django.core.paginator import Paginator
 from user_auth.models import Profile
 from .forms import *
 from django.contrib import messages as mg
 
+
 # Create your views here.
+from .util import leader, checkDate
+
 
 # Checking and keeping track of pages
 pages = []
@@ -18,6 +21,10 @@ pages = []
 def dashboard(request, pk):
     user_profile = Profile.objects.get(id=pk)
     user_posts = Forum.objects.all().filter(author=user_profile.user)
+
+    
+
+    saved_posts = [post for post in SaveItem.objects.all().filter(user=user_profile.user)]
     total_comments = 0
     total_likes = 0
 
@@ -29,13 +36,18 @@ def dashboard(request, pk):
         total_likes += post.likes.all().count()
     
 
+    for post in saved_posts:
+        print(post.item.likes.all().count(), post.item.author.profile.avatar)
+
     context = {
         'user_profile': user_profile,
         'user_post': user_posts,
         'num_following': num_following,
         'following': following,
         'total_comments': total_comments,
-        'total_likes': total_likes
+        'total_likes': total_likes,
+        'date': checkDate(),
+        'saved_posts': saved_posts
     }
     return render(request, 'forum/author.html', context)
 
@@ -107,7 +119,9 @@ def forum(request):
 
     context = {
         'forum': forum,
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'leaderboard': leader(),
+        'date': checkDate()
     }
     return render(request, 'forum/forum.html', context)
 
@@ -169,7 +183,8 @@ def forum_detail(request, pk):
     context = {
         'post': forum,
         'comments': forum_comment,
-        'other_post': other_forum
+        'other_post': other_forum,
+        'date': checkDate()
     }
     return render(request, 'forum/forum-detail.html', context)
 
@@ -194,6 +209,30 @@ def forum_post(request):
     return render(request, 'forum/forum-form.html', context)
 
 
+
+@login_required(login_url='login')
+def repost(request, pk):
+    forum = Forum.objects.get(id=pk)
+    
+    referer = request.META.get('HTTP_REFERER')
+    pages.append(referer)
+
+    Forum.objects.create(
+        author=request.user,
+        title=forum.title,
+        description=forum.description
+    )
+    forum.repost.add(request.user)
+
+    return redirect(f'{pages[-1]}')
+
+
+    
+
+
+
+
+
 def delete_post(request, pk):
     referer = request.META.get('HTTP_REFERER')
     pages.append(referer)
@@ -216,6 +255,31 @@ def post_like(request, pk):
     else:
         post.likes.add(request.user)
         return redirect(referer)
+    
+
+
+@login_required(login_url='login')
+def save_post(request, pk):
+    post = Forum.objects.get(id=pk)
+    referer = request.META.get('HTTP_REFERER')
+
+    try:
+        save = SaveItem.objects.get(item=post)
+        if save:
+            post.saved.remove(request.user)
+            save.delete()
+            return redirect(referer)
+        
+
+    except SaveItem.DoesNotExist:
+        with transaction.atomic():
+            SaveItem.objects.create(
+                user = request.user,
+                item = post
+            )
+            post.saved.add(request.user)
+            mg.success(request, 'Post Saved!')
+            return redirect(referer)
 
 
 @login_required(login_url='login') 

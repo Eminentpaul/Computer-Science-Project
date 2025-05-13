@@ -48,7 +48,7 @@
                     <div class="header__wrapper">
                         <div class="header__logo">
                             <a href="/" class="header__logo--link">
-                                <img style="max-width: 200px;" src="{% static 'assets/images/logo/logo__two.svg' %}" alt="unipix">
+                                <img style="max-width: 120px;" src="{% static 'assets/images/logo/logo__two.svg' %}" alt="unipix">
                             </a>
                         </div>
                         <div class="header__menu">
@@ -89,7 +89,7 @@
                                         </a>
                                         |
                                         <a href="{% url 'logout' %}" class="nav-link text-success">
-                                        Logout
+                                            <i class="bi bi-power text-danger"></i>
                                         </a>    
                                     {% else %}
                                         <a href="{% url 'forum' %}" class="nav-link text-success">

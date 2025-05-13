@@ -20,7 +20,9 @@
                     <div class="col-lg-3" data-aos="fade-right" data-aos-easing="linear">
 
                         <div class="user-profile-img">
-                            <img src="{{user_profile.avatar}}" alt="{{user_profile.user.full_name}}">
+                            <a href="{{user_profile.avatar}}" class="nav-link">
+                                <img style="max-height: 200px; max-width: 200px;" class="avatar-img" src="{{user_profile.avatar}}" alt="{{user_profile.user.full_name}}">
+                            </a>
                         </div>    
 
                         <div class="user-profile-details">
@@ -64,7 +66,7 @@
                                 <ul>
                                     
                                     {% for follow  in user_profile.followers.all|slice:"6" %}
-                                        <li><a href="{% url 'dashboard' follow.profile.id %}"><img src="{{follow.profile.avatar}}" alt="User"></a></li>
+                                        <li><a href="{% url 'dashboard' follow.profile.id %}"><img class="avatar-img avatar-sm" src="{{follow.profile.avatar}}" alt="User"></a></li>
                                     {% endfor %}
                                         
                                     
@@ -116,11 +118,15 @@
                                                 <i class="bi bi-gear fa-fw me-2"></i>Posts
                                             </a> 
                                         </li>
-										<!-- <li class="nav-item" role="presentation"> 
-                                            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2" aria-selected="false" role="tab" tabindex="-1">
-                                                <i class="bi bi-chat-dots fa-fw me-2"></i>Comments
-                                            </a> 
-                                        </li> -->
+										
+                                        {% if user == user_profile.user %}
+                                            <li class="nav-item" role="presentation"> 
+                                                <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2" aria-selected="false" role="tab" tabindex="-1">
+                                                    <i class="bi bi-chat-dots fa-fw me-2"></i> Saved
+                                                </a> 
+                                            </li>
+                                        {% endif %}
+                                             
 										<li class="nav-item" role="presentation"> 
                                             <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3" aria-selected="false" role="tab" tabindex="-1">
                                                 <i class="bi bi-people me-2"></i> Following
@@ -157,6 +163,16 @@
 										</div>	
 
                                     </div><!-- Tab content 1 END -->
+
+                                    <div class="tab-pane" id="tab-2" role="tabpanel">
+
+										<div class="row">
+											{% include 'forum/saved-post.html' %}
+											
+											SAved
+										</div>
+										
+                                    </div><!-- Tab content 3 END -->
 
                                     <div class="tab-pane" id="tab-3" role="tabpanel">
 
