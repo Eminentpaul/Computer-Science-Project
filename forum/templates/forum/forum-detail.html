@@ -186,7 +186,7 @@
                                             <div class="d-flex align-items-start mb-3" data-aos="fade-up" data-aos-easing="linear">
                                                 <div class="avatar avatar-sm status-online me-2"><img class="rounded-circle" src="{{comment.user.profile.avatar}}" alt="User"></div>
                                                 <div class="flex-1">
-                                                <div class="align-items-center"><a class="fw-bold mb-0" href="javascript:void(0)">{{comment.user.full_name}}</a></div>
+                                                <div class="align-items-center"><a class="fw-bold mb-0" href="{% url 'dashboard' comment.user.profile.id %}">{{comment.user.full_name}}</a></div>
                                                 <p class="mb-0">{{comment.comment | linebreaks}} </p>
                                                 <div class="post-links d-flex mt-1">
                                                     
