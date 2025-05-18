@@ -11,7 +11,11 @@
         <div class="card bg-transparent border-0">
             <div class="card-header bg-transparent py-4 d-flex justify-content-between align-items-center">
                 <h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">{{my_notification.count}} new</span></h6>
-                <a class="small" href="{% url 'clear_all' %}">Clear all</a>
+                
+                {% if my_notification %}
+                    <a class="small" href="{% url 'clear_all' %}">Clear all</a>
+                {% endif %}
+                    
             </div>
             <div data-simplebar class="card-body p-0 dropdown-body">
                 <ul class="list-group list-unstyled list-group-flush">
@@ -102,7 +106,7 @@
                         {% endif %}
                             
                     {% empty %}
-                        There is not Notification
+                        <p class="text-center">There is not Notification</p>
                     {% endfor %}
                         
                     
@@ -110,10 +114,10 @@
                     
                 </ul>
             </div>
-            <!-- Button -->
+            {% comment %} <!-- Button -->
             <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
                 <a href="#" class="stretched-link">See all incoming activity</a>
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
     <!-- Notification dropdown menu END -->
