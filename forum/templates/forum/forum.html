@@ -355,11 +355,11 @@
                                                 <div class="media align-items-center">
                                                     <div class="media-head me-3">
                                                         <div class="avatar avatar-sm">
-                                                        <a href=""><img src="{{lead.image}}" alt="user" class="avatar-img avatar-rounded"></a>
+                                                        <a href="{% url 'dashboard' lead.profile %}"><img src="{{lead.image}}" alt="user" class="avatar-img avatar-rounded"></a>
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
-                                                        <a href="" class="d-block text-capitalize">{{lead.user | title}}</a>
+                                                        <a href="{% url 'dashboard' lead.profile %}" class="d-block text-capitalize">{{lead.user | title}}</a>
                                                     </div>
                                                     <p><i class="bi bi-broadcast-pin"></i> {{lead.score}}</p>
                                                 </div>

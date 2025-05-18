@@ -10,7 +10,7 @@ from django.contrib import messages as mg
 
 
 # Create your views here.
-from .util import leader, checkDate
+from .util import leader, checkDate, UserNotification
 
 
 # Checking and keeping track of pages
@@ -21,8 +21,10 @@ pages = []
 def dashboard(request, pk):
     user_profile = Profile.objects.get(id=pk)
     user_posts = Forum.objects.all().filter(author=user_profile.user)
-
+    notify = UserNotification(request.user)
     
+    referer = request.META.get('HTTP_REFERER')
+    pages.append(referer)
 
     saved_posts = [post for post in SaveItem.objects.all().filter(user=user_profile.user)]
     total_comments = 0
@@ -47,7 +49,8 @@ def dashboard(request, pk):
         'total_comments': total_comments,
         'total_likes': total_likes,
         'date': checkDate(),
-        'saved_posts': saved_posts
+        'saved_posts': saved_posts,
+        'my_notification': notify.myNotifiction()
     }
     return render(request, 'forum/author.html', context)
 
@@ -56,6 +59,7 @@ def edit_profile(request, pk):
     user_profile = Profile.objects.get(id=pk)
     user = request.user
     error_msg = ''
+    notify = UserNotification(request.user)
 
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -93,25 +97,32 @@ def edit_profile(request, pk):
 
 
     context = {
-        'user_profile': user_profile
+        'user_profile': user_profile,
+        'my_notification': notify.myNotifiction()
     }
     return render(request, 'forum/dashboard-setting.html', context)
 
 
 def follow(request, pk):
     profile = Profile.objects.get(id=pk)
+    notify = UserNotification(request.user)
 
     if request.user in profile.followers.all():
         profile.followers.remove(request.user)
         return redirect('dashboard', profile.id)
     else:
         profile.followers.add(request.user)
+        notify.follow_notify(receiver=profile.user, status='follow')
         return redirect('dashboard', profile.id)
 
 
 @login_required(login_url='login')
 def forum(request):
     forum = Forum.objects.all()
+    notify = UserNotification(request.user)
+
+    referer = request.META.get('HTTP_REFERER')
+    pages.append(referer)
 
     paginator = Paginator(forum, 10)  
     page_number = request.GET.get('page')
@@ -121,7 +132,8 @@ def forum(request):
         'forum': forum,
         'page_obj': page_obj,
         'leaderboard': leader(),
-        'date': checkDate()
+        'date': checkDate(),
+        'my_notification': notify.myNotifiction()
     }
     return render(request, 'forum/forum.html', context)
 
@@ -132,6 +144,7 @@ def edit_forum(request, pk):
     forum = Forum.objects.get(id=pk)
     form = ForumForm(instance=forum)
     edit = True
+    notify = UserNotification(request.user)
     referer = request.META.get('HTTP_REFERER')
     pages.append(referer)
     other_forum = [x for x in Forum.objects.all()[:5] if x != forum]
@@ -148,7 +161,8 @@ def edit_forum(request, pk):
         'description': forum.description,
         'edit': edit,
         'form': form,
-        'forum': other_forum 
+        'forum': other_forum,
+        'my_notification': notify.myNotifiction()
     }
     return render(request, 'forum/forum-form.html', context)
 
@@ -156,6 +170,7 @@ def edit_forum(request, pk):
 def forum_detail(request, pk):
     forum = Forum.objects.get(id=pk)
     forum_comment = forum.comment_set.all()
+    notify = UserNotification(request.user)
 
     # TRACING THE VISTED PAGES 
     pages.append(request.META.get('HTTP_REFERER'))
@@ -178,33 +193,50 @@ def forum_detail(request, pk):
 
             forum.comment_count += 1
             forum.save()
+            notify.comment_notify(receiver=forum.author, status='comment', post=forum)
             return redirect('forum_detail', forum.id)
 
     context = {
         'post': forum,
         'comments': forum_comment,
         'other_post': other_forum,
-        'date': checkDate()
+        'date': checkDate(),
+        'my_notification': notify.myNotifiction()
     }
     return render(request, 'forum/forum-detail.html', context)
 
 
 def forum_post(request):
     other_forum = Forum.objects.all()[:5]
+    notify = UserNotification(request.user)
 
     if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
+        form = ForumForm(request.POST)
 
-        Forum.objects.create(
-            author=request.user,
-            title=title,
-            description=description
-        )
-        return redirect('forum')
+        if form.is_valid():
+            forum = form.save(commit=False)
+            forum.author = request.user
+            forum.save()
+
+            notify.post_notify(status='post', post=forum)
+            return redirect('forum')
+        else:
+            mg.error(request, 'Not Successful!')
+
+
+        # title = request.POST.get('title')
+        # description = request.POST.get('description')
+
+        # forum = Forum.objects.create(
+        #     author=request.user,
+        #     title=title,
+        #     description=description
+        # )
+        # return redirect('forum')
 
     context = {
-        'forum': other_forum
+        'forum': other_forum,
+        'my_notification': notify.myNotifiction()
     }
     return render(request, 'forum/forum-form.html', context)
 
@@ -213,6 +245,7 @@ def forum_post(request):
 @login_required(login_url='login')
 def repost(request, pk):
     forum = Forum.objects.get(id=pk)
+    notify = UserNotification(request.user)
     
     referer = request.META.get('HTTP_REFERER')
     pages.append(referer)
@@ -223,18 +256,43 @@ def repost(request, pk):
         description=forum.description
     )
     forum.repost.add(request.user)
+    notify.repost_notify(status='repost', receiver=forum.author, post=forum)
 
     return redirect(f'{pages[-1]}')
 
 
+
+
+def read_notify(request, pk):
+    notify = Notification.objects.get(id=pk)
+
+    if notify.status == 'follow':
+        notify.isRead = True
+        notify.save()
+        return redirect('dashboard', notify.sender.profile.id)
+    else:
+        notify.isRead = True
+        notify.save()
+        return redirect('forum_detail', notify.post.id)
     
 
+
+def clear_all(request):
+    notify = Notification.objects.all().filter(user=request.user, isRead=False)
+    referer = request.META.get('HTTP_REFERER')
+    pages.append(referer)
+
+    for note in notify:
+        note.isRead = True
+        note.save()
+    return redirect(f'{pages[-1]}')
 
 
 
 
 def delete_post(request, pk):
     referer = request.META.get('HTTP_REFERER')
+    # pages.clear()
     pages.append(referer)
     print(pages)
     post = Forum.objects.get(id=pk)
@@ -248,12 +306,14 @@ def delete_post(request, pk):
 def post_like(request, pk):
     post = Forum.objects.get(id=pk)
     referer = request.META.get('HTTP_REFERER')
+    notify = UserNotification(request.user)
 
     if request.user in post.likes.all():
         post.likes.remove(request.user)
         return redirect(referer)
     else:
         post.likes.add(request.user)
+        notify.like_notify(status='like', post=post, receiver=post.author)
         return redirect(referer)
     
 
