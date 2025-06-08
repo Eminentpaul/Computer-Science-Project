@@ -10,6 +10,7 @@ class Forum(models.Model):
     likes = models.ManyToManyField(User, related_name='post_likes', blank=True)
     saved = models.ManyToManyField(User, related_name='post_saved', blank=True)
     repost = models.ManyToManyField(User, related_name='repost', blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='owner')
     comment_count = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

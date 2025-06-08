@@ -48,7 +48,7 @@
                             <!-- <a href="#"><span><i class="fa-sharp fa-light fa-tags"></i></span>Study Aboard</a> -->
                         </div>
                         <h3 class="blog-title">{{blog.title}}</h3>
-                        <p>{{blog.description | linebreaks }}</p>
+                        <p>{{blog.description | linebreaks | urlize | safe }}</p>
                         
                         
                         <div class="row mb-5">
@@ -129,7 +129,7 @@
                             </div>
                         </div> -->
                         <!-- contact info -->
-                        <div class="program-info">
+                        {% comment %} <div class="program-info">
                             <h5>Department Contact Info</h5>
                             <p>Computer Science</p>
                             <div class="contact-info">
@@ -147,7 +147,7 @@
                                     <a href="#"><i class="fa-brands fa-youtube"></i></a>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
 
                         <!-- join event -->
                         <div class="program-event">

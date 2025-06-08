@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import HomeSlide, Blog, Images, Hall, Excos, Comment
 from .blogs import AllBlogs
 from .forms import CommentForm 
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -76,6 +77,7 @@ def blog_details(request, pk):
     }
     return render(request, 'base/blog-details.html', context)
 
+@login_required(login_url='login')
 def halls(request):
     halls = Hall.objects.all()
 

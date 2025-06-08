@@ -61,29 +61,58 @@
                                             <a href="/" class="navigation__menu--item__link">Home</a>
                                         </li>
                                         <li class="navigation__menu--item">
-                                            <a href="{% url 'blog' %}" class="navigation__menu--item__link">Blogs</a>
+                                            <a href="{% url 'blog' %}" class="navigation__menu--item__link">News/Events</a>
                                         </li>
 
                                         <li class="navigation__menu--item has-child has-arrow">
-                                            <a href="javascript:void(0);" class="navigation__menu--item__link">Pages</a>
+                                            <a href="javascript:void(0);" class="navigation__menu--item__link">Academics</a>
                                             <ul class="submenu sub__style">
-                                                <li><a href="{% url 'halls' %}">Exam Halls</a></li>
-                                                <li><a href="{% url 'lecturers' %}">Our Lecturers</a></li>
-                                                <li><a href="{% url 'excos' %}">Our Excos</a></li>
+                                                <li><a href="{% url 'lecturers' %}">Staff</a></li>
+                                                <li><a href="#{% url 'forum' %}">Class Timetables</a></li>
+                                                {% comment %} <li><a href="{% url 'excos' %}">Our Excos</a></li> {% endcomment %}
+                                                
+                                            </ul>
+                                        </li>
+   
+                                        <li class="navigation__menu--item has-child has-arrow">
+                                            <a href="javascript:void(0);" class="navigation__menu--item__link">Classes/Labs</a>
+                                            <ul class="submenu sub__style">
+                                                <li><a href="{% url 'halls' %}">Class Rooms</a></li>
+                                                <li><a href="{% url 'lecturers' %}">Practical Labs</a></li>
+                                                <li><a href="{% url 'contact' %}">CS Block</a></li>
+                                                {% comment %} <li><a href="{% url 'excos' %}">Our Excos</a></li> {% endcomment %}
                                                 
                                             </ul>
                                         </li>
    
                                         <li class="navigation__menu--item">
-                                            <a href="{% url 'contact' %}" class="navigation__menu--item__link">Contact</a>
+                                            <a href="{% url 'excos' %}" class="navigation__menu--item__link">Our Excos</a>
                                         </li>
+
+                                        <li class="navigation__menu--item has-child has-arrow">
+                                            <a href="javascript:void(0);" class="navigation__menu--item__link">Students</a>
+                                            <ul class="submenu sub__style">
+                                                <li><a href="{% url 'forum' %}">Student Forum</a></li>
+                                                
+                                                <li><a href="{% url 'lecturers' %}">Gallery</a></li>
+                                                
+                                                {% if user.is_authenticated  %}
+                                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                                {% endif %}
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+
+                                        
+                                        
                                     </ul>
                                 </nav>
                             </div>
                         </div>
-                        <div class="header__right">
+                        <div class="header__right d-lg-none">
                             <div class="header__right--item">
-                                <div id="langSwitcher" class="lang__trigger">
+                                {% comment %} <div id="langSwitcher" class="lang__trigger">
                                     
                                     {% if user.is_authenticated %}
                                         <a href="{% url 'forum' %}" class="nav-link text-success">
@@ -100,7 +129,7 @@
                                     {% endif %}
                                         
                                     
-                                </div>
+                                </div> {% endcomment %}
                                 
                                 <div id="menu-btn" class="menu__trigger">
                                     <img src="{% static 'assets/images/icon/menu__bar.svg' %}" alt="bar">
@@ -240,17 +269,29 @@
                 <ul class="mainmenu metismenu" id="mobile-menu-active">
 
                     <li>
-                        <a href="/" class="main">Home Page</a>
+                        <a href="/" class="main">Home</a>
                     </li>
                     <li>
-                        <a href="{% url 'blog' %}" class="main">Blogs</a>
+                        <a href="{% url 'blog' %}" class="main">News/Events</a>
                     </li>
                     
                     <li>
-                        <a href="{% url 'halls' %}" class="main">Exam Halls</a>
+                        <a href="{% url 'halls' %}" class="main">Classes/Labs</a>
                     </li>
                     <li>
-                        <a href="{% url 'lecturers' %}" class="main">Our Lecturers</a>
+                        <a href="{% url 'halls' %}" class="main">Class Timetables</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'lecturers' %}" class="main">Academic Staff</a>
+                    </li>
+                    <li>
+                        <a href="#{% url 'lecturers' %}" class="main">Non-Academic Staff</a>
+                    </li>
+                    <li>
+                        <a href="#{% url 'lecturers' %}" class="main">Join Student Forum</a>
+                    </li>
+                    <li>
+                        <a href="#{% url 'lecturers' %}" class="main">Gallery</a>
                     </li>
                     <li>
                         <a href="{% url 'excos' %}" class="main">Our Excos</a>
@@ -261,19 +302,7 @@
                 </ul>
             </nav>
 
-            <div class="offcanvase__info--content mt--30">
-                <a href="callto:+61485826710"><span><i class="fa-sharp fa-light fa-phone"></i></span>+(61) 485-826-710</a>
-                <a href="#"><span><i class="fa-sharp fa-light fa-location-dot"></i></span>Yarra Park, Melbourne, Australia</a>
-                <div class="offcanvase__info--content--social">
-                    <p class="title">Follow Us:</p>
-                    <div class="social__links">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <!-- mobile menu area end -->
     </div>

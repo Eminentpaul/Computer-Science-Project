@@ -10,7 +10,6 @@
     
     {% block content %}
 
-
     <!-- BREADCRUMB AREA -->
     <section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({% static 'assets/images/banner/breadcrumb.jpg' %});">
         <div class="container">
@@ -19,9 +18,9 @@
                     <div class="breadcrumb-content">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">lecturers</li>
+                            <li class="breadcrumb-item active" aria-current="page">Staff</li>
                         </ul>
-                        <h2 class="section-title">Departmental Directory</h2>
+                        <h2 class="section-title">Academic Staff</h2>
                     </div>
                 </div>
             </div>
@@ -30,71 +29,91 @@
     <!-- BREADCRUMB AREA END -->
 
 
-    <!-- faculty directory -->
-    <section class="rts-faculty rts-section-padding">
+    <!-- event speaker -->
+    <div class="rts-event-speaker rts-section-padding">
         <div class="container">
-            <div class="row justify-content-md-center">
-                <div class="col-lg-12 col-md-11">
-                    <div class="rts-section mb--50">
-                        <h3 class="rts-section-title text-center">HOD & Staff Directory</h3>
-                    </div>
+            <div class="row">
+                <div class="rts__section--wrapper">
+                    <h2 class="rts__section--title text-capitalize">Academic Staff</h2>
                 </div>
             </div>
-            <div class="row justify-content-md-center g-5">
-                <!-- single staff item -->
-                <div class="col-lg-6 col-md-11">
-                    <div class="single-staff">
-                        <div class="single-staff__content">
-                            <div class="staf-image">
-                                <img src="{% static 'assets/images/faculty/01.jpg' %}" alt="staff-image">
-                            </div>
-                            <div class="staf-info">
-                                <h5 class="name">Mrs. Linda Nnadi, PhD</h5>
-                                <span class="designation">Head of Department</span>
+            <!-- event speaker list -->
+            <div class="row g-5 ms-lg-0 ms-5">
+                <!-- single speaker item -->
+                <div class="col-lg-3 col-md-4 col-sm-6 ms-lg-0 ms-5">
+                    <div class="event-speaker">
+                        <div class="event-speaker__details" style="width: 300px;">
+                            <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
+                                <img src="{% static 'img/naomi.png' %}" alt="speaker-thumb" style="border-radius: 0px !important;">
+
                                 
-                                <a href="mailto:jenni@Unipixuni.edu" class="email-contact"><span><i class="fa-light fa-envelope"></i></span>hod@cs-imt.site</a>
-                                
-                                <div class="staf-info__speciality">
-                                    <p>Hospitality, Tourism, Event Management and Esports</p>
+                                <div class="speaker-social-link">
+                                    <a href="#"><i class="fa fa-envelope"></i></a>
+                                    <a href="#"><i class="fa fa-phone-volume"></i></a>
+                                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
                                 </div>
-                                <!-- <a href="faculty-details.html" class="rts-theme-btn border-btn">More Details</a> -->
+                            </div>
+                            <div class="speaker-meta">
+                                <h5 class="speaker__name"><a href="faculty-details.html">Rick Zonson</a></h5>
+                                <span class="designation">Msc, Bsc. Ph.D, PGD, HND</span><br>
+                                <span class="designation text-capitalize">Full/Per Time Lecturer</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- single staff item -->
-                <div class="col-lg-6 col-md-11">
-                    <div class="single-staff">
-                        <div class="single-staff__content">
-                            <div class="staf-image">
-                                <img src="{% static 'assets/images/faculty/02.jpg' %}" alt="staff-image">
-                            </div>
-                            <div class="staf-info">
-                                <h5 class="name">Barry Palatnik, Ed.D</h5>
-                                <span class="designation">Associate Professor of History</span>
-                                <div class="staf-info__social">
-                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                                    <a href="#"><i class="fa-brands fa-medium"></i></a>
-                                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                                </div>
-                                <a href="mailto:jenni@Unipixuni.edu" class="email-contact"><span><i class="fa-light fa-envelope"></i></span>jenni@Unipixuni.edu</a>
-                                <a href="calltto:121" class="phone-contact"><span><i class="fa-light fa-phone"></i></span>+1 2245 1247 241</a>
-                                <div class="staf-info__speciality">
-                                    <p>Hospitality, Tourism, Event Management and Esports</p>
-                                </div>
-                                <a href="faculty-details.html" class="rts-theme-btn border-btn">More Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- single speaker item end -->
                 
             </div>
-            <!-- <div class="rts-load-more-btn rt-center mt--60">
-                <a href="faculty-details.html" class="rts-theme-btn primary lh-100">Load More</a>
-            </div> -->
         </div>
-    </section>
-    <!-- faculty directory end -->
+    </div>
+    <!-- event speaker end -->
+
+
+
+
+
+
+
+
+    
+    <hr class="fw-bold">
+    <!-- event speaker -->
+    <div class="rts-event-speaker rts-section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="rts__section--wrapper">
+                    <h2 class="rts__section--title text-capitalize text-danger">Non Academic Staff</h2>
+                </div>
+            </div>
+            <!-- event speaker list -->
+            <div class="row g-5 ms-lg-0 ms-5">
+                <!-- single speaker item -->
+                <div class="col-lg-3 col-md-4 col-sm-6 ms-lg-0 ms-5">
+                    <div class="event-speaker">
+                        <div class="event-speaker__details" style="width: 300px;">
+                            <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
+                                <img src="{% static 'img/naomi.png' %}" alt="speaker-thumb" style="border-radius: 0px !important;">
+
+                                
+                                <div class="speaker-social-link">
+                                    <a href="#"><i class="fa fa-envelope"></i></a>
+                                    <a href="#"><i class="fa fa-phone-volume"></i></a>
+                                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                </div>
+                            </div>
+                            <div class="speaker-meta">
+                                <h5 class="speaker__name"><a href="faculty-details.html">Rick Zonson</a></h5>
+                                <span class="designation">Msc, Bsc. Ph.D, PGD, HND</span><br>
+                                <span class="designation text-capitalize">Full/Per Time Lecturer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- single speaker item end -->
+                
+            </div>
+        </div>
+    </div>
+    <!-- event speaker end -->
 
 {% endblock %}

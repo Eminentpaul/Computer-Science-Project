@@ -20,7 +20,7 @@ pages = []
 @login_required(login_url='login')
 def dashboard(request, pk):
     user_profile = Profile.objects.get(id=pk)
-    user_posts = Forum.objects.all().filter(author=user_profile.user)
+    user_posts = Forum.objects.all().filter(author=user_profile.user, owner=None)
     notify = UserNotification(request.user)
     
     referer = request.META.get('HTTP_REFERER')
@@ -147,7 +147,7 @@ def edit_forum(request, pk):
     notify = UserNotification(request.user)
     referer = request.META.get('HTTP_REFERER')
     pages.append(referer)
-    other_forum = [x for x in Forum.objects.all()[:5] if x != forum]
+    other_forum = [x for x in Forum.objects.all().filter(owner=None)[:5] if x != forum]
 
     if request.method == 'POST':
         form = ForumForm(request.POST, instance=forum)
@@ -179,7 +179,7 @@ def forum_detail(request, pk):
     if request.user not in forum.views.all():
         forum.views.add(request.user)
 
-    other_forum = [x for x in Forum.objects.all()[:5] if x != forum]
+    other_forum = [x for x in Forum.objects.all().filter(owner=None)[:5] if x != forum]
 
     if request.method == 'POST':
         comment = request.POST.get('comment')
@@ -251,9 +251,10 @@ def repost(request, pk):
     pages.append(referer)
 
     Forum.objects.create(
-        author=request.user,
+        author=forum.author,
         title=forum.title,
-        description=forum.description
+        description=forum.description,
+        owner=request.user
     )
     forum.repost.add(request.user)
     notify.repost_notify(status='repost', receiver=forum.author, post=forum)

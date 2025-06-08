@@ -106,12 +106,24 @@
                                                         </div>
                                                     </div>
                                                     <div class="media-body">
+                                                        
+                                                        {% if post.owner %}
+                                                            
+                                                            {% if post.owner == user %}
+                                                              <small class="fw-bold">You Reposted</small>  
+                                                            {% else %}
+                                                                <small class="fw-bold">{{post.owner.full_name}} Reposted </small>
+                                                            {% endif %}
+                                                                
+                                                        {% endif %}
+                                                            
                                                         <div><a href="{% url 'dashboard' post.author.profile.id %}">{{post.author.full_name | upper}}</a></div>
 
                                                         {% if post.created|date:"Y-m-d" == date %}      
                                                             <div class="fs-7">
-                                                                <span> {{post.created | timesince}} ago
+                                                                <span> {{post.created | timesince}} ago 
                                                             </div>
+                                                            
                                                         {% else %}
 
                                                         <div class="fs-7">
