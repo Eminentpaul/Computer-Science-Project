@@ -118,8 +118,12 @@ def contact(request):
 
 def excos_pop(request, pk):
     exco = Excos.objects.get(id=pk)
-    print(exco)
-    return(request, 'base/partial/model.html', {'exco':exco})
+    context = {
+        'name': exco.name,
+        'position': exco.position,
+        'image': exco.image.url
+    }
+    return render (request, 'base/partial/modal.html', context)
 
 
 def _404(request, exception):

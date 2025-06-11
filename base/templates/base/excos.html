@@ -45,12 +45,16 @@
                 <!-- single item -->
                 
                 {% for person in excos %}
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                    <div style="cursor: pointer;" class="col-lg-3 col-md-4 col-sm-6" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                    hx-get="{% url 'pop' person.id %}"
+                    hx-target='#modalcontent'
+                    hx-trigger="click"
+                    >
                         <div class="single-cat-item">
                             <div class="cat-thumb" style="max-height: 250px; overflow: hidden;">
-                                <a href="#{{person.image.url}}" class="nav-link" >
+                                
                                     <img src="{{person.image.url}}" alt="course-thumbnail">
-                                </a>
+                                
                             </div>
                             <div class="cat-meta">
                                 <div class="cat-title fw-bold">
@@ -78,7 +82,7 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div id='modalcontent' class="modal-content">
       <div class="modal-header">
         {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
