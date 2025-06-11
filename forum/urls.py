@@ -17,5 +17,6 @@ urlpatterns = [
     path('post/<str:pk>/repost/', views.repost, name='repost'),
     path('post/<str:pk>/delete/', views.delete_post, name='delete'), 
     path('post/read_notification/<str:pk>/', views.read_notify, name='read_notify'),
-    path('post/read_notification/', views.clear_all, name='clear_all')
+    path('post/read_notification/', views.clear_all, name='clear_all'),
+    path('post/event_news/', views.events_post, name='events'),
 ]

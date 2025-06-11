@@ -3,7 +3,11 @@
 <div class="nav-item dropdown h-col d-lg-block">
 
     <a class="h-notification-icon h-icon" href="#header_notification_bar"  data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-        <i class="bi bi-bell"></i> <sup>{{my_notification.count}}</sup>
+        
+        {% if my_notification.count %}
+            <i class="bi bi-bell"></i> <sup>{{my_notification.count}}</sup>
+        {% endif %}
+            
     </a>
 
     <!-- Notification dropdown menu START -->

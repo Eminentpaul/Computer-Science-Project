@@ -1,5 +1,6 @@
 from django.db import models
 from .utils import imageResize
+from user_auth.models import User
 
 categories = (
     ('Campus', 'Campus'),
@@ -34,7 +35,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=50, choices=categories) 
-    author = models.CharField(max_length=200, default='User')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog')
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -10,6 +10,7 @@ urlpatterns = [
     path('Lecturers/', views.lecturer, name='lecturers'),
     path('excos/', views.excos, name='excos'),
     path('contact/', views.contact, name='contact'),
+    path('pop/<str:pk>/', views.excos_pop, name='pop')
 ]
 
 

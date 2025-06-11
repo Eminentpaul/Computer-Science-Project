@@ -45,10 +45,10 @@
                 <!-- single item -->
                 
                 {% for person in excos %}
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-lg-3 col-md-4 col-sm-6" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                         <div class="single-cat-item">
                             <div class="cat-thumb" style="max-height: 250px; overflow: hidden;">
-                                <a href="{{person.image.url}}" class="nav-link">
+                                <a href="#{{person.image.url}}" class="nav-link" >
                                     <img src="{{person.image.url}}" alt="course-thumbnail">
                                 </a>
                             </div>
@@ -71,6 +71,29 @@
     </section>
     <!-- faculty directory end -->
 
+
+
+
+ 
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="{% static 'img/naomi.png' %}" class="mb-3">
+        <div class="text-center">
+            <h3 my-3>Nwachukwu Emmanuel</h3>
+            <p>President</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 

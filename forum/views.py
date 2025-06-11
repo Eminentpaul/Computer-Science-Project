@@ -6,6 +6,7 @@ from django.db import transaction
 from django.core.paginator import Paginator
 from user_auth.models import Profile
 from .forms import *
+from base.models import Blog, Images
 from django.contrib import messages as mg
 
 
@@ -366,3 +367,20 @@ def comment_like(request, pk, pd):
     else:
         comment.likes.add(request.user)
         return redirect('forum_detail', post.id)
+
+
+
+@login_required(login_url='login')
+def events_post(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        files = request.FILES.getlist("image")
+
+        if form.is_valid():
+            blog = form.save(commit=False)
+            blog.author = request.user
+            blog.save()
+            for i in files:
+                Images.objects.create(blog=blog, image=i)  
+            return redirect('blog')
+    return render(request, 'forum/event.html')

@@ -116,5 +116,11 @@ def contact(request):
     return render(request, 'base/contact.html', context)
 
 
+def excos_pop(request, pk):
+    exco = Excos.objects.get(id=pk)
+    print(exco)
+    return(request, 'base/partial/model.html', {'exco':exco})
+
+
 def _404(request, exception):
     return render(request, '404.html', {})
