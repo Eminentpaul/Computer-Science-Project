@@ -10,6 +10,16 @@ categories = (
     ('Research', 'Research')
 )
 
+
+Letcurer_status = (
+    ('Full Time', 'Full Time'),
+    ('Per Time', 'Per Time')
+)
+
+
+
+
+
 # Create your models here.
 class HomeSlide(models.Model):
     title = models.CharField(max_length=100)
@@ -31,6 +41,8 @@ class HomeSlide(models.Model):
         return self.image.url
     
 
+
+
 class Blog(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
@@ -45,6 +57,8 @@ class Blog(models.Model):
         ordering = ['-created']
 
 
+
+
 class Comment(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     author = models.CharField(max_length=50)
@@ -57,6 +71,8 @@ class Comment(models.Model):
     
     class Meta:
         ordering = ['-created']
+
+
 
 
 class Images(models.Model):
@@ -76,7 +92,9 @@ class Images(models.Model):
     class Meta:
         verbose_name = "Images"
 
-    
+
+
+
 class Hall(models.Model):
     name = models.CharField(max_length=200)
     link = models.URLField()
@@ -91,6 +109,8 @@ class Hall(models.Model):
             super().save(*args, **kwargs)
         else:
             super().save(*args, **kwargs)
+
+
 
 
 class Excos(models.Model):
@@ -110,3 +130,29 @@ class Excos(models.Model):
 
     class Meta:
         verbose_name = "Excos"
+
+
+
+
+class Lecturer(models.Model):
+    full_name = models.CharField(max_length=200, verbose_name='Full Name')
+    qualifications = models.CharField(max_length=500, blank=True, null=True)
+    status = models.CharField(max_length=500, choices=Letcurer_status)
+    citation = models.TextField(blank=True, null=True)
+    phone_no = models.CharField(max_length=20, blank=True, null=True, verbose_name='Phone Number')
+    email = models.CharField(max_length=300, blank=True, null=True)
+    image = models.ImageField(upload_to='Lecturers')
+
+
+
+    def __str__(self):
+        return self.full_name
+    
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = imageResize(self.image)
+            super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+

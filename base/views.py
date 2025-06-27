@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import HomeSlide, Blog, Images, Hall, Excos, Comment
+from .models import HomeSlide, Blog, Images, Hall, Excos, Comment, Lecturer
 from .blogs import AllBlogs
 from .forms import CommentForm 
 from django.contrib.auth.decorators import login_required
@@ -89,12 +89,24 @@ def halls(request):
     return render(request, 'base/halls.html', context)
 
 def lecturer(request):
+    lecturers = Lecturer.objects.all()
     context = {
-        'excos': excos,
+        'lecturers': lecturers,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
     }
     return render(request, 'base/faculty.html', context)
+
+
+def lecturer_details(request, pk):
+    lecturer = Lecturer.objects.get(id=pk)
+
+    context = {
+        'lecturer': lecturer
+    }
+
+    return render (request, 'base/partial/lecturer.html', context)
+
 
 
 def excos(request):

@@ -11,7 +11,7 @@ from django.contrib import messages as mg
 
 
 # Create your views here.
-from .util import leader, checkDate, UserNotification, sound
+from .util import leader, checkDate, UserNotification
 
 
 # Checking and keeping track of pages
