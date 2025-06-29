@@ -32,17 +32,17 @@
     <!-- event speaker -->
     <div class="rts-event-speaker rts-section-padding">
         <div class="container">
-            <div class="row">
+            <div class="row ">
                 <div class="rts__section--wrapper">
                     <h2 class="rts__section--title text-capitalize">Academic Staff</h2>
                 </div>
             </div>
             <!-- event speaker list -->
             
-            {% for lecturer in lecturers %}
-                <div class="row g-5 ms-lg-0 ms-5">
+            <div class="row g-5 ms-lg-0">
+                    {% for lecturer in lecturers %}
                     <!-- single speaker item -->
-                    <div style="cursor: pointer;" class="col-lg-3 col-md-4 col-sm-6 ms-lg-0 ms-5" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                    <div style="cursor: pointer;" class="col-lg-3 col-md-4 col-sm-6 ms-lg-0 ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
                         hx-get="{% url 'lecturers_pop' lecturer.id %}"
                         hx-target='#modalcontent'
                         hx-trigger="click"
@@ -69,8 +69,8 @@
                     </div>
                     <!-- single speaker item end -->
                     
+                    {% endfor %}
                 </div>
-            {% endfor %}
                 
         </div>
     </div>
@@ -94,9 +94,9 @@
                 </div>
             </div>
             <!-- event speaker list -->
-            <div class="row g-5 ms-lg-0 ms-5">
+            <div class="row g-5 ms-lg-0">
                 <!-- single speaker item -->
-                <div class="col-lg-3 col-md-4 col-sm-6 ms-lg-0 ms-5">
+                <div class="col-lg-3 col-md-4 col-sm-6 ms-lg-0 ms-4">
                     <div class="event-speaker">
                         <div class="event-speaker__details" style="width: 300px;">
                             <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
@@ -125,6 +125,14 @@
     <!-- event speaker end -->
 
 
+{% comment %} <style>
+    #exampleModal {
+        width: 200vw;
+    }
+</style> {% endcomment %}
+
+
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
@@ -140,7 +148,7 @@
             <p>President</p>
 
         </div>
-        <p class="lead my-3">
+        <p class="lead my-3" style="text-align: justify !important;">
             {% lorem 9 p random %}
         </p>
       </div>

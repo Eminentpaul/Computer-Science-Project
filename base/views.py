@@ -9,12 +9,16 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     home_slide = HomeSlide.objects.all()
+    blog = Blog.objects.all().first()
+    post_images = Images.objects.filter(blog=blog)[0]
 
     context = {
         'home_slide': home_slide,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
-        'dd': 'norml'
+        'dd': 'norml', 
+        'blog': blog, 
+        'post_images': post_images,
     }
     return render(request, 'base/index.html', context)
 

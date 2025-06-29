@@ -7,15 +7,15 @@
 <div class="modal-body">
   <img src="{{lecturer.image.url}}" class="mb-3">
   <div class="text-center">
-      <h3 my-3>{{lecturer.full_name | upper}}</h3>
+      <h3 my-3>{{lecturer.full_name | upper}}</h3> <small>{{lecturer.qualifications}}</small>
       <p>{{lecturer.status}} Lecturer</p>
   </div>
     
     {% if lecturer.citation  %}
-      <p class="lead my-3">
+      <p class="lead my-3" style="text-align: justify !important">
           
           {% autoescape off %}
-            {{lecturer.citation | linebreaks | urlize | safe}}
+            {{lecturer.citation | linebreaks | urlize | safe }}
           {% endautoescape %}
           
       </p>

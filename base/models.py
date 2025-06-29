@@ -156,3 +156,7 @@ class Lecturer(models.Model):
         else:
             super().save(*args, **kwargs)
 
+    
+    class Meta:
+        ordering = ['status', 'full_name']
+

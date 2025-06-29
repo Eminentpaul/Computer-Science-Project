@@ -8,6 +8,8 @@
 {% endblock title %}
     
     
+
+
     {% block content %}
         
     <div class="banner v__2">
@@ -59,6 +61,8 @@
     <!-- header banner end -->
     <!-- about us -->
     <section class="about v__2 pt--120 pb--80">
+
+        
         <div class="container">
             <div class="row justify-content-md-center g-5">
                 <div class="col-lg-6 col-md-9">
@@ -186,40 +190,39 @@
                 </div>
             </div>
             <!-- blog area -->
-            <div class="row g-5">
+            <div class="row g-5 my-5">
                 
-                {% for blog in blogs %}
-                    <div class="col-lg-6 col-md-6">
-                        <div class="blog__single--item">
-                            <a href="{% url 'blog_details' blog.id %}" class="blog__single--item--link">
-                                <div style="max-height: 280px; width: 300px; overflow: hidden;" class="blog__single--item--thumb">
+                {% for blog  in blogs  %}
+                    <div class="col-sm-10 col-md-6 col-lg-6 col-xl-4">
+                        <div class="single-blog">
+                            <div class="blog single-blog__content">
+                                <div class="blog__thumb" style="max-height: 200px; overflow: hidden;">
                                     
-                                    {% for image in images %}
+                                    {% for img  in images %}
                                         
-                                        {% if image.blog == blog %}
-                                            <img height="min-height: 300px; object-fit:fill" src="{{image.blog_image}}" alt="" class="img-fluid">
+                                        {% if img.blog == blog %}
+                                            <a href="{% url 'blog_details' blog.id %}">
+                                                <img src="{{img.blog_image}}" alt="blog thumbnail">
+                                            </a>
                                         {% endif %}
                                             
                                     {% endfor %}
                                         
                                 </div>
-                            </a>
-                            <div class="blog__single--item--meta">
-                                <a href="#" class="blog__cat">{{blog.category}}</a>
-                                <h5 class="blog__single--item--title">
-                                    <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:50}}</a>
-                                </h5>
-                                <p class="blog__single--item--excerpt">On {{blog.description | truncatechars:50}}</p>
-
-                                <div class="blog__single--item--info">
-                                    <div class="author">
-                                        <span><i class="fa-thin fa-user"></i></span>
-                                        <a href="#">{{blog.author}}</a>
+                                <div class="blog__meta">
+                                    <div class="blog__meta--da">
+                                        <div class="blog-date">
+                                            <span><i class="fal fa-calendar"></i></span>
+                                            <span>{{blog.created}}</span>
+                                        </div>
+                                        <div class="blog-author">
+                                            <span><i class="far fa-user"></i>
+                                            </span>
+                                            <span><a href="#">{{blog.author}}</a></span>
+                                        </div>
                                     </div>
-                                    <div class="date">
-                                        <span><i class="fa-sharp fa-thin fa-calendar"></i></span>
-                                        <p>{{blog.created}}</p>
-                                    </div>
+                                    <h5 class="blog__title"> <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:70}} </a></h5>
+                                    <a href="{% url 'blog_details' blog.id %}" class="rts-theme-btn primary with-arrow lh-100">Read More <span><i class="fa-thin fa-arrow-right"></i></span></a>
                                 </div>
                             </div>
                         </div>
@@ -373,6 +376,70 @@
             </div>
         </div>
     </section>
+
+
+
+
+    
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Latest News/Events</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="single-blog">
+            <div class="blog single-blog__content">
+                <div class="blog__thumb" style="max-height: 200px; overflow: hidden;">
+                    
+                    
+                            <a href="{% url 'blog_details' blog.id %}">
+                                <img src="{{post_images.image.url}}" alt="blog thumbnail">
+                            </a>
+                        
+                        
+                </div>
+                <div class="blog__meta">
+                    <div class="blog__meta--da">
+                        <div class="blog-date">
+                            <span><i class="fal fa-calendar"></i></span>
+                            <span>{{blog.created}}</span>
+                        </div>
+                        <div class="blog-author">
+                            <span><i class="far fa-user"></i>
+                            </span>
+                            <span><a href="#">{{blog.author}}</a></span>
+                        </div>
+                    </div>
+                    <h5 class="blog__title"> <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:70}} </a></h5>
+                    <a href="{% url 'blog_details' blog.id %}" class="rts-theme-btn primary with-arrow lh-100">Read More <span><i class="fa-thin fa-arrow-right"></i></span></a>
+                </div>
+            </div>
+        </div>
+      </div>
+      {% comment %} <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div> {% endcomment %}
+    </div>
+  </div>
+</div>
+
+
+<script>
+ $( document ).ready(function(){
+   setTimeout(function(){$('#staticBackdrop').modal('show');}, 5000);
+    
+   //setTimeout(function() {$('#staticBackdrop').modal('hide');}, 10000);
+});
+  </script>
+
+
+
     <!-- student feedback end -->
 
     
