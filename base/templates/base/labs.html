@@ -1,0 +1,91 @@
+{% extends 'nav.html' %}
+{% load static %}
+    <!-- header banner -->
+
+
+{% block title %}
+    IMT - Computer Science
+{% endblock title %}
+    
+    
+    {% block content %}
+
+    <!-- BREADCRUMB AREA -->
+    <section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({% static 'assets/images/banner/breadcrumb.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Departmental Labs</li>
+                        </ul>
+                        <h2 class="section-title">Departmental Practical Labs</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BREADCRUMB AREA END -->
+
+
+    <!-- section one -->
+    <!-- single section -->
+    <div class="rts-campus-section rts-section-padding">
+        <div class="container">
+            
+            <div class="row g-5">
+                
+                {% for lab in labs  %}
+                    <!-- single item -->
+                    <div class="col-lg-4 col-md-6 col-sm-6"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                    hx-get="{% url 'lab_pop' lab.id %}"
+                    hx-target='#modalcontent'
+                    hx-trigger="click"
+                    >
+                        <div class="single-item">
+                            <div class="single-item__content">
+                                <div class="single-item__image">
+                                    <img src="{{lab.image.url}}" alt="item-image">
+                                </div>
+                                <h5 class="item-title my-3 text-center"><a href="#">{{lab.name}}</a></h5>
+                                {% comment %} <div class="single-item__meta">
+                                    
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single item end -->
+                {% endfor %}
+                    
+                
+            </div>
+        </div>
+    </div>
+    <!-- single section end -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+
+>
+  <div class="modal-dialog" style="position: absolute; left: 0px;">
+    <div id='modalcontent' class="modal-content" style="min-width: 50vw;">
+      <div class="modal-header">
+        {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% comment %} <img src="{% static 'img/naomi.png' %}" class="mb-3">
+        <div class="text-center">
+            <h3 my-3>Nwachukwu Emmanuel</h3>
+            <p>President</p> {% endcomment %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

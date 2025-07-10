@@ -1,6 +1,7 @@
 from django.db import models
 from .utils import imageResize
 from user_auth.models import User
+from django.utils.safestring import mark_safe
 
 categories = (
     ('Campus', 'Campus'),
@@ -13,7 +14,7 @@ categories = (
 
 Letcurer_status = (
     ('Full Time', 'Full Time'),
-    ('Per Time', 'Per Time')
+    ('Part Time', 'Part Time')
 )
 
 
@@ -149,6 +150,14 @@ class Lecturer(models.Model):
         return self.full_name
     
 
+    def image_tag(self):
+        if self.image:
+            return mark_safe('<img src="%s" style="width: 45px; height:auto;" />' % self.image.url)
+        else:
+            return 'No Image Found' 
+    image_tag.short_description = 'Image'
+    
+
     def save(self, *args, **kwargs):
         if self.image:
             self.image = imageResize(self.image)
@@ -159,4 +168,49 @@ class Lecturer(models.Model):
     
     class Meta:
         ordering = ['status', 'full_name']
+
+
+
+class Lab(models.Model):
+    name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='Labs')
+
+
+    def __str__(self):
+        return self.name
+
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = imageResize(self.image)
+            super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+
+
+    class Meta:
+        verbose_name = 'Labs'
+
+
+class Class(models.Model):
+    name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='Classes')
+
+
+    def __str__(self):
+        return self.name
+
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = imageResize(self.image)
+            super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+
+
+    class Meta:
+        verbose_name = 'Labs'
+
+
 

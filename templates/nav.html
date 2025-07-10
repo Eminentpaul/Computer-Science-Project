@@ -96,8 +96,8 @@
                                         <li class="navigation__menu--item has-child has-arrow">
                                             <a href="javascript:void(0);" class="navigation__menu--item__link">Classes/Labs</a>
                                             <ul class="submenu sub__style">
-                                                <li><a href="{% url 'halls' %}">Class Rooms</a></li>
-                                                <li><a href="{% url 'lecturers' %}">Practical Labs</a></li>
+                                                <li><a href="#">Class Rooms</a></li>
+                                                <li><a href="{% url 'labs' %}">Practical Labs</a></li>
                                                 <li><a href="{% url 'contact' %}">CS Block</a></li>
                                                 {% comment %} <li><a href="{% url 'excos' %}">Our Excos</a></li> {% endcomment %}
                                                 
@@ -113,7 +113,7 @@
                                             <ul class="submenu sub__style">
                                                 <li><a href="{% url 'forum' %}">Student Forum</a></li>
                                                 
-                                                <li><a href="{% url 'lecturers' %}">Gallery</a></li>
+                                                {% comment %} <li><a href="{% url 'lecturers' %}">Gallery</a></li> {% endcomment %}
                                                 
                                                 {% if user.is_authenticated  %}
                                                     <li><a href="{% url 'logout' %}">Logout</a></li>

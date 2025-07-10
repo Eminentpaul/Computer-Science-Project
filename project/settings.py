@@ -47,7 +47,8 @@ CUSTOM_APPS = [
 
 THIRD_PARTY_APP = [
     # "django_htmx",
-    'django_social_share'
+    'django_social_share',
+    'import_export',
 ]
 
 INSTALLED_APPS = PROJECT_APPS + CUSTOM_APPS + THIRD_PARTY_APP
