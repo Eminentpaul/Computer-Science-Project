@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import HomeSlide, Blog, Images, Hall, Excos, Comment, Lecturer, Lab, Class
+from .models import HomeSlide, Blog, Images, Hall, Excos, Comment, Staff, Lab, Class
 from .blogs import AllBlogs
 from .forms import CommentForm 
+import datetime
 from django.contrib.auth.decorators import login_required
 
 
@@ -78,6 +79,7 @@ def blog_details(request, pk):
         'blogs': other_blogs,
         'comments': comments,
         'other_blog_images': post_images,
+        
     }
     return render(request, 'base/blog-details.html', context)
 
@@ -93,7 +95,7 @@ def halls(request):
     return render(request, 'base/halls.html', context)
 
 def lecturer(request):
-    lecturers = Lecturer.objects.all()
+    lecturers = Staff.objects.all().filter(is_teaching=True)
     context = {
         'lecturers': lecturers,
         'blogs': AllBlogs().blogs(),
@@ -103,7 +105,7 @@ def lecturer(request):
 
 
 def lecturer_details(request, pk):
-    lecturer = Lecturer.objects.get(id=pk)
+    lecturer = Staff.objects.get(id=pk)
 
     context = {
         'lecturer': lecturer
@@ -112,11 +114,25 @@ def lecturer_details(request, pk):
     return render (request, 'base/partial/lecturer.html', context)
 
 
+def non_lecturers(request):
+    lecturers = Staff.objects.all().filter(is_teaching=False)
+    non_teaching = True
+    context = {
+        'lecturers': lecturers,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
+        'non_teaching': non_teaching,
+    }
+    return render(request, 'base/faculty.html', context)
+
+
 def labs(request):
     labs = Lab.objects.all()
 
     context = {
-        'labs': labs
+        'labs': labs,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
     }
     return render(request, 'base/labs.html', context)
 
@@ -133,7 +149,9 @@ def class_room(request):
     labs = Class.objects.all()
 
     context = {
-        'labs': labs
+        'labs': labs,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
     }
     return render(request, 'base/labs.html', context)
 
@@ -141,17 +159,28 @@ def class_room(request):
 def class_pop(request, pk):
     lab = Class.objects.get(id=pk)
     context = {
-        'lab': lab
+        'lab': lab,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
     }
     return render (request, 'base/partial/lab.html', context)
 
 
 
 def excos(request):
-    excos = Excos.objects.all()
+    current_year = datetime.datetime.now().year
+    excos = Excos.objects.all().filter(year=current_year)
+
+    all_years = []
+
+    for exco in Excos.objects.all(): 
+        if exco.year not in all_years:
+            all_years.append(exco.year)
+
 
     context = {
         'excos': excos,
+        'all_years': all_years,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
     }

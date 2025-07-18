@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import HomeSlide, Blog, Images, Hall, Excos, Comment, Lecturer, Lab, Class
+from .models import HomeSlide, Blog, Images, Hall, Excos, Comment, Staff, Lab, Class
 from import_export.admin import ImportExportModelAdmin
 
 
@@ -16,13 +16,20 @@ class LecturerAdmin(ImportExportModelAdmin):
     list_filter = ['status']
 
 
+class ExcosAdmin(ImportExportModelAdmin):
+    list_display = ['name', 'position', 'year']
+    list_display_links = ['name', 'position', 'year']
+    search_fields = ['name']
+    list_filter = ['position', 'year']
+
+
 
 admin.site.register(HomeSlide)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Images)
 admin.site.register(Hall)
-admin.site.register(Excos)
+admin.site.register(Excos, ExcosAdmin)
 admin.site.register(Comment)
-admin.site.register(Lecturer, LecturerAdmin) 
+admin.site.register(Staff, LecturerAdmin) 
 admin.site.register(Lab)
 admin.site.register(Class)

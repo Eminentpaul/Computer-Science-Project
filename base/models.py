@@ -2,6 +2,7 @@ from django.db import models
 from .utils import imageResize
 from user_auth.models import User
 from django.utils.safestring import mark_safe
+import datetime
 
 categories = (
     ('Campus', 'Campus'),
@@ -17,6 +18,14 @@ Letcurer_status = (
     ('Part Time', 'Part Time')
 )
 
+
+
+
+    
+
+def get_year_choices():
+    current_year = datetime.datetime.now().year
+    return [(year, year) for year in range(2024, current_year + 20)]
 
 
 
@@ -117,6 +126,7 @@ class Hall(models.Model):
 class Excos(models.Model):
     name = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
+    year = models.IntegerField(choices=get_year_choices, default=datetime.datetime.now().year,)
     image = models.ImageField(upload_to='Excos')
 
     def __str__(self):
@@ -130,19 +140,21 @@ class Excos(models.Model):
             super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "Excos"
+        verbose_name_plural = "Excos"
+        ordering = ['-year']
 
 
 
 
-class Lecturer(models.Model):
+class Staff(models.Model):
     full_name = models.CharField(max_length=200, verbose_name='Full Name')
     qualifications = models.CharField(max_length=500, blank=True, null=True)
-    status = models.CharField(max_length=500, choices=Letcurer_status)
+    status = models.CharField(max_length=500, choices=Letcurer_status, blank=True, null=True)
     citation = models.TextField(blank=True, null=True)
     phone_no = models.CharField(max_length=20, blank=True, null=True, verbose_name='Phone Number')
     email = models.CharField(max_length=300, blank=True, null=True)
     image = models.ImageField(upload_to='Lecturers')
+    is_teaching = models.BooleanField(default=True)
 
 
 
@@ -168,6 +180,7 @@ class Lecturer(models.Model):
     
     class Meta:
         ordering = ['status', 'full_name']
+        verbose_name_plural = 'Staff List'
 
 
 
@@ -188,8 +201,8 @@ class Lab(models.Model):
             super().save(*args, **kwargs)
 
 
-    class Meta:
-        verbose_name = 'Labs'
+    # class Meta:
+    #     verbose_name = 'Lab'
 
 
 class Class(models.Model):
@@ -210,7 +223,7 @@ class Class(models.Model):
 
 
     class Meta:
-        verbose_name = 'Labs'
+        verbose_name_plural = 'Classes'
 
 
 

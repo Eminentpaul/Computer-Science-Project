@@ -49,6 +49,7 @@ THIRD_PARTY_APP = [
     # "django_htmx",
     'django_social_share',
     'import_export',
+    'mathfilters',
 ]
 
 INSTALLED_APPS = PROJECT_APPS + CUSTOM_APPS + THIRD_PARTY_APP
