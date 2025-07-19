@@ -181,10 +181,38 @@ def excos(request):
     context = {
         'excos': excos,
         'all_years': all_years,
+        'current_year': current_year,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
     }
     return render(request, 'base/excos.html', context)
+
+
+def excos_year(request, pk):
+    current_year = pk
+    excos = Excos.objects.all().filter(year=pk)
+
+    all_years = []
+
+    for exco in Excos.objects.all(): 
+        if exco.year not in all_years:
+            all_years.append(exco.year)
+
+
+    context = {
+        'excos': excos,
+        'all_years': all_years,
+        'current_year': current_year,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
+    }
+
+    return render(request, 'base/partial/year.html', context)
+
+
+
+
+
 
 def contact(request):
     context = {

@@ -10,6 +10,7 @@ urlpatterns = [
     path('Lecturers/Non-Teaching/', views.non_lecturers, name='non_lecturers'),
     path('Lecturers/', views.lecturer, name='lecturers'),
     path('Lecturers/<str:pk>', views.lecturer_details, name='lecturers_pop'),
+    path('excos_year/<str:pk>', views.excos_year, name='excos_year'),
     path('excos/', views.excos, name='excos'),
     path('contact/', views.contact, name='contact'),
     path('labs/', views.labs, name='labs'),
