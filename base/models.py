@@ -179,7 +179,7 @@ class Staff(models.Model):
 
     
     class Meta:
-        ordering = ['status', 'full_name']
+        ordering = ['status']
         verbose_name_plural = 'Staff List'
 
 

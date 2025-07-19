@@ -1,4 +1,5 @@
 {% load static %}
+{% load mathfilters %}
 
 <div class="modal-header">
   {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
@@ -9,5 +10,6 @@
   <div class="text-center">
       <h3 my-3>Comr. {{name}}</h3>
       <p>{{position}}</p>
+      <span>Exco Member - {{ year|sub:1 }}/{{year}}</span>
   </div>
 </div>
