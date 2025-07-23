@@ -1,0 +1,165 @@
+{% extends 'nav.html' %}
+{% load static %}
+    <!-- header banner -->
+
+
+{% block title %}
+    IMT - Computer Science
+{% endblock title %}
+    
+    
+    {% block content %}
+
+    <!-- BREADCRUMB AREA -->
+    <section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({% static 'assets/images/banner/breadcrumb.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    
+                    {% if non_teaching %}
+                        <div class="breadcrumb-content">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Non-Teaching Staff</li>
+                            </ul>
+                            <h2 class="section-title">Non-Teaching Staff</h2>
+                        </div>
+                    {% else %}
+                        <div class="breadcrumb-content">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Teaching Staff</li>
+                            </ul>
+                            <h2 class="section-title">Teaching Staff</h2>
+                        </div>
+                    {% endif %}
+                        
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BREADCRUMB AREA END -->
+
+
+    <!-- event speaker -->
+    <div class="rts-event-speaker rts-section-padding">
+        <div class="container">
+            <div class="row ">
+                <div class="rts__section--wrapper">
+                    {% comment %} <h2 class="rts__section--title text-capitalize">Academic Staff</h2> {% endcomment %}
+                </div>
+            </div>
+            <!-- event speaker list -->
+            
+            
+            {% if non_teaching %}
+                <div class="row g-5 ms-lg-0">
+                    {% for lecturer in lecturers %}
+                    <!-- single speaker item -->
+                    <div style="cursor: pointer;" class="col-lg-3 col-md-4 col-sm-6 ms-lg-0 ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                        hx-get="{% url 'lecturers_pop' lecturer.id %}"
+                        hx-target='#modalcontent'
+                        hx-trigger="click"
+                        >
+                        <div class="event-speaker">
+                            <div class="event-speaker__details" style="width: 300px;">
+                                <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
+                                    <img src="{{lecturer.image.url}}" alt="speaker-thumb" style="border-radius: 0px !important;">
+
+                                    
+                                    <div class="speaker-social-link">
+                                        <a href="mailto:{{lecturer.email}}"><i class="fa fa-envelope"></i></a>
+                                        <a href="tel:+{{lecturer.phone_no}}"><i class="fa fa-phone-volume"></i></a>
+                                        {% comment %} <a href="#"><i class="fa-brands fa-facebook"></i></a> {% endcomment %}
+                                    </div>
+                                </div>
+                                <div class="speaker-meta">
+                                    <h5 class="speaker__name">{{lecturer.full_name | title}}</h5>
+                                    <span class="designation">{{lecturer.qualifications}}</span><br>
+                                    {% comment %} <span class="designation text-capitalize">{{lecturer.status}} Lecturer</span> {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single speaker item end -->
+                    
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row g-5 ms-lg-0 ms-0">
+                    {% for lecturer in lecturers %}
+                    <!-- single speaker item -->
+                    <div style="cursor: pointer;" class="col-lg-3 col-md-4 col-sm-6 ms-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                        hx-get="{% url 'lecturers_pop' lecturer.id %}"
+                        hx-target='#modalcontent'
+                        hx-trigger="click"
+                        >
+                        <div class="event-speaker">
+                            <div class="event-speaker__details" style="width: 300px;">
+                                <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
+                                    <img src="{{lecturer.image.url}}" alt="speaker-thumb" style="border-radius: 0px !important;">
+
+                                    
+                                    <div class="speaker-social-link">
+                                        <a href="mailto:{{lecturer.email}}"><i class="fa fa-envelope"></i></a>
+                                        <a href="tel:+{{lecturer.phone_no}}"><i class="fa fa-phone-volume"></i></a>
+                                        {% comment %} <a href="#"><i class="fa-brands fa-facebook"></i></a> {% endcomment %}
+                                    </div>
+                                </div>
+                                <div class="speaker-meta">
+                                    <h5 class="speaker__name">{{lecturer.full_name | title}}</h5>
+                                    <span class="designation">{{lecturer.qualifications}}</span><br>
+                                    <span class="designation text-capitalize">{{lecturer.status}} Lecturer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single speaker item end -->
+                    
+                    {% endfor %}
+                </div>
+            {% endif %}
+                
+                
+        </div>
+    </div>
+    <!-- event speaker end -->
+
+
+
+
+
+{% comment %} <style>
+    #exampleModal {
+        width: 200vw;
+    }
+</style> {% endcomment %}
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div id='modalcontent' class="modal-content">
+      <div class="modal-header">
+        {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="{% static 'img/naomi.png' %}" class="mb-3">
+        <div class="text-center">
+            <h3 my-3>fffffffffffNwachukwu Emmanuel</h3>
+            <p>President</p>
+
+        </div>
+        <p class="lead my-3" style="text-align: justify !important;">
+            {% lorem 9 p random %}
+        </p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

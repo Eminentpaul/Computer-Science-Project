@@ -1,0 +1,399 @@
+{% extends 'forum_nav.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+		<!-- ==============================================
+		 Hero
+		=============================================== -->
+		<section class="vine-hero-2 bg-img-1">
+			<div class="container">
+				<div class="row">
+
+					<!-- HERO TEXT -->
+					<div class="col-lg-12">
+						<div class="hero-content" data-aos="fade-down" data-aos-easing="linear">
+
+							<!-- Title -->
+							<h1>Ask Questions, Get Answers</h1>
+
+							<!-- Text -->
+							<p>Ask questions, find support, and connect with the community.</p>
+			  
+							<!-- Vine Join -->
+							<div class="vine-join">
+							      <!-- <a href="" class="btn btn-md btn-mint rounded-pill">Create an Account</a> -->
+								  <ul class="ms-3">
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/6.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/7.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/8.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/9.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/10.jpg' %}" class="avatar-sm" alt="image"></a></li>
+									  <li><a href="#"><img src="{% static 'assets/assets/img/avatar/11.jpg' %}" class="avatar-sm" alt="image"></a></li>
+								  </ul>
+								  <p>Over 300+ CS Students Joined.</p>
+							</div><!--/vine-join-->
+													
+						</div>
+					</div>	<!-- END HERO TEXT -->
+
+
+				</div>
+			</div>
+		</section>    
+
+        {% include 'message.html' %}
+		<!-- ==============================================
+		 Main
+		=============================================== -->
+		<section class="vine-main">
+			<div class="container">
+				<div class="row">
+
+                    <div class="col-lg-9 ps-lg-5">
+
+						<div class="filter">
+							<form class="form">
+								<div class="filter-toolbar">
+									
+									<!-- Nav Search START -->
+									<div class="w-100 mt-3 mb-3">
+										<div class="nav px-4 flex-nowrap align-items-center">
+											<div class="search-form nav-item w-100">
+													<input class="border-0" type="search" placeholder="Search" aria-label="Search">
+											</div>
+										</div>
+									</div>
+									<!-- Nav Search END -->
+									<button type="submit" class="btn btn-md btn-mint">Search</button>
+								</div>
+							</form>					
+						</div><!--/filter-->
+
+						<div class="discussions">
+		
+							
+		
+							
+                            {% for post in page_obj %}
+                                <div class="post-box d-flex" data-aos="fade-up" data-aos-easing="linear">
+                                        <div class="vote d-none d-lg-block">
+                                            
+                                            {% if user in post.likes.all  %}
+                                                <a style="cursor: pointer;"
+                                                hx-post="{% url 'post_like' post.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container"
+                                                class="up-arrow text-danger"><i class="bi bi-hand-thumbs-up"></i></a>
+                                            {% else %}
+                                                <a style="cursor: pointer;"
+                                                hx-post="{% url 'post_like' post.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container"
+                                                class="up-arrow"><i class="bi bi-hand-thumbs-up"></i></a>
+                                            {% endif %}
+                                                
+                                            <p class="mb-3">{{post.likes.all.count}}</p>
+                                            {% comment %} <p>24</p>
+                                            <a href="" class="down-arrow"><i class="bi bi-hand-thumbs-down"></i></a> {% endcomment %}
+                                        </div>  
+                                        <div class="card">
+                                            <div class="card-header card-header-action">
+                                                <div class="media align-items-center">
+                                                    <div class="media-head me-2">
+                                                        <div class="avatar">
+                                                            <a href="{% url 'dashboard' post.author.profile.id %}"><img src="{{post.author.profile.avatar}}" alt="user" class="avatar-img rounded-circle"></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        
+                                                        {% if post.owner %}
+                                                            
+                                                            {% if post.owner == user %}
+                                                              <small class="fw-bold">You Reposted</small>  
+                                                            {% else %}
+                                                                <small class="fw-bold">{{post.owner.full_name}} Reposted </small>
+                                                            {% endif %}
+                                                                
+                                                        {% endif %}
+                                                            
+                                                        <div><a href="{% url 'dashboard' post.author.profile.id %}">{{post.author.full_name | upper}}</a></div>
+
+                                                        {% if post.created|date:"Y-m-d" == date %}      
+                                                            <div class="fs-7">
+                                                                <span> {{post.created | timesince}} ago 
+                                                            </div>
+                                                            
+                                                        {% else %}
+
+                                                        <div class="fs-7">
+                                                            <span>Posted on: {{post.created |naturalday|title}} 
+                                                        </div>
+                                                        
+                             
+                                                        {% endif %}
+
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                                {% if user == post.author  %}
+                                                    <div class="card-action-wrap">
+                                                        <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="{% url 'edit_forum' post.id %}"><i class="bi bi-pencil me-2"></i> Edit Post</a>
+                                                            
+                                                            {% comment %} <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="{% url 'delete' post.id%}"><i class="bi bi-trash3 me-2"></i> Delete Post</a>
+                                                            <div class="dropdown-divider"></div> {% endcomment %}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                    
+                                            </div>
+                                            <div class="card-body">
+                                                <h3>
+                                                <a href="{% url 'forum_detail' post.id %}">{{post.title}}</a>
+                                                </h3>
+                                                
+                                                {% autoescape off %}
+                                                    <p>{{post.description | truncatechars:300 }}</p>
+                                                    {% if post.description|length > 300 %}
+                                                        <a style="max-width: 100px;" href="{% url 'forum_detail' post.id %}" class="nav-link btn btn-mint ">Read More.</a>
+                                                    {% endif %}
+                                                {% endautoescape %}
+                                                
+                
+                                               
+                                            </div>
+                
+                                            <div class="card-footer">
+
+                                                <div class="post-stats">
+                                                    <div class="post-item d-lg-none d-xl-none">
+                                                    <a href="#">
+                                                        {% if user in post.likes.all  %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'post_like' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container"
+                                                            class="up-arrow text-danger"><i class="bi bi-hand-thumbs-up"></i></a>
+                                                        {% else %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'post_like' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container"
+                                                            class="up-arrow"><i class="bi bi-hand-thumbs-up"></i></a>
+                                                        {% endif %}
+                                                        
+                                                        <div class="post-text">{{post.likes.all.count}}</div>
+                                                    </a>	
+                                                    </div>
+                                                    
+                                                    <div class="post-item">
+                                                    <ul>
+                                                        
+                                                        {% for view  in post.views.all|slice:":8" %}
+                                                            
+                                                            {% if post.views.all.count >= 1  %}
+                                                                <li><a href="{% url 'dashboard' view.profile.id %}"><img src="{{view.profile.avatar}}" alt="User" class="avatar-sm avatar-img"></a></li>
+                                                            {% endif %}
+                                                                
+                                                        {% endfor %}
+                                                            
+                                                        
+                                                    </ul>
+                                                    <div class="post-text">+{{post.views.all.count}}</div>
+                                                    <div class="post-text">Views</div>
+                                                    </div>
+                                                    <div class="post-item me-lg-5">
+                                                    <a href="{% url 'forum_detail' post.id %}">
+                                                        <div class="post-icon"><i class="bi bi-chat-dots"></i></div>
+                                                        <div class="post-text">{{post.comment_count}}</div>
+                                                    </a>
+                                                    </div>
+                                                    <div class="post-item">
+                                                        {% if user == post.author  %}
+                                                    
+                                                    {% else %}
+                                                        
+                                                        {% if user in post.saved.all  %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'save_post' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container">
+                                                                <div class="post-icon"><i class="bi bi-bookmark-fill text-danger"></i></div>
+                                                                <div class="post-text">{{post.saved.all.count}}</div>
+                                                            </a>
+                                                        {% else %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'save_post' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container">
+                                                                <div class="post-icon"><i class="bi bi-bookmark"></i></div>
+                                                                <div class="post-text">{{post.saved.all.count}}</div>
+                                                            </a>
+                                                        {% endif %}
+                                                            
+                                                    </div>
+                                                    <div class="post-item">
+                                                    
+                                                    
+                                                        
+                                                        {% if user in post.repost.all  %}
+                                                            <a href="#repost">
+                                                                <div class="post-icon"><i class="bi bi-recycle text-danger"></i></div>
+                                                                <div class="post-text">{{post.repost.all.count}}</div>
+                                                            </a>
+                                                        {% else %}
+                                                            <a style="cursor: pointer;"
+                                                            hx-post="{% url 'repost' post.id %}"
+                                                            hx-trigger="click"
+                                                            hx-target="#container">
+                                                                <div class="post-icon"><i class="bi bi-recycle"></i></div>
+                                                                <div class="post-text">{{post.repost.all.count}}</div>
+                                                            </a>
+                                                        {% endif %}
+                                                            
+                                                    {% endif %}
+                                                        
+                                                    </div>
+                                                    <div class="post-item">
+                                                    <a href="#">
+                                                        <div class="post-icon"><i class="bi bi-flag"></i></div>
+                                                        <div class="post-text">Report</div>
+                                                    </a>
+                                                    </div>
+                                                </div>
+
+                                            </div> 
+                
+                                        </div>	
+                                    </div><!--/post-box-->
+                            {% endfor %}
+                                
+		
+							
+											   
+						</div><!--/discussions--> 
+
+						<div class="pagination ps-lg-3" data-aos="fade-up" data-aos-easing="linear">
+
+							
+                            
+	
+							{% if page_obj.has_previous %}
+                                <a href="{% url 'forum' %}" class="page-numbers btn-start">
+                                    <i class="b bi-chevron-double-left"></i>
+                                </a>
+                                <a href="?page={{ page_obj.previous_page_number }}" class="page-numbers btn--prev">
+                                <i class="bi bi-chevron-left"></i>
+                                </a>
+                            {% endif %}
+							<span class="page-numbers pagination-space"> <i class="bi bi-three-dots"></i> </span>
+							<a href="#" class="page-numbers current"><span>{{ page_obj.number }}</span></a>
+							{% comment %} <a href="#" class="page-numbers"><span>2</span></a>
+							<a href="#" class="page-numbers"><span>3</span></a>
+							<a href="#" class="page-numbers"><span>4</span></a>
+							<a href="#" class="page-numbers"><span>5</span></a>
+							<a href="#" class="page-numbers"><span>6</span></a> {% endcomment %}
+	
+							<span class="page-numbers pagination-space"> <i class="bi bi-three-dots"></i></span>
+							
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}" class="page-numbers btn--next">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+
+                                <a href="?page={{ page_obj.paginator.num_pages }}" class="page-numbers btn--next">
+                                    <i class="bi bi-chevron-double-right"></i>
+                                </a>
+                            {% endif %}
+                                
+	
+							{% comment %} <a href="#" class="page-numbers btn-end">
+								<i class="bi bi-chevron-double-right"></i>
+							</a> {% endcomment %}
+	
+							<span class="page-numbers all-pages">
+								of {{ page_obj.paginator.num_pages }} Page(s)
+							</span>
+	
+						</div><!--/pagination--> 						
+
+					</div><!--/col-lg-9-->
+
+					<div class="col-lg-3 pe-lg-3 border-end">
+
+						{% comment %} <div class="vine-categories mb-4 pb-3">
+
+							<ul class="navbar-nav flex-column">
+
+							 <li class="mb-3"><h5 data-aos="fade-up" data-aos-easing="linear">Categories (2k)</h5> </li>
+							 <li class="nav-item" data-aos="fade-up" data-aos-easing="linear">
+							   <a class="nav-link" href="index.html">
+								<span class="nav-icon-wrap"><img src="{% static 'assets/assets/img/categories/10.jpg' %}" class="img-fluid rounded-2" alt="Category"></span>
+								 <span class="nav-link-text">Community (20k)</span>
+							   </a>
+							 </li> 
+							  
+							  
+							</ul>                                                          
+	   
+						</div><!--/Vine-categories-->  {% endcomment %}
+
+						<div class="top-users mb-4" data-aos="fade-right" data-aos-easing="linear">
+							<div class="card-header d-block py-2">
+								<h5>Leaderboard</h5>
+		
+								<!-- <ul class="nav nav-tabs" id="myTab">
+                                    <li class="nav-item">
+										<a href="#profile" class="nav-link active" data-bs-toggle="tab">Posts</a>
+									</li>
+									
+									
+								</ul> -->
+		
+							</div>
+							<div class="tab-content">
+                                <div class="tab-pane fade show active" id="profile">
+		
+									<ul class="list-group list-group-flush">
+										
+                                        {% for lead  in leaderboard %}
+                                            <li class="list-group-item border-0">
+                                                <div class="media align-items-center">
+                                                    <div class="media-head me-3">
+                                                        <div class="avatar avatar-sm">
+                                                        <a href="{% url 'dashboard' lead.profile %}"><img src="{{lead.image}}" alt="user" class="avatar-img avatar-rounded"></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <a href="{% url 'dashboard' lead.profile %}" class="d-block text-capitalize">{{lead.user | title}}</a>
+                                                    </div>
+                                                    <p><i class="bi bi-broadcast-pin"></i> {{lead.score}}</p>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                            
+										
+									</ul>						
+								</div>
+								
+								
+							</div>
+						</div><!--/top-users-->
+		
+						
+		
+						
+
+
+					</div><!--/col-lg-3-->
+					
+				</div>
+			</div>
+		</section>
+ {% endblock %}

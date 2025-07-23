@@ -1,0 +1,306 @@
+{% extends 'forum_nav.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+		<!-- ==============================================
+		 Dashboard
+		=============================================== -->
+        <section class="dashboard">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 col-lg-9">
+
+                        <h4 class="mb-4" data-aos="fade-down" data-aos-easing="linear"><i class="bi bi-gear me-2"></i>Settings</h4>
+						<div class="row g-4" data-aos="fade-up" data-aos-easing="linear">
+							<div class="col-12">
+								<div class="vine-tabs pb-0 px-2 px-lg-0 rounded-top">
+									<ul class="nav nav-tabs nav-bottom-line nav-responsive border-0 nav-justified" role="tablist">
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0 active" data-bs-toggle="tab" href="#tab-1" aria-selected="true" role="tab">
+                                                <i class="bi bi-gear fa-fw me-2"></i>Edit Profile
+                                            </a> 
+                                        </li>
+										
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3" aria-selected="false" role="tab" tabindex="-1">
+                                                <i class="bi bi-lock me-2"></i> Security Settings
+                                            </a> 
+                                        </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="tab-content" data-aos="fade-up" data-aos-easing="linear">
+                                    <div class="tab-pane active show" id="tab-1" role="tabpanel">
+
+										<div class="dashboard-card">
+											<div class="dashboard-header">
+                                                <h4>Profile Details</h4> 
+											</div>
+											<div class="dashboard-body">
+
+												<div class="dashboard-user-box rounded-3 mb-5">
+													<div class="d-flex align-items-center"><img id="avatar" class="rounded-2" src="{{user.profile.avatar}}" alt="User">
+													  <div class="ps-4">
+                                                        <div class="mb-3">
+                                                            
+                                                            
+                                                          </div>
+                                                          <form action="" method="post" enctype="multipart/form-data">
+                                                            {% csrf_token %}
+        
+                                                            {% include 'message.html' %}
+                                                          <!-- <label for="formFile" class="form-label"> -->
+                                                            <label for="formFile" class="btn btn-mint btn-shadow btn-sm mb-2">
+                                                                <i class="bi bi-arrow-repeat me-2"></i>Change <span class="d-none d-sm-inline">avatar</span>
+                                                            </label>
+                                                          <!-- </label> -->
+                                                          <input class="form-control d-none" name="image" type="file" id="formFile">
+														
+														<div class="p mb-0 fs-sm text-muted">Upload JPG, GIF or PNG image. 300 x 300 required.</div>
+													  </div>
+													</div>
+												</div><!--/dashboard-user-box-->
+
+
+												
+													<div class="row g-3">
+													  <div class="col-sm-6">
+														  <label class="form-label">First Name</label> 
+														  <input type="text" value="{{user.first_name}}" name="first_name" placeholder="First Name">
+													  </div>
+													  <div class="col-sm-6">
+														  <label class="form-label">Last Name</label> 
+														  <input type="text" value="{{user.last_name}}" name="last_name" placeholder="Last Name">
+													  </div>
+													  <div class="col-sm-6">
+														  <label class="form-label">REGISTRATION NO.</label> 
+														  <input type="text" value="{{user.regno}}" name="regno" placeholder="Phone" readonly>
+													  </div>
+													  <div class="col-sm-6">
+														  <label class="form-label">Email</label> 
+														  <input type="text" value="{{user.email}}" readonly name="email" placeholder="Email">
+													  </div>
+													  <div class="col-sm-12">
+														  <label>Username</label>
+														  <span class="d-block text-muted fs-sm">www.apexcodestudios.com/</span>
+														  <input type="text" name="username" value="{% if user.username %}{{user.username}}{% endif %}" placeholder="abram_marvynn">
+													  </div> 
+													  													                 
+													  <div class="col-sm-12">
+														  <label class="form-label">Bio</label> 
+														  <textarea rows="5" name="bio" placeholder="Bio">{% if user.profile.bio  %}{{user.profile.bio}}{% endif %}</textarea>
+													  </div>
+													  
+													  <div class="col-sm-6">
+														  <label>Your State</label>
+														  <select name="state" required>
+                                                            
+                                                            {% if user.profile.state  %}
+                                                                <option value="{{user.profile.state}}" selected>{{user.profile.state}}</option>
+                                                            {% else %}
+                                                                <option disabled selected>--Select State--</option>
+                                                            {% endif %}
+                                                                
+                                                            <option value="Abia">Abia</option>
+                                                            <option value="Adamawa">Adamawa</option>
+                                                            <option value="Akwa Ibom">Akwa Ibom</option>
+                                                            <option value="Anambra">Anambra</option>
+                                                            <option value="Bauchi">Bauchi</option>
+                                                            <option value="Bayelsa">Bayelsa</option>
+                                                            <option value="Benue">Benue</option>
+                                                            <option value="Borno">Borno</option>
+                                                            <option value="Cross River">Cross River</option>
+                                                            <option value="Delta">Delta</option>
+                                                            <option value="Ebonyi">Ebonyi</option>
+                                                            <option value="Edo">Edo</option>
+                                                            <option value="Ekiti">Ekiti</option>
+                                                            <option value="Enugu">Enugu</option>
+                                                            <option value="FCT">Federal Capital Territory</option>
+                                                            <option value="Gombe">Gombe</option>
+                                                            <option value="Imo">Imo</option>
+                                                            <option value="Jigawa">Jigawa</option>
+                                                            <option value="Kaduna">Kaduna</option>
+                                                            <option value="Kano">Kano</option>
+                                                            <option value="Katsina">Katsina</option>
+                                                            <option value="Kebbi">Kebbi</option>
+                                                            <option value="Kogi">Kogi</option>
+                                                            <option value="Kwara">Kwara</option>
+                                                            <option value="Lagos">Lagos</option>
+                                                            <option value="Nasarawa">Nasarawa</option>
+                                                            <option value="Niger">Niger</option>
+                                                            <option value="Ogun">Ogun</option>
+                                                            <option value="Ondo">Ondo</option>
+                                                            <option value="Osun">Osun</option>
+                                                            <option value="Oyo">Oyo</option>
+                                                            <option value="Plateau">Plateau</option>
+                                                            <option value="Rivers">Rivers</option>
+                                                            <option value="Sokoto">Sokoto</option>
+                                                            <option value="Taraba">Taraba</option>
+                                                            <option value="Yobe">Yobe</option>
+                                                            <option value="Zamfara">Zamfara</option>
+                                                        </select>
+													  </div>
+
+
+													  <div class="col-sm-6">
+														  <label>Level</label>
+														  <select name="level" required>
+															
+                                                            {% if user.level  %}
+                                                                <option value="{{user.level}}" selected>{{user.level}}</option>
+                                                            {% else %}
+                                                                <option disabled selected>Select Youl Level</option>
+                                                            {% endif %}
+                                                                
+															<option value="ND 1">ND 1</option>
+															<option value="ND 2">ND 2</option>
+															<option value="HND 1">HND 1</option>
+															<option value="HND 2">HND 2</option>
+															
+														</select>
+													  </div>
+									  
+													  
+													  <div class="col-12">
+														  <label class="form-label">Connect with Twitter</label>
+														  <div class="d-flex justify-content-center">
+															  <span class="input-group-text border-0 bg-input" id="basic-addon1_"><i class="bi-twitter"></i></span> 
+															  <input type="text" value="{% if user.profile.x %}{{user.profile.x}}{% endif %}" name="x" placeholder="Twitter Username">
+														  </div>
+													  </div>
+													  <div class="col-12">
+														  <label class="form-label">Connect with Tiktok</label>
+														  <div class="d-flex justify-content-center">
+															  <span class="input-group-text border-0 bg-input" id="basic-addon1_"><i class="bi-tiktok"></i></span> 
+															  <input type="text" value="{% if user.profile.tiktok and user.profile.tiktok != '@' %}{{user.profile.tiktok}}{% endif %}" name="tiktok" placeholder="@Username">
+														  </div>
+													  </div>
+													  <div class="col-12">
+														  <label class="form-label">Connect with Github</label>
+														  <div class="d-flex justify-content-center">
+															  <span class="input-group-text border-0 bg-input" id="basic-addon1_"><i class="bi-github"></i></span> 
+															  <input type="text" value="{% if user.profile.github %}{{user.profile.github}}{% endif %}" name="github" placeholder="Github Username">
+														  </div>
+													  </div>
+													  <div class="col-12">
+														  <label class="form-label">Connect with Facebook</label>
+														  <div class="d-flex justify-content-center">
+															  <span class="input-group-text border-0 bg-input" id="basic-addon1_01"><i class="bi-facebook"></i></span> 
+															  <input type="url" value="{% if user.profile.facebook %}{{user.profile.facebook}}{% endif %}" name="facebook" placeholder="Facebook url: www.facebook.com/example">
+														  </div>
+													  </div>
+													  <div class="col-12"><label class="form-label">Connect with Instagram</label>
+														  <div class="d-flex justify-content-center">
+															  <span class="input-group-text border-0 bg-input" id="basic-addon1_02"><i class="bi-instagram"></i></span> 
+															  <input type="text" value="{% if user.profile.instagram and user.profile.tiktok != '@' %}{{user.profile.instagram}}{% endif %}" name="instagram" placeholder="Instagram Username">
+														  </div>
+													  </div>
+													</div>
+													<div class="d-flex pt-5">
+													  <button class="btn btn-mint me-3">Save Changes</button> 
+													  <a href="{{request.META.HTTP_REFERER}}" class="btn btn-secondary">Cancel</a>
+													</div>
+												  </form> 												
+
+											</div>
+										</div><!--/dashboard-card-->
+
+                                    </div><!-- Tab content 1 END -->
+
+                                    <div class="tab-pane" id="tab-3" role="tabpanel">
+
+										<div class="dashboard-card">
+											<div class="dashboard-header">
+												<h4>Change Password</h4>
+											</div>
+											<div class="dashboard-body">
+
+												<!-- Password -->
+												<form>
+												 <div class="row">
+													<div class="col-sm-12 mb-4">
+														<label class="form-label fs-base">Current password</label>
+														<div class="password-toggle">
+														<input type="password" placeholder="Current Password">
+														<label class="password-toggle-btn" aria-label="Show/hide password">
+															<input class="password-toggle-check" type="checkbox">
+															<span class="password-toggle-indicator"></span>
+														</label>
+														</div>
+													</div>
+													<div class="col-sm-12 mb-4">
+														<label class="form-label fs-base">New password</label>
+														<div class="password-toggle">
+														<input type="password" placeholder="Password">
+														<label class="password-toggle-btn" aria-label="Show/hide password">
+															<input class="password-toggle-check" type="checkbox">
+															<span class="password-toggle-indicator"></span>
+														</label>
+														</div>
+													</div>
+													<div class="col-sm-12 mb-4">
+														<label class="form-label fs-base">Confirm new password</label>
+														<div class="password-toggle">
+														<input type="password" placeholder="Confirm New Password">
+														<label class="password-toggle-btn" aria-label="Show/hide password">
+															<input class="password-toggle-check" type="checkbox">
+															<span class="password-toggle-indicator"></span>
+														</label>
+														</div>
+													</div>
+												 </div>
+													
+													<div class="d-flex mb-3 pt-2">
+													<button type="submit" class="btn btn-mint me-3">Save changes</button>
+													<button type="reset" class="btn btn-secondary">Cancel</button>
+													</div>
+												</form>	
+
+											</div>	
+										</div><!--/dashboard-card-->
+                                    </div><!-- Tab content 3 END -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!--/col-lg-9-->
+
+                </div>
+            </div>
+        </section>
+
+
+        <script>
+    
+            // This updates the Profile Picture
+            const profilePhoto = document.querySelector('input[name="image"]');
+    
+            profilePhoto.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            const image = document.querySelector('#avatar');
+    
+            if (file && file.type.includes('image')) {
+                const url = URL.createObjectURL(file);
+                image.src = url;
+            }
+            });
+    
+            
+    
+            // This updates the name
+            //const display_nameInput = document.getElementById('id_displayname');
+            //const display_nameOutput = document.getElementById('displayname');
+    
+            //display_nameInput.addEventListener('input', (event) => {
+               // display_nameOutput.innerText = event.target.value;
+            //});
+    
+        </script>
+{% endblock %}

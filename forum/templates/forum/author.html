@@ -1,0 +1,204 @@
+{% extends 'forum_nav.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+    {% include 'message.html' %}
+		<!-- ==============================================
+		 Hero
+		=============================================== -->
+        <div class="profile-banner"></div>
+
+		<!-- ==============================================
+		 Main
+		=============================================== -->
+		<section class="vine-main">
+			<div class="container">
+				<div class="row">
+
+                    <div class="col-lg-3" data-aos="fade-right" data-aos-easing="linear">
+
+                        <div class="user-profile-img">
+                            <a href="{{user_profile.avatar}}" class="nav-link">
+                                <img style="max-height: 200px; max-width: 200px;" class="avatar-img" src="{{user_profile.avatar}}" alt="{{user_profile.user.full_name}}">
+                            </a>
+                        </div>    
+
+                        <div class="user-profile-details">
+                            <div class="user-profile-name">
+                                <h4>{{user_profile.user.full_name}}</h4>
+                                
+                                {% if user_profile.user.username %}
+                                <p>@{{user_profile.user.username | lower}} | {{user.level}} </p>
+                                {% endif %}
+                                    
+                                <p class="fs-7 mt-3">From: {{user_profile.state}} State | Joined {{user_profile.user.date_joined | date:'M, Y'}}</p>
+                            </div>
+                            <div class="user-profile-stats">
+                                <ul>
+                                    <li><span class="item-number">{{user_profile.followers.all.count}}</span> <span class="item-text">Followers</span></li>
+                                    <li><span class="item-number">{{num_following}}</span> <span class="item-text">Following</span></li>
+                                    
+                                    {% if user_profile.user == user  %}
+                                    {% else %}
+                                        
+                                        {% if user in user_profile.followers.all  %}
+                                            <li> <a style="cursor: pointer;"
+                                                hx-post="{% url 'follow' user_profile.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container" 
+                                                class="btn btn-sm btn-danger rounded fw-bold"> Unfollow</a> </li>
+                                        {% else %}
+                                            <li> <a style="cursor: pointer;"
+                                                hx-post="{% url 'follow' user_profile.id %}"
+                                                hx-trigger="click"
+                                                hx-target="#container"
+                                                class="btn btn-sm btn-mint rounded fw-bold"> Follow</a> </li>
+                                        {% endif %}
+                                            
+                                    {% endif %}
+                                        
+                                </ul>                                
+                            </div>
+                            <div class="user-profile-followers">
+                                <h6 class="mb-3">Followers</h6>
+                                <ul>
+                                    
+                                    {% for follow  in user_profile.followers.all|slice:"6" %}
+                                        <li><a href="{% url 'dashboard' follow.profile.id %}"><img class="avatar-img avatar-sm" src="{{follow.profile.avatar}}" alt="User"></a></li>
+                                    {% endfor %}
+                                        
+                                    
+                                </ul> 
+                                                         
+                            </div> 
+
+                            <ul class="achivement-fact">
+                                <li>
+                                    <div class="icon"><i class="bi bi-layers"></i></div>
+                                    <h5 class="counter">{{user_post.count | intcomma}}</h5>
+                                    <p>Posts</p>
+                                </li>
+                                <li>
+                                    <div class="icon"><i class="bi bi-chat-dots"></i></div>
+                                    <h5 class="counter">{{total_comments | intcomma}}</h5>
+                                    <p>Comments</p>
+                                </li>
+                                <li>
+                                    <div class="icon"><i class="bi bi-heart"></i></div>
+                                    <h5 class="counter">{{total_likes| intcomma}}</h5>
+                                    <p>Likes</p>
+                                </li>
+                            </ul>
+
+
+                            {% include 'forum/social-media.html' %}
+
+                            <div class="user-profile-bio">
+                                <h6 class="mb-3">About</h6>
+                                
+                                {% autoescape off %}
+                                <p>{{user_profile.bio | urlize | linebreaks}}</p> 
+                                {% endautoescape %}
+                                
+                            </div>
+
+                        </div>
+                    </div>    
+
+                    <div class="col-12 col-lg-9">
+
+						<div class="row g-4" data-aos="fade-down" data-aos-easing="linear">
+							<div class="col-12">
+								<div class="vine-tabs pb-0 px-2 px-lg-0 rounded-top">
+									<ul class="nav nav-tabs nav-bottom-line nav-responsive border-0 nav-justified" role="tablist">
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0 active" data-bs-toggle="tab" href="#tab-1" aria-selected="true" role="tab">
+                                                <i class="bi bi-gear fa-fw me-2"></i>Posts
+                                            </a> 
+                                        </li>
+										
+                                        {% if user == user_profile.user %}
+                                            <li class="nav-item" role="presentation"> 
+                                                <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2" aria-selected="false" role="tab" tabindex="-1">
+                                                    <i class="bi bi-chat-dots fa-fw me-2"></i> Saved
+                                                </a> 
+                                            </li>
+                                        {% endif %}
+                                             
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3" aria-selected="false" role="tab" tabindex="-1">
+                                                <i class="bi bi-people me-2"></i> Following
+                                            </a> 
+                                        </li>
+										<li class="nav-item" role="presentation"> 
+                                            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-4" aria-selected="false" role="tab" tabindex="-1">
+                                                <i class="bi bi-people me-2"></i> Followers
+                                            </a> 
+                                        </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="tab-content mt-5">
+                                    <div class="tab-pane active show" id="tab-1" role="tabpanel">
+
+
+										<div class="discussions">
+		
+											
+						
+											
+                                            {% include 'forum/user-post.html' %}
+                                                
+						
+											
+
+											
+
+										</div>	
+
+                                    </div><!-- Tab content 1 END -->
+
+                                    <div class="tab-pane" id="tab-2" role="tabpanel">
+
+										<div class="row">
+											{% include 'forum/saved-post.html' %}
+											
+											
+										</div>
+										
+                                    </div><!-- Tab content 3 END -->
+
+                                    <div class="tab-pane" id="tab-3" role="tabpanel">
+
+										<div class="row">
+											{% include 'forum/following.html' %}
+											
+											
+										</div>
+										
+                                    </div><!-- Tab content 3 END -->
+
+                                    <div class="tab-pane" id="tab-4" role="tabpanel">
+
+										<div class="row">
+											{% include 'forum/followers.html' %}
+											
+										</div>
+										
+                                    </div><!-- Tab content 3 END -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!--/col-lg-9-->
+
+				</div>
+			</div>
+		</section>
+ {% endblock %}

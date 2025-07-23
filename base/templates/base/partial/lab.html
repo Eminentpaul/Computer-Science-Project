@@ -1,0 +1,12 @@
+{% load static %}
+
+<div class="modal-header">
+  {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <img src="{{lab.image.url}}" class="mb-3" style="object-fit: cover; max-width: 100%;">
+  <div class="text-center">
+      {% comment %} <h3 my-3>{{lab.name}}</h3> {% endcomment %}
+  </div>
+</div>

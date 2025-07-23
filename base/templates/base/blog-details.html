@@ -1,0 +1,189 @@
+{% extends 'nav.html' %}
+{% load static %}
+    <!-- header banner -->
+
+
+{% block title %}
+    IMT - Computer Science
+{% endblock title %}
+    
+    
+    {% block content %}
+    <!-- breadcrumb -->
+
+    <!-- BREADCRUMB AREA -->
+    <section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({% static 'assets/images/banner/breadcrumb.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">blogs</li>
+                        </ul>
+                        <h2 class="section-title">Departmental News Details</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BREADCRUMB AREA END -->
+
+    <!-- breadcrumb end -->
+
+    <!-- blog details -->
+    <div class="rts-blog-details rts-section-padding">
+        <div class="container">
+            <div class="row sticky-coloum-wrap justify-content-center g-5">
+                <div class="col-lg-8 col-md-10">
+                    <article class="blog-details">
+                        <div style="overflow-y: hidden; max-height: 600px;" class="blog-details__featured-image">
+                            <a href="{{main.blog_image}}" class="nav-link">
+                                <img style="width: 100vw;" src="{{main.blog_image}}" alt="blog post">
+                            </a>
+                        </div>
+                        <div class="blog-details__article-meta mt--40">
+                            <a href="#"><span><i class="fa-light fa-user"></i>Posted by: </span>{{blog.author}}</a>
+                            <span><span><i class="fa-light fa-clock"></i></span>{{blog.created}}</span>
+                            <!-- <a href="#"><span><i class="fa-sharp fa-light fa-tags"></i></span>Study Aboard</a> -->
+                        </div>
+                        <h3 class="blog-title">{{blog.title}}</h3>
+                        <p>{{blog.description | linebreaks | urlize | safe }}</p>
+                        
+                        
+                        <div class="row mb-5">
+                            
+                            {% for img  in images %}
+                                <div class="col-md-6">
+                                    <div class="post-image">
+                                        <img src="{{img.blog_image}}" alt="">
+                                    </div>
+                                </div>
+                            {% endfor %}
+                                                            
+                        </div>
+                        
+                    <div class="blog-info">
+                        
+                        <div class="blog-share">
+                            <div class="share">Share:</div>
+                            <div class="social__media--list">
+                                <a href="#" class="media"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="#" class="media"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="media"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#" class="media"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="#" class="media"><i class="fa-brands fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="blog-title mt-5 text-danger mb-3">Comments</h3>
+                    <div class="blog-author">
+                        
+                        {% for comment  in comments  %}
+                            <div class="blog-author__info mt-0">
+                                <!-- <div class="author-image">
+                                    <img src="{% static 'assets/images/author/02.png' %}" alt="">
+                                </div> -->
+                                <div class="author-content">
+                                    <a href="#">{{comment.author | title}}</a>
+                                    <p>{{comment.comment}}</p>
+                                    
+                                </div>
+                            </div>
+                        {% endfor %}
+                            
+                    </div>
+                    <div class="blog-comment mb-5 mb-lg-0">
+                        <div class="blog-comment__template">
+                            <h4>Share your opinion here !</h4>
+                            <form action="" method="post" class="comment-template">
+                                {% csrf_token %}
+                                <div class="input-area">
+                                    <input type="text" name="author" placeholder="Enter your name" required>
+                                    <!-- <input type="text" placeholder="Enter your email" required=""> -->
+                                </div>
+                                <!-- <div class="input-area-full">
+                                    <input type="text" placeholder="Enter your Subject" required="">
+                                </div> -->
+                                <textarea name="comment" class="input-area-full w-full" placeholder="Enter Your Comment"></textarea>
+                                <button class="rts-theme-btn with-arrow" type="submit">Submit Review
+                                    <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-10 sticky-coloum-item">
+                    <div class="program-sidebar">
+                        <!-- curriculum -->
+                        <!-- <div class="program-curriculum">
+                            <h6 class="heading-title">Category</h6>
+                            <div class="program-menu">
+                                <ul class="list-unstyled">
+                                    <li><a href="#"><span><i class="fa-light fa-arrow-right"></i></span>Course Curriculum</a></li>
+                                    <li><a href="#"><span><i class="fa-light fa-arrow-right"></i></span>Program Faculty</a></li>
+                                    <li><a href="#"><span><i class="fa-light fa-arrow-right"></i></span>Study Aboard</a></li>
+                                    <li><a href="#"><span><i class="fa-light fa-arrow-right"></i></span>Scholarship </a></li>
+                                    <li><a href="#"><span><i class="fa-light fa-arrow-right"></i></span>Education Expo</a></li>
+                                </ul>
+                            </div>
+                        </div> -->
+                        <!-- contact info -->
+                        {% comment %} <div class="program-info">
+                            <h5>Department Contact Info</h5>
+                            <p>Computer Science</p>
+                            <div class="contact-info">
+                                <h5>Contact:</h5>
+                                <a href="mailto:barry.Unipix@info.com">barry.Unipix@info.com</a>
+                                <a href="callto:121">664-254-251</a>
+                            </div>
+                            <div class="social-info">
+                                <h5>Social Info:</h5>
+                                <div class="social-info-link">
+                                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                    <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+
+                        <!-- join event -->
+                        <div class="program-event">
+                            <div class="program-event-content text-white">
+                                <h5 class="text-warning">Other Interesting News</h5>
+
+                                {% for bg in blogs %}
+                                    <a href="{% url 'blog_details' bg.id %}" class="nav-link d-flex text-start text-white omega">
+                                        <div style="overflow: hidden; max-height: 100px; max-width: 50%;" class="me-4">
+                                            
+                                            {% for img in other_blog_images %}
+                                                
+                                                {% if img.blog == bg %}
+                                                    <img style="max-width: 100%;" src="{{img.blog_image}}" alt="">
+                                                {% endif %}
+                                                    
+                                            {% endfor %}
+                                                
+                                        </div>
+                                        
+                                        <span>
+                                            <h5 style="font-size: 16px; color: white !important;" class="mb-0">
+                                                {{bg.title | truncatechars:30}}
+                                            </h5>
+                                            <span class="text-start" style="font-size: 13px; color: greenyellow">Read More...</span>
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                                    
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- blog details end -->
+{% endblock %}

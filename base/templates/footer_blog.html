@@ -1,0 +1,21 @@
+{% for blog  in blogs  %}
+    <li class="single-post">
+        <a href="{% url 'blog_details' blog.id %}" class="blog-thumb">
+            
+            {% for img  in images %}
+                
+                {% if img.blog == blog %}
+                    <img src="{{img.blog_image}}" alt="latest post">
+                {% endif %}
+                    
+            {% endfor %}
+                
+        </a>
+        <div class="post-content">
+            <span class="rt-date">{{blog.created | date:"d M, Y"}}</span>
+            <a href="{% url 'blog_details' blog.id %}">
+                {{blog.title | truncatechars:55}}
+            </a>
+        </div>
+    </li>
+{% endfor %}

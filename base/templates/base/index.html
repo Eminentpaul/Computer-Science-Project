@@ -1,0 +1,530 @@
+{% extends 'nav.html' %}
+{% load static %}
+    <!-- header banner -->
+
+
+{% block title %}
+    IMT - Computer Science
+{% endblock title %}
+    
+    
+
+
+    {% block content %}
+        
+    <div class="banner v__2">
+        <div class="banner__wrapper">
+            <div class="swiper  swiper-data" data-swiper='{
+                        "slidesPerView":1,
+                        "effect": "fade",
+                        "loop": true,
+                        "speed": 1000,
+                        "autoplay":{
+                            "delay":"7000"
+                }}'>
+                <div class="swiper-wrapper">
+                    
+                    {% for slide in home_slide %}
+                        <!-- single slides -->
+                    <div class="swiper-slide">
+                        <div class="banner__wrapper--bg" style="background-image: url({{slide.home_image}});">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="banner__slides--container banner__height">
+                                            <div class="banner__slides--content">
+                                                <div class="banner__slides--content--sub">
+                                                    <img src="{% static 'assets/images/icon/e-cap.svg' %}" alt="cap"> {{slide.tag}}
+                                                </div>
+                                                <h1 class="banner__slides--content--title">
+                                                    {{slide.title}}
+                                                </h1>
+                                                <a href="#" class="rts-theme-btn btn-arrow disable">View Our Department
+                                                    <span><i class="fa-regular fa-arrow-right"></i></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single slides end -->
+                    {% endfor %}
+                        
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- header banner end -->
+    <!-- about us -->
+    <section class="about v__2 pt--120 pb--80">
+
+        
+        <div class="container">
+            <div class="row justify-content-md-center g-5">
+                <div class="col-lg-6 col-md-9">
+                    <div class="about__left--content">
+                        <div class="about__left--content--left">
+                            <img src="{% static 'assets/images/home1.png' %}" alt="">
+                        </div>
+                        <div class="about__left--content--center">
+                            <div class="rts__circle v__1">
+                                <svg class="spinner" viewBox="0 0 100 100">
+                                    <defs>
+                                        <path id="circle" d="M50,50 m-37,0a37,37 0 1,1 74,0a37,37 0 1,1 -74,0"></path>
+                                    </defs>
+                                    <text>
+                                        <textPath xlink:href="#circle">Nigeria Association of Computing Students                       </textPath>
+                                    </text>
+                                </svg>
+                                <div class="rts__circle--icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about__left--content--right">
+                            <img src="{% static 'assets/images/home2.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-9">
+                    <div class="about__right--content">
+                        <div class="about__right--content--sub">
+                            <img src="{% static 'assets/images/icon/e-cap-pix.svg' %}" alt="cap">
+                            knowledge meets innovation
+                        </div>
+                        <h2 class="about__right--content--title">About Department</h2>
+                        <p class="about__right--content--description text-justify">Our Computer Science Department typically offers a comprehensive curriculum that covers a wide range of topics such as programming, algorithms, data structures, software engineering, computer networks, artificial intelligence, and machine learning. Students are taught to think critically and solve complex problems using computational methods. <br> <br>
+
+                        In addition to theoretical knowledge, the department often emphasizes practical experience through hands-on projects, internships, and collaboration with industry partners. Department members usually have diverse expertise and are engaged in cutting-edge research, providing students with opportunities to participate in innovative projects. </p>
+                        
+                        <!-- <div class="about__right--content--vision">
+                            <div class="mision">
+                                <div class="mision__icon">
+                                    <img src="{% static 'assets/images/icon/mission.svg' %}" alt="">
+                                </div>
+                                <div class="mision__title">
+                                    University Mission
+                                    Statement
+                                </div>
+                            </div>
+                            <div class="vision">
+                                <div class="vision__icon">
+                                    <img src="{% static 'assets/images/icon/vission.svg' %}" alt="">
+                                </div>
+                                <div class="vision__title">
+                                    University Vision
+                                    Achievement
+                                </div>
+                            </div>
+                        </div> -->
+                        <a href="{% url 'about' %}" class="rts-theme-btn btn-arrow">Read More...
+                            <span><i class="fa-regular fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about us end -->
+    <!-- fun fact -->
+
+    <div class="rts-funfact v__2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 ">
+                    <div class="rts-funfact-wrapper">
+                        <div class="single-cta-item">
+                            <h2 class="single-cta-item__title">90%</h2>
+                            <p>post-graduation success rate</p>
+                        </div>
+                        <div class="single-cta-item">
+                            <h2 class="single-cta-item__title">Top 10</h2>
+                            <p>Department that Create Futures</p>
+                        </div>
+                        <div class="single-cta-item">
+                            <h2 class="single-cta-item__title">No. 1</h2>
+                            <p>in the nation for materials R&D</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <!-- scholarship appication -->
+    <section class="rts-scholarship rts-scholarship-bg rts-section-height mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="rts-scholarship-info">
+                        <h2 class="rts-section-title">Scholarships and Financial Aid</h2>
+                        <p class="w-740 mb--50">Each semester, The Department is proud to honor academically talented and exceptionally skilled students with a variety of scholarships and awards. The Department annually awards more than 100 million takas as scholarships to both undergraduate and postgraduate students.</p>
+                        <a href="about.html" class="rts-theme-btn btn-arrow">Know More<span><i class="fa-thin fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- scholarship appication end -->
+
+    <!-- blog -->
+    <section class="blog pt--120">
+        <div class="container">
+            <div class="row">
+                <div class="rts__section--wrapper v__8">
+                    <div class="rts__section--wrapper--left">
+                        <h2 class="rts__section--title mb--15">Read Our Latest News</h2>
+                        <p class="rts__section--description">Our mission is to provide you with valuable insights</p>
+                    </div>
+                    <div class="rts__section--link">
+                        <a href="{% url 'blog' %}" class="rts-nbg-btn btn-arrow">View All
+                            <span><i class="fa-sharp fa-regular fa-arrow-right"></i>
+                        </span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- blog area -->
+            <div class="row g-5 my-5">
+                
+                {% for blog  in blogs  %}
+                    <div class="col-sm-10 col-md-6 col-lg-6 col-xl-4">
+                        <div class="single-blog">
+                            <div class="blog single-blog__content">
+                                <div class="blog__thumb" style="max-height: 200px; overflow: hidden;">
+                                    
+                                    {% for img  in images %}
+                                        
+                                        {% if img.blog == blog %}
+                                            <a href="{% url 'blog_details' blog.id %}">
+                                                <img src="{{img.blog_image}}" alt="blog thumbnail">
+                                            </a>
+                                        {% endif %}
+                                            
+                                    {% endfor %}
+                                        
+                                </div>
+                                <div class="blog__meta">
+                                    <div class="blog__meta--da">
+                                        <div class="blog-date">
+                                            <span><i class="fal fa-calendar"></i></span>
+                                            <span>{{blog.created}}</span>
+                                        </div>
+                                        <div class="blog-author">
+                                            <span><i class="far fa-user"></i>
+                                            </span>
+                                            <span><a href="#">{{blog.author}}</a></span>
+                                        </div>
+                                    </div>
+                                    <h5 class="blog__title"> <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:70}} </a></h5>
+                                    <a href="{% url 'blog_details' blog.id %}" class="rts-theme-btn primary with-arrow lh-100">Read More <span><i class="fa-thin fa-arrow-right"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+                
+            </div>
+        </div>
+    </section>
+    <!-- blog end -->
+   
+    <!-- student feedback -->
+    <section class="feedback rts-section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="rts__section--wrapper v__9">
+                        <h2 class="rts__section--title">Our Students Reviews</h2>
+                        <p class="rts__section--description">You'll find something to spark your curiosity and enhance</p>
+                    </div>
+                </div>
+            </div>
+            <!-- feedback slider -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="rts__testimonial--active swiper swiper-data" data-swiper='{
+                        "slidesPerView":3,
+                        "loop": true,
+                        "speed": 1000,
+                        "pagination":{
+                            "el":".rts__pagination",
+                            "clickable": true
+                        },
+                        "autoplay":{
+                            "delay":"7000"
+                        },
+                        "breakpoints":{
+                            "320":{
+                                "slidesPerView": 1
+                            },
+                            "575":{
+                                "slidesPerView": 1.5
+                            },
+                            "768":{
+                                "slidesPerView": 2
+                            },
+                            "991":{
+                                "slidesPerView": 2.2
+                            },
+                            "1201":{
+                                "slidesPerView": 3
+                            }
+                        }
+                    }'>
+                        <div class="swiper-wrapper">
+                            <!-- single slide -->
+                            <div class="swiper-slide">
+                                <div class="rts__single--testimonial">
+                                    <div class="rts__rating--star">
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-light fa-star"></i>
+                                    </div>
+                                    <p class="rts__single--testimonial--text">
+                                        The computer science department is excellent—knowledgeable Department, strong curriculum, and great research opportunities. Highly recommended for aspiring tech students!
+                                    </p>
+                                    <div class="rts__single--testimonial--author">
+                                        <div class="rts__single--testimonial--author--meta">
+                                            <div class="rts__author--img">
+                                                <img style="max-width: 50px; border-radius: 50%;" src="{% static 'img/paulinus.jpg' %}" alt="author">
+                                            </div>
+                                            <div class="rts__author--info">
+                                                <h5 class="mb-0">Paulinus Offorbuike</h5>
+                                                <span class="designation">Student, HND 2</span>
+                                            </div>
+                                        </div>
+                                        <div class="rts__single--testimonial--quote">
+                                            <img src="{% static 'assets/images/testimonial/quote.svg' %}" alt="quote">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single slide end -->
+                            <!-- single slide -->
+                            <div class="swiper-slide">
+                                <div class="rts__single--testimonial">
+                                    <div class="rts__rating--star">
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-light fa-star"></i>
+                                    </div>
+                                    <p class="rts__single--testimonial--text">
+                                        I can't recommend The Gourmet Haven enough. It's a place for special date in nights, or whenever you're in the mood for a culinary.
+                                    </p>
+                                    <div class="rts__single--testimonial--author">
+                                        <div class="rts__single--testimonial--author--meta">
+                                            <div class="rts__author--img">
+                                                <img src="{% static 'assets/images/testimonial/author-2.png' %}" alt="author">
+                                            </div>
+                                            <div class="rts__author--info">
+                                                <h5 class="mb-0">Samantha Willow</h5>
+                                                <span class="designation"> Teacher</span>
+                                            </div>
+                                        </div>
+                                        <div class="rts__single--testimonial--quote">
+                                            <img src="{% static 'assets/images/testimonial/quote.svg' %}" alt="quote">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single slide end -->
+                            <!-- single slide -->
+                            <div class="swiper-slide">
+                                <div class="rts__single--testimonial">
+                                    <div class="rts__rating--star">
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-solid fa-star"></i>
+                                        <i class="fa-sharp fa-light fa-star"></i>
+                                    </div>
+                                    <p class="rts__single--testimonial--text">
+                                        I can't recommend The Gourmet Haven enough. It's a place for special date in nights, or whenever you're in the mood for a culinary.
+                                    </p>
+                                    <div class="rts__single--testimonial--author">
+                                        <div class="rts__single--testimonial--author--meta">
+                                            <div class="rts__author--img">
+                                                <img src="{% static 'assets/images/testimonial/author-3.png' %}" alt="author">
+                                            </div>
+                                            <div class="rts__author--info">
+                                                <h5 class="mb-0">Zent Ekizie</h5>
+                                                <span class="designation">Assistant Teacher</span>
+                                            </div>
+                                        </div>
+                                        <div class="rts__single--testimonial--quote">
+                                            <img src="{% static 'assets/images/testimonial/quote.svg' %}" alt="quote">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single slide end -->
+                        </div>
+                        <div class="rts__pagination v__1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Latest News/Events</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="single-blog">
+            <div class="blog single-blog__content">
+                <div class="blog__thumb" style="max-height: 200px; overflow: hidden;">
+                    
+                    
+                            <a href="{% url 'blog_details' blog.id %}">
+                                <img src="{{post_images.image.url}}" alt="blog thumbnail">
+                            </a>
+                        
+                        
+                </div>
+                <div class="blog__meta">
+                    <div class="blog__meta--da">
+                        <div class="blog-date">
+                            <span><i class="fal fa-calendar"></i></span>
+                            <span>{{blog.created}}</span>
+                        </div>
+                        <div class="blog-author">
+                            <span><i class="far fa-user"></i>
+                            </span>
+                            <span><a href="#">{{blog.author}}</a></span>
+                        </div>
+                    </div>
+                    <h5 class="blog__title"> <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:70}} </a></h5>
+                    <a href="{% url 'blog_details' blog.id %}" class="rts-theme-btn primary with-arrow lh-100">Read More <span><i class="fa-thin fa-arrow-right"></i></span></a>
+                </div>
+            </div>
+        </div>
+      </div>
+      {% comment %} <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div> {% endcomment %}
+    </div>
+  </div>
+</div>
+
+
+<script>
+ $( document ).ready(function(){
+   setTimeout(function(){$('#staticBackdrop').modal('show');}, 5000);
+    
+   //setTimeout(function() {$('#staticBackdrop').modal('hide');}, 10000);
+});
+  </script>
+
+
+
+    <!-- student feedback end -->
+
+    
+    <!-- brand slider -->
+    <!-- <div class="rts-brand v_1 pb--85 pt--85">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-12 col-md-11">
+                    <div class="rts-brand-slider swiper swiper-data" data-swiper='{
+                    "slidesPerView":6,
+                    "loop": true,
+                    "autoplay":{
+                        "delay":"3000"
+                    },
+                    "breakpoints":{
+                        "320":{
+                            "slidesPerView": 3,
+                            "centeredSlides": true
+                        },
+                        "575":{
+                            "slidesPerView": 4,
+                            "centeredSlides": true
+                        },
+                        "768":{
+                            "slidesPerView": 5,
+                            "centeredSlides": true
+                        },
+                        "991":{
+                            "slidesPerView": 6,
+                            "centeredSlides": true
+                        },
+                        "1201":{
+                            "slidesPerView": 6
+                        }
+                    }
+            }'>
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="single-brand-logo">
+                                    <a href="#">
+                                        <img src="{% static 'assets/images/brand/01.svg' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-brand-logo">
+                                    <a href="#">
+                                        <img src="{% static 'assets/images/brand/02.svg' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-brand-logo">
+                                    <a href="#">
+                                        <img src="{% static 'assets/images/brand/03.svg' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-brand-logo">
+                                    <a href="#">
+                                        <img src="{% static 'assets/images/brand/04.svg' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-brand-logo">
+                                    <a href="#">
+                                        <img src="{% static 'assets/images/brand/05.svg' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-brand-logo">
+                                    <a href="#">
+                                        <img src="{% static 'assets/images/brand/06.svg' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- brand slider end -->
+ 
+    {% endblock %}

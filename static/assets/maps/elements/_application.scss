@@ -1,0 +1,397 @@
+// apply now area css
+.rts-application-area {
+    &>* {
+        position: relative;
+        z-index: 1;
+    }
+
+    &.rts-application-area-bg {
+        position: relative;
+        background: var(--rt-white);
+
+        &::before {
+            @include position;
+            height: 95%;
+            width: 100%;
+            background: var(--rt-secondary);
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .rt-shape {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+
+        @include mq($sm) {
+            display: none;
+        }
+
+        &__1 {
+            position: absolute;
+            left: -22%;
+            top: -15%;
+        }
+
+        &__2 {
+            position: absolute;
+            left: -20%;
+            top: 15%;
+        }
+
+        &__3 {
+            position: absolute;
+            left: -15%;
+            bottom: 40%;
+        }
+
+        &__4 {
+            position: absolute;
+            right: -10%;
+        }
+
+        &__5 {
+            position: absolute;
+            right: -15%;
+            bottom: 30%;
+        }
+    }
+
+    // application area home 2
+    &.v_1{
+        .rts-admission-form-image {
+            img {
+                max-height: 440px;
+                max-width: max-content;
+                object-fit: cover;
+                border-radius: 10px;
+                @include mq($md){
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+    &.v_2 {
+        .rts-section-title {
+            font-size: 100px;
+            line-height: 100%;
+            text-transform: capitalize;
+            @include mq($md) {
+                font-size: 60px;
+            }
+        }
+
+        .rts-admission-form-image {
+            position: relative;
+            min-height: 570px;
+            width: 100%;
+            @include mq($sm){
+                min-height: 350px;
+            }
+            img {
+                position: absolute;
+                height: 100%;
+                max-width: 100%;
+                object-fit: cover;
+                border-radius: 0    ;
+            }
+        }
+
+        .rts-application-form-content {
+            padding: 50px 85px;
+            background: var(--rt-white);
+            box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.10);
+            position: relative;
+            margin-top: -20%;
+
+            @include mq($md) {
+                padding: 50px 40px;
+            }
+        }
+
+        .rts-input {
+            .single-input {
+                width: 50%;
+                input{
+                    border-radius: 0 !important;
+                }
+                
+            }
+
+            &.w-full {
+                .single-input {
+                    width: 100%;
+                    input, textarea{
+                        border-radius: 0 !important;
+                    }
+                }
+            }
+        }
+
+        .rt-shape {
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+
+            &__1 {
+                position: absolute;
+                left: -4%;
+                top: 18%;
+            }
+
+            &__2 {
+                position: absolute;
+                left: -10%;
+                top: 80%;
+            }
+
+            &__3 {
+                position: absolute;
+                right: -25%;
+                left: unset;
+                top: 5%;
+            }
+
+            &__4 {
+                position: absolute;
+                right: -10%;
+                bottom: 8px;
+                transform: rotate(114deg);
+            }
+
+        }
+       
+
+    }
+    &.v__3{
+        .rts-admission-form-image{
+            img{
+                border-radius: 10px;
+            }
+        }
+        .rts-theme-btn{
+            border-radius: 4px !important;
+        }
+        .heading-title{
+            font-family: var(--font-secondary);
+        }
+        .single-input input, .single-input textarea{
+            border-radius: 4px;
+        }
+    }
+    &.v__4{
+
+    }
+    
+
+    .rts__section--description {
+        max-width: 445px;
+        text-align: center;
+    }
+
+    .rts-section-big-text {
+        font-size: 96px;
+        font-weight: 700;
+        color: #DADADA;
+        -webkit-text-stroke: 1px;
+        -webkit-text-stroke-color: currentcolor;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke-color: #DADADA;
+        position: relative;
+        top: 70px;
+        font-family: var(--font-hind);
+        @include mq($lg){
+            font-size: 65px;
+        }
+        @include mq($md){
+            display: none;
+        }
+    }
+}
+
+.rts-admission-form-image {
+    img {
+        min-height: 440px;
+        object-fit: cover;
+        max-width: max-content;
+        margin-left: -15px;
+        border-radius: 10px;
+        @include mq($md) {
+            max-width: 100%;
+            margin-left: 0;
+        }
+    }
+}
+
+.rts-application-form {
+    
+    &-content {
+        padding: 50px 40px 40px 40px;
+        background: var(--rt-white);
+        box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.10);
+        border-radius: 10px;
+        .heading-title{
+            font-family: var(--font-hind);
+        }
+        &.v__2{
+            border-radius: 0;
+            .heading-title{
+                font-size: var(--font-secondary);
+            }
+            .rts-theme-btn{
+                border-radius: 0px !important;
+            }
+        }
+        .rts-form {
+            .rts-input {
+                gap: 20px;
+                margin-bottom: 20px;
+                flex-wrap: nowrap;
+
+                @include mq($sm) {
+                    flex-wrap: wrap;
+                }
+
+                .single-input {
+                    width: 50%;
+
+                    @include mq($sm) {
+                        width: 100%;
+                    }
+                }
+
+                &.w-full {
+                    .single-input {
+                        width: 100%;
+                    }
+                }
+
+                .single-input input,
+                .single-input textarea {
+                    padding: 5px 15px;
+                    border: 1px solid #DDDDDD;
+                    font-size: 14px;
+                    border-radius: 4px;
+                }
+
+                .single-input textarea {
+                    height: 100px;
+                    resize: none;
+                    border-radius: 4px;
+                }
+            }
+
+            .apply-btn {
+                padding: 15px 0;
+                background: var(--rt-primary);
+                color: var(--rt-white);
+                position: relative;
+                border-radius: 30px;
+            }
+            .rts-theme-btn{
+                border-radius: 30px;
+                background: var(--rt-primary-2);
+                color: var(--rt-white);
+            }
+        }
+    }
+}
+
+
+
+// APPLY PROCEDURE CSS
+.rts-application-procedure {
+    .rts-section {
+        @include mq($md) {
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+}
+
+.single-procedure {
+    padding: 40px 40px 50px 40px;
+    position: relative;
+    background: var(--rt-primary);
+    overflow: hidden;
+
+    &>* {
+        position: relative;
+        z-index: 1;
+    }
+
+    &:hover {
+        .procedure-image {
+            opacity: 1;
+        }
+
+    }
+
+    .procedure-image {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: var(--transition);
+
+        &::before {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.20) 0%, #000 100%);
+            @include position-100;
+            inset: 0;
+            transition: var(--transition);
+        }
+
+        img {
+            display: block;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .rt-clip-serial {
+        font-size: 64px;
+        font-weight: 700;
+        position: absolute;
+        right: 35px;
+        top: 50px;
+        color: var(--rt-white);
+    }
+
+    a {
+        font-size: 22px;
+        font-family: var(--font-secondary);
+        @include mq($lg) {
+            font-size: 21px;
+        }
+        color: var(--rt-white);
+        display: block;
+        margin-bottom: 20px;
+        transition: var(--transition);
+
+        &:hover {
+            color: var(--rt-white);
+        }
+    }
+
+    .icon {
+        margin-bottom: 30px;
+    }
+
+    p {
+        color: var(--rt-white);
+    }
+
+}

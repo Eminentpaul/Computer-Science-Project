@@ -1,0 +1,96 @@
+// contact info
+.rts-contact-info{
+    .contact-information{
+        .single-contact{
+            background: #f6f6f6;
+            text-align: center;
+            padding: 50px;
+            @include mq($lg){
+                padding: 25px;
+            }
+            &__single{
+                .icon{
+                    margin-bottom: 30px;
+                    i{
+                        font-size: 64px;
+                        color: var(--rt-primary-1);
+                    }
+                }
+                p{
+                    color: var(--rt-secondary);
+                    font-weight: 500;
+                    line-height: 30px;
+                    &.rt-regular{
+                        font-weight: 400 !important;
+                    }
+                }
+                .method{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    a{
+                        font-size: 20px;
+                        font-weight: 500;
+                        color: var(--rt-secondary);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// contact method
+.rts-campus-contact{
+
+}
+.contact-method{
+    &__single{
+        position: relative;
+        &::before{
+            @include position-100;
+            background: rgba(0, 0, 0, 0.60);
+        }
+        .contact-img-bg{
+            img{
+                min-height: 370px;
+                max-height: 370px;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .contact-text{
+            padding: 60px 50px;
+            position: absolute;
+            top: 0;
+            min-height: 100%;
+            width: 100%;
+            color: var(--rt-white);
+            h3.contact-title{
+                color: var(--rt-white);
+                margin-bottom: 20px;
+            }
+            .description{
+                color: var(--rt-white);
+                font-size: 20px;
+                font-weight: 500;
+            }
+            .contact-link{
+                position: absolute;
+                bottom: 60px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                a{
+                    color: var(--rt-white);
+                    display: block;
+                    font-size: 20px;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
+.contact-map{
+    height: 470px;
+    filter: grayscale(1);
+}

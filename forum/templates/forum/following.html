@@ -1,0 +1,26 @@
+{% load static %}
+
+
+{% for  follower  in following  %}
+
+    <div class="col-lg-6">
+
+        <div class="card mb-5">
+            <div class="media media-xs card-body">
+                <img src="{{follower.user.profile.avatar}}" class="avatar avatar-lg rounded-circle me-3" alt="avatar-img">
+                <div class="media-body valign-middle">
+                    <a class="fw-semibold" href="javascript:void(0)">{{follower.user.full_name}}</a>
+                    <p class="text-muted mb-0" style="color: #20c997 !important;"> <i class="bi bi-geo-alt"></i>{{follower.user.level}}</p>
+                </div>
+                <div class="media-body valign-middle text-end mt-2"><a href="{% url 'dashboard' follower.user.profile.id %}" class="btn btn-mint" type="button">View Profile</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% empty %}
+<p class="text-center">You don't have any follower yet</p>
+       
+{% endfor %}
+    

@@ -1,0 +1,417 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 
+    {% block title %}
+        
+    {% endblock title %}
+         </title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/fav.svg' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/animate.min.css' %}">
+    <!-- fontawesome 6.4.2 -->
+
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <!-- htmx -->
+     
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.min.css' %}">
+    <!-- bootstrap min css -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <!-- bootstrap icon -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- swiper Css 10.2.0 -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/swiper.min.css' %}">
+    <!-- Bootstrap 5.0.2 -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/magnific-popup.css' %}">
+    <!-- metismenu scss -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/metismenu.css' %}">
+    <!-- nice select js -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.css' %}">
+    <!-- custom style css -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/assets/css/responsive.css' %}">
+
+
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> {% endcomment %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    {% comment %} Start Htmx {% endcomment %}
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <!-- Button trigger modal -->
+<div class="container-fluid d-flex gap-lg-5 fw-bold justify-content-center" style="background-color: #09A24F;">
+    <span class="bg-white p-2 text-success">SCHOOL CONTACT:</span>
+  <a href="mailto:info@csimt.com" class="nav-link text-white"><i class="fa fa-envelope"></i> info@csimt.com </a>
+  <a href="tel:+234 803 888 8655" class="nav-link text-white"><i class="fa fa-phone-volume"></i> +234 803 888 8655</a>
+</div>
+
+
+
+
+    <!-- header area start -->
+    <header class="header header__sticky v__2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="header__wrapper">
+                        <div class="header__logo">
+                            <a href="/" class="header__logo--link">
+                                <img style="max-width: 120px;" src="{% static 'assets/images/logo/logo__two.svg' %}" alt="unipix">
+                            </a>
+                        </div>
+                        <div class="header__menu">
+                            <div class="navigation">
+                                <nav class="navigation__menu">
+                                    <ul>
+                                        <li class="navigation__menu--item">
+                                            <a href="/" class="navigation__menu--item__link">Home</a>
+                                        </li>
+                                        <li class="navigation__menu--item">
+                                            <a href="{% url 'blog' %}" class="navigation__menu--item__link">News/Events</a>
+                                        </li>
+
+                                        <li class="navigation__menu--item has-child has-arrow">
+                                            <a href="javascript:void(0);" class="navigation__menu--item__link">Academics</a>
+                                            <ul class="submenu sub__style">
+                                                <li><a href="{% url 'lecturers' %}">Teaching Staff</a></li>
+                                                <li><a href="{% url 'non_lecturers' %}">Non-Teaching Staff</a></li>
+                                                <li><a href="#{% url 'forum' %}">Class Timetables</a></li>
+                                                {% comment %} <li><a href="{% url 'excos' %}">Our Excos</a></li> {% endcomment %}
+                                                
+                                            </ul>
+                                        </li>
+   
+                                        <li class="navigation__menu--item has-child has-arrow">
+                                            <a href="javascript:void(0);" class="navigation__menu--item__link">Classes/Labs</a>
+                                            <ul class="submenu sub__style">
+                                                <li><a href="#">Class Rooms</a></li>
+                                                <li><a href="{% url 'labs' %}">Practical Labs</a></li>
+                                                <li><a href="{% url 'contact' %}">CS Block</a></li>
+                                                {% comment %} <li><a href="{% url 'excos' %}">Our Excos</a></li> {% endcomment %}
+                                                
+                                            </ul>
+                                        </li>
+   
+                                        <li class="navigation__menu--item">
+                                            <a href="{% url 'excos' %}" class="navigation__menu--item__link">Our Excos</a>
+                                        </li>
+
+                                        <li class="navigation__menu--item has-child has-arrow">
+                                            <a href="javascript:void(0);" class="navigation__menu--item__link">Students</a>
+                                            <ul class="submenu sub__style">
+                                                <li><a href="{% url 'forum' %}">Student Forum</a></li>
+                                                
+                                                {% comment %} <li><a href="{% url 'lecturers' %}">Gallery</a></li> {% endcomment %}
+                                                
+                                                {% if user.is_authenticated  %}
+                                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                                {% endif %}
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+
+                                        
+                                        
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="header__right d-lg-none">
+                            <div class="header__right--item">
+                                {% comment %} <div id="langSwitcher" class="lang__trigger">
+                                    
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'forum' %}" class="nav-link text-success">
+                                        Open Student Forum
+                                        </a>
+                                        |
+                                        <a href="{% url 'logout' %}" class="nav-link text-success">
+                                            <i class="bi bi-power text-danger"></i>
+                                        </a>    
+                                    {% else %}
+                                        <a href="{% url 'forum' %}" class="nav-link text-success">
+                                        Join CS Student Forum
+                                        </a>
+                                    {% endif %}
+                                        
+                                    
+                                </div> {% endcomment %}
+                                
+                                <div id="menu-btn" class="menu__trigger">
+                                    <img src="{% static 'assets/images/icon/menu__bar.svg' %}" alt="bar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header area end -->
+
+
+    
+    {% block content %}
+        
+    {% endblock content %}
+
+
+    <!-- footer start -->
+    <footer class="rts-footer rts-footer-padding v_2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- <div class="rts-footer-newsletter">
+                    <div class="col-lg-10">
+                        <div class="rts-newsletter-box-content">
+                            <h4 class="newsletter-title">Subscribe To Newsletter
+                            </h4>
+                            <div class="newsletter-form w-530">
+                                <form action="#">
+                                    <input type="email" name="subscription" id="subscription" placeholder="Enter Your mail" required="">
+                                    <button type="submit" class="rts-nbg-btn btn-arrow">Subscribe <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="row gy-5 gy-lg-0">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="rts-footer-widget w-320">
+                        <a href="/" class="d-block rts-footer-logo mb--40">
+                            <img src="{% static 'assets/images/logo/logo__white.svg' %}" alt="Unipix">
+                        </a>
+                        <p>
+                            We are passionate education dedicated to providing high-quality
+                            resources learners all backgrounds.
+                        </p>
+                        <div class="rts-contact-link">
+                            <a href="mailto:contact@reacthemes.com"><i class="fa-sharp fa-light fa-location-dot"></i> A Complex Building, IMT Enugu </a>
+                            <a href="#callto:121"><i class="fa-thin fa-phone"></i> +2348 143 232 2332</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-8 col-sm-4">
+                    <div class="rts-footer-widget ml--30">
+                        <h6 class="rt-semi">Quick Links</h6>
+                        <div class="rts-footer-menu">
+                            <ul>
+                                <li><a href="{% url 'about' %}">About </a></li>
+                                <li><a href="{% url 'blog' %}">Blogs</a></li>
+                                <li><a href="{% url 'lecturers' %}">Faculty Staff</a></li>
+                                <li><a href="{% url 'excos' %}">Excos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="rts-footer-widget ml--30">
+                        <h6 class="rt-semi">Recent Post</h6>
+                        <div class="rts-post-widget">
+                            <ul class="list-unstyled">
+                               
+                                
+                                {% include 'footer_blog.html' %}
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="rts-footer-copy-right v_1">
+        <div class="container">
+            <div class="row">
+                <div class="rt-center">
+                    
+                    <p class="--p-xs">Copyright &copy; <span id="yeard"></span> All Rights Reserved by <a href="#">Computer Science Department</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer end -->
+    <!-- offcanvase menu -->
+    <!-- header style two -->
+    <div id="side-bar" class="side-bar">
+        <button class="close-icon-menu"><i class="far fa-times"></i></button>
+        <!-- inner menu area desktop start -->
+        <div class="inner-main-wrapper-desk">
+            <div class="thumbnail">
+                <img src="{% static 'assets/images/logo/logo__five.svg' %}" alt="Unipix-university">
+            </div>
+            <div class="inner-content">
+                <p class="disc">
+                    Welcome to CS Department, where knowledge meets inspiration, and every individual's educational journey is valued. Established in 1971 Establishment, our department has been a bastion of learning, innovation, and community for 51 years years.
+                </p>
+                <!-- offcanvase banner -->
+                <div class="offcanvase__banner mt--50">
+                    <div class="offcanvase__banner--content">
+                        <img src="{% static 'assets/images/offcanvase.jpg' %}" alt="offcanvase">
+                        <a href="#" class="rts-theme-btn">Apply Now</a>
+                    </div>
+                </div>
+                <div class="offcanvase__info">
+                    <div class="offcanvase__info--content">
+                        <a href="callto:+61485826710"><span><i class="fa-sharp fa-light fa-phone"></i></span>+(61) 485-826-710</a>
+                        <a href="#"><span><i class="fa-sharp fa-light fa-location-dot"></i></span>Yarra Park, Melbourne, Australia</a>
+                        <div class="offcanvase__info--content--social">
+                            <p class="title">Follow Us:</p>
+                            <div class="social__links">
+                                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile menu area start -->
+        <div class="mobile-menu-main">
+            <nav class="nav-main mainmenu-nav mt--30">
+                <ul class="mainmenu metismenu" id="mobile-menu-active">
+
+                    <li>
+                        <a href="/" class="main">Home</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'blog' %}" class="main">News/Events</a>
+                    </li>
+                    
+                    <li>
+                        <a href="{% url 'halls' %}" class="main">Classes/Labs</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'halls' %}" class="main">Class Timetables</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'lecturers' %}" class="main">Academic Staff</a>
+                    </li>
+                    <li>
+                        <a href="#{% url 'lecturers' %}" class="main">Non-Academic Staff</a>
+                    </li>
+                    <li>
+                        <a href="#{% url 'lecturers' %}" class="main">Join Student Forum</a>
+                    </li>
+                    <li>
+                        <a href="#{% url 'lecturers' %}" class="main">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'excos' %}" class="main">Our Excos</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact' %}" class="main">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+
+            
+        </div>
+        <!-- mobile menu area end -->
+    </div>
+    <!-- header style two End -->
+
+    <div class="search-input-area">
+        <div class="container">
+            <div class="search-input-inner">
+                <div class="input-div">
+                    <input class="search-input autocomplete ui-autocomplete-input" type="text" placeholder="Search by keyword or #" autocomplete="off">
+                    <button><i class="far fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
+    </div>
+    <!-- rts backto top start -->
+    <div class="progress-wrap">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+    <!-- rts back to top end -->
+    <div id="anywhere-home" class="">
+    </div>
+
+
+    <!-- scripts -->
+    <!-- jquery js -->
+    <script src="{% static 'assets/js/vendor/jquery.min.js' %}"></script>
+    <!-- bootstrap 5.0.2 -->
+    <script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
+    <!-- jquery ui js -->
+    <script src="{% static 'assets/js/vendor/jquery-ui.js' %}"></script>
+    <!-- wow js -->
+    <script src="{% static 'assets/js/vendor/waw.js' %}"></script>
+    <!-- mobile menu -->
+    <script src="{% static 'assets/js/vendor/metismenu.js' %}"></script>
+    <!-- magnific popup -->
+    <script src="{% static 'assets/js/vendor/magnifying-popup.js' %}"></script>
+    <!-- swiper JS 10.2.0 -->
+    <script src="{% static 'assets/js/plugins/swiper.js' %}"></script>
+    <!-- counterup -->
+    <script src="{% static 'assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/waypoint.js' %}"></script>
+    <!-- isotop mesonary -->
+    <script src="{% static 'assets/js/plugins/isotop.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/sticky-sidebar.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/resize-sensor.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/twinmax.js' %}"></script>
+    <!-- dymanic Contact Form -->
+    <script src="{% static 'assets/js/plugins/contact.form.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/nice-select.min.js' %}"></script>
+    <!-- main Js -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+
+    <script>
+        document.getElementById("yeard").innerHTML = new Date().getFullYear();
+    </script>
+        <!-- {% csrf_token %} -->
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
+
+            document.body.addEventListener('htmx:configRequest', function(evt) {
+                evt.detail.headers['X-CSRFToken'] = csrftoken; // add a new header into the request
+            });
+        </script>
+
+</body>
+
+</html>
+        

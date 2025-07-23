@@ -1,0 +1,23 @@
+// brand area
+.rts-brand{
+    &.v_1{
+        .swiper{
+            text-align: center;
+        }
+    }
+}
+.single-brand-logo{
+    a{
+        img{
+            filter: saturate(0.5) contrast(.1);
+            transition: var(--transition);
+        }
+    }
+    &:hover{
+        a{
+            img{
+                filter: saturate(1) contrast(1);
+            }
+        }
+    }
+}

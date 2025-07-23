@@ -1,0 +1,176 @@
+{% load static %}
+{% load humanize %}
+
+
+{% for post in user_post %}
+    <div class="post-box d-flex mx-0" data-aos="fade-up" data-aos-easing="linear">
+        <div class="vote d-none d-lg-block">
+            {% if user in post.likes.all  %}
+                <a style="cursor: pointer;"
+                hx-post="{% url 'post_like' post.id %}"
+                hx-trigger="click"
+                hx-target="#container"
+                class="up-arrow text-danger"><i class="bi bi-hand-thumbs-up"></i></a>
+            {% else %}
+                <a style="cursor: pointer;"
+                hx-post="{% url 'post_like' post.id %}"
+                hx-trigger="click"
+                hx-target="#container"
+                class="up-arrow"><i class="bi bi-hand-thumbs-up"></i></a>
+            {% endif %}
+                
+            <p class="mb-3">{{post.likes.all.count}}</p>
+        </div>  
+        <div class="card">
+            <div class="card-header card-header-action">
+                <div class="media align-items-center">
+                    <div class="media-head me-2">
+                        <div class="avatar">
+                            <a href="#"><img src="{{post.author.profile.avatar}}" alt="user" class="avatar-img rounded-circle"></a>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <div><a href="#{{post.author.username}}">{{post.author.full_name}}</a></div>
+                        {% if post.created|date:"Y-m-d" == date %}      
+                            <div class="fs-7">
+                                <span> {{post.created | timesince}} ago
+                            </div>
+                        {% else %}
+
+                        <div class="fs-7">
+                            <span>Posted on: {{post.created |naturalday|title}} 
+                        </div>
+                        
+
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-action-wrap">
+                    <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="{% url 'edit_forum' post.id %}"><i class="bi bi-pencil me-2"></i> Edit Post</a>
+                        <!-- <a class="dropdown-item" href="#"><i class="bi bi-eye-slash me-2"></i> Hide Post</a> -->
+                        <a class="dropdown-item text-danger" href="{% url 'delete' post.id %}"><i class="bi bi-trash3 me-2"></i> Delete Post</a>
+                        <div class="dropdown-divider"></div>
+                        <!-- <a class="dropdown-item" href="#"><i class="bi bi-pin me-2"></i> Pin Post</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h3>
+                <a href="{% url 'forum_detail' post.id %}">{{post.title}}</a>
+                </h3>
+                
+                {% autoescape off %}
+                    <p>{{post.description | truncatechars:300}}
+                        {% if post.description|length > 300 %}
+                            <a style="max-width: 100px;" href="{% url 'forum_detail' post.id %}" class="nav-link btn btn-mint w-50">Read More.</a>
+                        {% endif %}
+                    </p>
+                {% endautoescape %}
+                
+
+                
+            </div>
+
+            <div class="card-footer">
+
+                <div class="post-stats">
+                    <div class="post-item d-lg-none d-xl-none">
+                        {% if user in post.likes.all  %}
+                            <a style="cursor: pointer;"
+                            hx-post="{% url 'post_like' post.id %}"
+                            hx-trigger="click"
+                            hx-target="#container"
+                            class="up-arrow text-danger"><i class="bi bi-hand-thumbs-up"></i>
+                            <div class="post-text">{{post.likes.all.count}}</div>
+                            </a>
+                        {% else %}
+                            <a style="cursor: pointer;"
+                            hx-post="{% url 'post_like' post.id %}"
+                            hx-trigger="click"
+                            hx-target="#container"
+                            class="up-arrow"><i class="bi bi-hand-thumbs-up"></i>
+                            <div class="post-text">{{post.likes.all.count}}</div>
+                            </a>
+                        {% endif %}
+                            
+                        {% comment %} <p class="mb-3">{{post.likes.all.count}}</p>	 {% endcomment %}
+                    </div>
+                    
+                    <div class="post-item">
+                    <ul>
+                        
+                        {% for like  in post.likes.all|slice:"6" %}
+                            <li><a href="{% url 'dashboard' like.profile.id %}"><img src="{{like.profile.avatar}}" alt="User" class="avatar-sm avatar-img"></a></li>
+                        {% endfor %}
+                            
+                        
+                    </ul>
+                    <div class="post-text">+{{post.views.all.count}}</div>
+                    <div class="post-text">Views</div>
+                    </div>
+                    <div class="post-item me-lg-5">
+                    <a href="{% url 'forum_detail' post.id %}">
+                        <div class="post-icon"><i class="bi bi-chat-dots"></i></div>
+                        <div class="post-text">{{post.comment_count}}</div>
+                    </a>
+                    </div>
+                    <div class="post-item">
+                        {% if user in post.saved.all  %}
+                            <a style="cursor: pointer;"
+                            hx-post="{% url 'save_post' post.id %}"
+                            hx-trigger="click"
+                            hx-target="#container">
+                                <div class="post-icon"><i class="bi bi-bookmark-fill text-danger"></i></div>
+                                <div class="post-text">{{post.saved.all.count}}</div>
+                            </a>
+                        {% else %}
+                            <a style="cursor: pointer;"
+                            hx-post="{% url 'save_post' post.id %}"
+                            hx-trigger="click"
+                            hx-target="#container">
+                                <div class="post-icon"><i class="bi bi-bookmark"></i></div>
+                                <div class="post-text">{{post.saved.all.count}}</div>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="post-item">
+                        {% if user == post.author  %}
+                                                    
+                        {% else %}
+                            
+                            {% if user in post.repost.all  %}
+                                <a href="#repost">
+                                    <div class="post-icon"><i class="bi bi-recycle text-danger"></i></div>
+                                    <div class="post-text">{{post.repost.all.count}}</div>
+                                </a>
+                            {% else %}
+                                <a style="cursor: pointer;"
+                                hx-post="{% url 'repost' post.id %}"
+                                hx-trigger="click"
+                                hx-target="#container">
+                                    <div class="post-icon"><i class="bi bi-recycle"></i></div>
+                                    <div class="post-text">{{post.repost.all.count}}</div>
+                                </a>
+                            {% endif %}
+                                
+                        {% endif %}
+                    </div>
+                    <div class="post-item">
+                    <a href="#">
+                        <div class="post-icon"><i class="bi bi-flag"></i></div>
+                        <div class="post-text">Report</div>
+                    </a>
+                    </div>
+                </div>
+
+            </div> 
+
+        </div>	
+    </div><!--/post-box-->  
+{% empty %}
+    <div>
+        <p class="text-center">You don't have any Post </p>
+    </div>
+{% endfor %}

@@ -1,0 +1,38 @@
+<ul class="achivement-fact m-0 p-0">
+    
+    {% if user_profile.facebook %}
+        <li class="mb-4">
+            <a href="{{user_profile.facebook | safe}}" target="_blank" class="nav-link" style="font-size: 40px;"><i class="bi bi-facebook"></i></a>
+        </li>
+    {% endif %}
+        
+    
+    {% if user_profile.instagram  %}
+        <li class="mb-4">
+            <a href="https://www.intagram.com/{{user_profile.instagram}}" target="_blank" class="nav-link" style="font-size: 40px;"><i class="bi bi-instagram"></i></a>
+        </li>
+    {% endif %}
+        
+    
+    {% if user_profile.tiktok and user_profile.tiktok != '@'  %}
+        <li class="mb-4">
+            <a href="https://www.tiktok.com/{{user_profile.tiktok}}" target='_blank' class="nav-link" style="font-size: 40px;"><i class="bi bi-tiktok"></i></a>
+        </li>
+    {% endif %}
+        
+    
+    {% if user_profile.x  %}
+        <li class="mb-4">
+            <a href="https://www.x.com/{{user_profile.x}}" target='_blank' class="nav-link" style="font-size: 40px;"><i class="bi bi-twitter"></i></a>
+        </li>
+    {% endif %}
+        
+    
+    {% if user_profile.github  %}
+        <li class="mb-4">
+            <a href="https://www.github.com/{{user_profile.github}}" target='_blank' class="nav-link" style="font-size: 40px;"><i class="bi bi-github"></i></a>
+        </li>
+    {% endif %}
+        
+    
+</ul>

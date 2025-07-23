@@ -1,0 +1,98 @@
+{% extends 'forum_nav.html' %}
+{% load static %}
+
+{% block content %}
+
+		<!-- ==============================================
+		 Dashboard
+		=============================================== -->
+        <section class="dashboard">
+            <div class="container">
+                <div class="row">
+
+                   
+                    <div class="col-12 col-lg-9">
+
+                        <h4 class="mb-0" data-aos="fade-down" data-aos-easing="linear"><i class="bi bi-plus-circle-dotted me-2"></i> EVENTS AND NEWS </h4>
+
+                        <div class="row g-0">
+                            <div class="col-12">
+                                <div class="dashboard-card">
+                                    <div class="dashboard-body">
+
+
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+
+                                            {% include 'message.html' %}
+                                            <div class="row g-3">
+                                                <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                                    <label class="form-label">Title</label> 
+                                                    <input class="fw-bold" type="text"
+                                                    
+                                                   value="{% if edit %}{{title}}{% endif %}"
+                                                        
+                                                
+                                                    name="title" placeholder="Title" required>
+                                                </div>           
+                                                <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                                    <label class="form-label">Categories</label> 
+                                                    <select name="category">
+                                                        <option value="Education">Education</option>
+                                                        <option value="Research">Research</option>
+                                                        <option value="Fellowship">Fellowship</option>
+                                                        <option value="Social">Social</option>
+                                                        <option value="Campus">Campus</option>
+                                                    </select>
+                                                </div> 
+
+
+                                                <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                                    <label class="form-label">Images</label> 
+                                                    <input class="fw-bold" type="file" name="image" placeholder="Image files" multiple required>
+                                                </div>
+                                                
+                                                <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                                    <label class="form-label">Description</label> 
+                                                    <div class="comment-form-2 d-flex flex-column my-2">
+                    
+                                                                            
+                                                        <!-- Form Textarea -->
+                                                        <textarea class="form-custom form-custom-textarea" name="description" rows="5">{% if edit %}{{description}}{% endif %}</textarea>
+                                                        <!-- Form Textarea -->
+                    
+                                                        <!-- Form Bottom Toolbar -->
+                                                        {% comment %} <div class="form-toolbar form-toolbar-bottom row justify-content-between g-2 p-2">
+                                                            <div class="col">
+                                                                <button class="btn btn-sm btn-base btn-icon" type="button" title="Attachment"><i class="bi bi-paperclip"></i></button>
+                                                                <button class="btn btn-sm btn-base btn-icon" type="button" title="Link"><i class="bi bi-link-45deg"></i></button>
+                                                                <button class="btn btn-sm btn-base btn-icon" type="button" title="Image"><i class="bi bi-image"></i></button>
+                                                                
+                                                            </div>
+                                                        </div>                                         {% endcomment %}
+                                                        <!-- Form Bottom Toolbar -->
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            
+                                                <div class="d-flex pt-5" data-aos="fade-up" data-aos-easing="linear">
+                                                    <button class="btn btn-mint me-3">Submit</button> 
+                                                    <!-- <button class="btn btn-secondary">Save as Draft</button> -->
+                                                </div>
+                                           
+                                                
+                                            </form> 												
+
+                                    </div>
+                                </div><!--/dashboard-card-->
+                            </div>
+                        </div>
+
+                    </div><!--/col-lg-9-->
+
+                </div>
+            </div>
+        </section>
+{% endblock %}

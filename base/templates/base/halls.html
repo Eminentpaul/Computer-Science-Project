@@ -1,0 +1,73 @@
+{% extends 'nav.html' %}
+{% load static %}
+    <!-- header banner -->
+
+
+{% block title %}
+    IMT - Examination Hall
+{% endblock title %}
+    
+    
+    {% block content %}
+
+    <!-- BREADCRUMB AREA -->
+    <section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({% static 'assets/images/banner/breadcrumb.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Exam Halls</li>
+                        </ul>
+                        <h2 class="section-title">Locate Your Exam Hall</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BREADCRUMB AREA END -->
+
+
+    <!-- university blog list -->
+    <div class="rts-blog v_3 rts-section-padding">
+        <div class="container">
+            <div class="row justify-content-md-start justify-content-sm-center g-5">
+
+                <!-- single blog item -->
+                
+                {% for hall  in halls  %}
+                    <div class="col-sm-10 col-md-6 col-lg-6 col-xl-4">
+                        <div class="single-blog">
+                            <div class="blog single-blog__content">
+                                <div class="blog__thumb">
+                                    <a style="max-height: 10px; overflow-y: hidden;" href="{{hall.link}}" target="_blank">
+                                        <img height="3000px" src="{{hall.image.url}}" alt="blog thumbnail">
+                                    </a>
+                                </div>
+                                <div class="blog__meta">
+                                    
+                                    <h3 class="blog__title"> <a href="{{hall.link}}" target="_blank">{{hall.name | title}}</a></h3>
+
+                                    <ul>
+                                        <li>Click on View Direction</li>
+                                        <li>Click on Direction</li>
+                                        <li>Click on Start</li>
+                                    </ul>
+                                    <a href="{{hall.link}}" target="_blank" class="rts-theme-btn primary with-arrow lh-100">View Direction <span><i class="fa-thin fa-arrow-right"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+                <!-- single blog item end -->
+                
+            </div>
+            <!-- <div class="rts-load-more-btn rt-center mt--60">
+                <a href="#" class="rts-theme-btn primary primary lh-100">Load More</a>
+            </div> -->
+        </div>
+    </div>
+    <!-- university blog list end -->
+{% endblock %}

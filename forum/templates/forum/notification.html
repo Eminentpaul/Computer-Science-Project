@@ -1,0 +1,128 @@
+{% load static %}
+
+<div class="nav-item dropdown h-col d-lg-block">
+
+    <a class="h-notification-icon h-icon" href="#header_notification_bar"  data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        
+        {% if my_notification.count %}
+            <i class="bi bi-bell"></i> <sup>{{my_notification.count}}</sup>
+        {% endif %}
+            
+    </a>
+
+    <!-- Notification dropdown menu START -->
+    <div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+        <div class="card bg-transparent border-0">
+            <div class="card-header bg-transparent py-4 d-flex justify-content-between align-items-center">
+                <h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">{{my_notification.count}} new</span></h6>
+                
+                {% if my_notification %}
+                    <a class="small" href="{% url 'clear_all' %}">Clear all</a>
+                {% endif %}
+                    
+            </div>
+            <div data-simplebar class="card-body p-0 dropdown-body">
+                <ul class="list-group list-unstyled list-group-flush">
+                    
+                    
+                    {% for notify  in my_notification  %}
+                        
+                        {% if notify.status == 'follow' %}
+                            <li>
+                                <a href="{% url 'read_notify' notify.id %}" class="list-group-item-action border-0 d-flex p-3">
+                                    <div class="me-3">
+                                        <div class="avatar avatar-md">
+                                            <img class="avatar-img rounded-circle" src="{{notify.sender.profile.avatar}}" alt="avatar">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">{{notify.sender.first_name | title}} is now Following  You</h6>
+                                        {% comment %} <p class="small m-0">Quidem consequuntur modi atque..</p> {% endcomment %}
+                                        <small style="color: brown !important;" class="text-muted fs-xs text-danger">{{notify.created | timesince}} ago</small>
+                                    </div>
+                                </a>
+                            </li><!-- Notif item -->
+
+                        {% elif notify.status == 'repost' %}
+                            <li>
+                                <a href="{% url 'read_notify' notify.id %}" class="list-group-item-action border-0 d-flex p-3">
+                                    <div class="me-3">
+                                        <div class="avatar avatar-md">
+                                            <img class="avatar-img rounded-circle" src="{{notify.sender.profile.avatar}}" alt="avatar">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">{{notify.sender.first_name | title}} reposted your Post</h6>
+                                        <p class="small m-0">{{notify.post.title | truncatechars:50}}</p>
+                                        <small style="color: brown !important;" class="text-muted fs-xs text-danger">{{notify.created | timesince}} ago</small>
+                                    </div>
+                                </a>
+                            </li><!-- Notif item -->
+
+
+                        {% elif notify.status == 'comment' %}
+                            <li>
+                                <a href="{% url 'read_notify' notify.id %}" class="list-group-item-action border-0 d-flex p-3">
+                                    <div class="me-3">
+                                        <div class="avatar avatar-md">
+                                            <img class="avatar-img rounded-circle" src="{{notify.sender.profile.avatar}}" alt="avatar">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">{{notify.sender.first_name | title}} commented on your Post</h6>
+                                        <p class="small m-0">{{notify.post.title | truncatechars:50}}</p>
+                                        <small style="color: brown !important;" class="text-muted fs-xs text-danger">{{notify.created | timesince}} ago</small>
+                                    </div>
+                                </a>
+                            </li><!-- Notif item -->
+
+                        {% elif notify.status == 'post' %}
+                            <li>
+                                <a href="{% url 'read_notify' notify.id %}" class="list-group-item-action border-0 d-flex p-3">
+                                    <div class="me-3">
+                                        <div class="avatar avatar-md">
+                                            <img class="avatar-img rounded-circle" src="{{notify.sender.profile.avatar}}" alt="avatar">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">{{notify.sender.first_name | title}} has made a New Post, be the First to View it</h6>
+                                        <p class="small m-0">{{notify.post.title | truncatechars:50}}</p>
+                                        <small style="color: brown !important;" class="text-muted fs-xs text-danger">{{notify.created | timesince}} ago</small>
+                                    </div>
+                                </a>
+                            </li><!-- Notif item -->
+
+                        {% else %}
+                            <li>
+                                <a href="{% url 'read_notify' notify.id %}" class="list-group-item-action border-0 d-flex p-3">
+                                    <div class="me-3">
+                                        <div class="avatar avatar-md">
+                                            <img class="avatar-img rounded-circle" src="{{notify.sender.profile.avatar}}" alt="avatar">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">{{notify.sender.first_name | title}} liked your post</h6>
+                                        <p class="small m-0">{{notify.post.title | truncatechars:50}}</p>
+                                        <small style="color: brown !important;" class="text-muted fs-xs text-danger">{{notify.created | timesince}} ago</small>
+                                    </div>
+                                </a>
+                            </li><!-- Notif item -->
+                        {% endif %}
+                            
+                    {% empty %}
+                        <p class="text-center">There is not Notification</p>
+                    {% endfor %}
+                        
+                    
+                    
+                    
+                </ul>
+            </div>
+            {% comment %} <!-- Button -->
+            <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
+                <a href="#" class="stretched-link">See all incoming activity</a>
+            </div> {% endcomment %}
+        </div>
+    </div>
+    <!-- Notification dropdown menu END -->
+</div>
