@@ -140,6 +140,14 @@ class Excos(models.Model):
         else:
             super().save(*args, **kwargs)
 
+
+    def image_tag(self):
+        if self.image:
+            return mark_safe('<img src="%s" style="width: 45px; height:auto;" />' % self.image.url)
+        else:
+            return 'No Image Found' 
+    image_tag.short_description = 'Image'
+
     class Meta:
         verbose_name_plural = "Excos"
         ordering = ['-year']

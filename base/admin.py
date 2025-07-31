@@ -17,7 +17,7 @@ class LecturerAdmin(ImportExportModelAdmin):
 
 
 class ExcosAdmin(ImportExportModelAdmin):
-    list_display = ['name', 'position', 'year']
+    list_display = ['name', 'position', 'year', 'image_tag']
     list_display_links = ['name', 'position', 'year']
     search_fields = ['name']
     list_filter = ['position', 'year']
