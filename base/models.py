@@ -208,7 +208,8 @@ class Lab(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='Classes')
+    image = models.ImageField(upload_to='Classes', blank=True, null=True)
+    timetable = models.ImageField(upload_to='Classes', blank=True, null=True)
 
 
     def __str__(self):
@@ -221,10 +222,11 @@ class Class(models.Model):
             super().save(*args, **kwargs)
         else:
             super().save(*args, **kwargs)
-
+ 
 
     class Meta:
         verbose_name_plural = 'Classes'
+
 
 
 

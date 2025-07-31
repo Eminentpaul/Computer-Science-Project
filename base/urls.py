@@ -14,6 +14,10 @@ urlpatterns = [
     path('excos/', views.excos, name='excos'),
     path('contact/', views.contact, name='contact'),
     path('labs/', views.labs, name='labs'),
+    path('Class/Rooms/', views.class_room, name='class_room'),
+    path('Class/Rooms/<str:pk>/pop/', views.class_pop, name='class_pop'),
+    path('Class/timetable/', views.class_timetable, name='class_timetable'),
+    path('Class/timetable/<str:pk>/pop/', views.class_timetable_pop, name='class_timetable_pop'),
     path('pop/<str:pk>/', views.excos_pop, name='pop'),
     path('lap_pop/<str:pk>/', views.lab_pop, name='lab_pop')
 ]

@@ -146,24 +146,49 @@ def lab_pop(request, pk):
 
 
 def class_room(request):
-    labs = Class.objects.all()
+    classroom = Class.objects.all()
 
     context = {
-        'labs': labs,
+        'labs': classroom,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
     }
-    return render(request, 'base/labs.html', context)
+    return render(request, 'base/class.html', context)
 
 
 def class_pop(request, pk):
-    lab = Class.objects.get(id=pk)
+    classroom = Class.objects.get(id=pk)
     context = {
-        'lab': lab,
+        'lab': classroom,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
     }
     return render (request, 'base/partial/lab.html', context)
+
+
+
+
+def class_timetable(request):
+    timetables = Class.objects.all()
+
+    context = {
+        'timetables': timetables,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
+        'timetable': True,
+    }
+    return render(request, 'base/class.html', context)
+
+
+def class_timetable_pop(request, pk):
+    timetable = Class.objects.get(id=pk)
+    context = {
+        'timetable': timetable,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
+        'time': True
+    }
+    return render (request, 'base/partial/class.html', context)
 
 
 
