@@ -216,12 +216,16 @@ class Lab(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='Classes', blank=True, null=True)
+    image = models.ImageField(upload_to='Classes', blank=True, null=True, verbose_name='Class Image')
     timetable = models.ImageField(upload_to='Classes', blank=True, null=True)
 
 
     def __str__(self):
         return self.name
+    
+    def class_image(self):
+        if self.image:
+            return self.image.url
 
 
     def save(self, *args, **kwargs):

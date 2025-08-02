@@ -55,7 +55,7 @@ class Profile(models.Model):
     x = models.CharField(max_length=200, null=True, blank=True, verbose_name='X/Twitter')
     tiktok = models.CharField(max_length=200, blank=True, null=True)
     github = models.CharField(max_length=200, blank=True, null=True)
-    permission = models.BooleanField(default=False)
+    permission = models.BooleanField(default=False, verbose_name='Give Blog Permission')
 
     
     def __str__(self):

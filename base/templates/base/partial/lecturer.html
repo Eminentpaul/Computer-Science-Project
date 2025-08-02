@@ -8,7 +8,17 @@
   <img src="{{lecturer.image.url}}" class="mb-3">
   <div class="text-center">
       <h3 my-3>{{lecturer.full_name | upper}}</h3> <small>{{lecturer.qualifications}}</small>
-      <p>{{lecturer.status}} Lecturer</p>
+      
+      {% if lecturer.status %}
+        
+      {% else %}
+      
+      {% if lecturer.status  %}
+        <p>{{lecturer.status}} Lecturer</p>
+      {% endif %}
+        
+      {% endif %}
+        
   </div>
     
     {% if lecturer.citation  %}
