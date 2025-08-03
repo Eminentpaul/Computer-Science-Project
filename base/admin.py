@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import HomeSlide, Blog, Images, Class_Timetable, Excos, Comment, Staff, Lab, Class
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class
 from import_export.admin import ImportExportModelAdmin
 
 
@@ -27,7 +27,6 @@ class ExcosAdmin(ImportExportModelAdmin):
 admin.site.register(HomeSlide)
 admin.site.register(Blog, BlogAdmin)
 # admin.site.register(Images)
-admin.site.register(Class_Timetable)
 admin.site.register(Excos, ExcosAdmin)
 admin.site.register(Comment)
 admin.site.register(Staff, LecturerAdmin) 

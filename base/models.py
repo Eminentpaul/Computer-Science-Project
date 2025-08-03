@@ -25,7 +25,7 @@ Letcurer_status = (
 
 def get_year_choices():
     current_year = datetime.datetime.now().year
-    return [(year, year) for year in range(2024, current_year + 20)]
+    return [(year, year) for year in range(2020, current_year + 20)]
 
 
 
@@ -103,25 +103,6 @@ class Images(models.Model):
         verbose_name = "Images"
 
 
-
-
-class Class_Timetable(models.Model):
-    name = models.CharField(max_length=200)
-    link = models.URLField()
-    image = models.ImageField(upload_to='Halls')
-
-    def __str__(self):
-        return self.name
-    
-    def save(self, *args, **kwargs):
-        if self.image:
-            self.image = imageResize(self.image)
-            super().save(*args, **kwargs)
-        else:
-            super().save(*args, **kwargs)
-
-    class Meta:
-        verbose_name = "Class Timetable"
 
 
 class Excos(models.Model):

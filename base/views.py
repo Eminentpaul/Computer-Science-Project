@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import HomeSlide, Blog, Images, Class_Timetable, Excos, Comment, Staff, Lab, Class
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class
 from .blogs import AllBlogs
 from .forms import CommentForm 
 import datetime

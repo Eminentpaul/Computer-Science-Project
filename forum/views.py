@@ -8,6 +8,7 @@ from user_auth.models import Profile
 from .forms import *
 from base.models import Blog, Images
 from django.contrib import messages as mg
+from django.db.models import Q
 
 
 # Create your views here.
@@ -119,7 +120,14 @@ def follow(request, pk):
 
 @login_required(login_url='login')
 def forum(request):
-    forum = Forum.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    forum = Forum.objects.filter(
+        Q(title__icontains=q)|
+        Q(author__first_name__icontains=q) |
+        Q(author__username__icontains=q) |
+        Q(description__icontains=q) |
+        Q(author__last_name__icontains=q) 
+    )
     notify = UserNotification(request.user)
 
     referer = request.META.get('HTTP_REFERER')

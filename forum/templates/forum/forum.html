@@ -60,7 +60,11 @@
 									<div class="w-100 mt-3 mb-3">
 										<div class="nav px-4 flex-nowrap align-items-center">
 											<div class="search-form nav-item w-100">
-													<input class="border-0" type="search" placeholder="Search" aria-label="Search">
+													<input class="border-0" name="q" type="search" placeholder="Search" aria-label="Search"
+                                                    
+                                                    hx-get="{% url 'forum' %}"
+                                                    hx-trigger="keyup changed delay:500ms"
+                                                    hx-target="#discussions">
 											</div>
 										</div>
 									</div>
