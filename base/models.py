@@ -179,6 +179,19 @@ class Staff(models.Model):
 
 
 
+class Course(models.Model):
+    course_code = models.CharField(max_length=50, verbose_name='Course Code')
+    course_title = models.CharField(max_length=500, verbose_name='Course Title', null=True, blank=True)
+    credit_load = models.CharField(max_length=20, null=True, blank=True)
+    lecturer = models.ForeignKey(Staff, on_delete=models.SET_NULL, 
+                                 null=True, related_name='lecturer', 
+                                 verbose_name='Assigned Lecturer', 
+                                 blank=True)
+
+
+    def __str__(self):
+        return self.course_code
+
 
 
 class Lab(models.Model):
