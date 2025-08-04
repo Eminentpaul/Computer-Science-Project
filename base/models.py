@@ -143,7 +143,7 @@ class Staff(models.Model):
     citation = models.TextField(blank=True, null=True)
     phone_no = models.CharField(max_length=20, blank=True, null=True, verbose_name='Phone Number')
     email = models.CharField(max_length=300, blank=True, null=True)
-    image = models.ImageField(upload_to='Lecturers')
+    image = models.ImageField(upload_to='Lecturers', blank=True, null=True)
     is_teaching = models.BooleanField(default=True)
 
 
@@ -151,6 +151,11 @@ class Staff(models.Model):
     def __str__(self):
         return self.full_name
     
+
+    def avatar(self):
+        if self.image:
+            return self.image.url
+
 
     def image_tag(self):
         if self.image:
@@ -171,6 +176,8 @@ class Staff(models.Model):
     class Meta:
         ordering = ['status']
         verbose_name_plural = 'Staff List'
+
+
 
 
 

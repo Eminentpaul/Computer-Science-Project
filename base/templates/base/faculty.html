@@ -64,7 +64,7 @@
                         <div class="event-speaker">
                             <div class="event-speaker__details" style="width: 300px;">
                                 <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
-                                    <img src="{{lecturer.image.url}}" alt="speaker-thumb" style="border-radius: 0px !important;">
+                                    <img src="{{lecturer.avatar}}" alt="speaker-thumb" style="border-radius: 0px !important;">
 
                                     
                                     <div class="speaker-social-link">
@@ -88,33 +88,37 @@
             {% else %}
                 <div class="row g-5 ms-lg-0 ms-0">
                     {% for lecturer in lecturers %}
-                    <!-- single speaker item -->
-                    <div style="cursor: pointer;" class="col-lg-3 col-md-4 col-sm-6 ms-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
-                        hx-get="{% url 'lecturers_pop' lecturer.id %}"
-                        hx-target='#modalcontent'
-                        hx-trigger="click"
-                        >
-                        <div class="event-speaker">
-                            <div class="event-speaker__details" style="width: 300px;">
-                                <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
-                                    <img src="{{lecturer.image.url}}" alt="speaker-thumb" style="border-radius: 0px !important;">
+                        
+                        {% if lecturer.avatar  %}
+                            <!-- single speaker item -->
+                            <div style="cursor: pointer;" class="col-lg-3 col-md-4 col-sm-6 ms-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                                hx-get="{% url 'lecturers_pop' lecturer.id %}"
+                                hx-target='#modalcontent'
+                                hx-trigger="click"
+                                >
+                                <div class="event-speaker">
+                                    <div class="event-speaker__details" style="width: 300px;">
+                                        <div class="speaker-thumb" style="border-radius: 50%; height: 300px; width: 300px; border-radius: 50%; overflow: hidden;">
+                                            <img src="{{lecturer.avatar}}" alt="speaker-thumb" style="border-radius: 0px !important;">
 
-                                    
-                                    <div class="speaker-social-link">
-                                        <a href="mailto:{{lecturer.email}}"><i class="fa fa-envelope"></i></a>
-                                        <a href="tel:+{{lecturer.phone_no}}"><i class="fa fa-phone-volume"></i></a>
-                                        {% comment %} <a href="#"><i class="fa-brands fa-facebook"></i></a> {% endcomment %}
+                                            
+                                            <div class="speaker-social-link">
+                                                <a href="mailto:{{lecturer.email}}"><i class="fa fa-envelope"></i></a>
+                                                <a href="tel:+{{lecturer.phone_no}}"><i class="fa fa-phone-volume"></i></a>
+                                                {% comment %} <a href="#"><i class="fa-brands fa-facebook"></i></a> {% endcomment %}
+                                            </div>
+                                        </div>
+                                        <div class="speaker-meta">
+                                            <h5 class="speaker__name">{{lecturer.full_name | title}}</h5>
+                                            <span class="designation">{{lecturer.qualifications}}</span><br>
+                                            <span class="designation text-capitalize">{{lecturer.status}} Lecturer</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="speaker-meta">
-                                    <h5 class="speaker__name">{{lecturer.full_name | title}}</h5>
-                                    <span class="designation">{{lecturer.qualifications}}</span><br>
-                                    <span class="designation text-capitalize">{{lecturer.status}} Lecturer</span>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- single speaker item end -->
+                            <!-- single speaker item end -->
+                        {% endif %}
+
                     
                     {% endfor %}
                 </div>
