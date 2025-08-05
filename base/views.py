@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, HOD
 from .blogs import AllBlogs
 from .forms import CommentForm 
 import datetime
@@ -24,8 +24,9 @@ def home(request):
     return render(request, 'base/index.html', context)
 
 def about(request):
-
+    hods = HOD.objects.all()
     context = {
+        'hods': hods,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
     }

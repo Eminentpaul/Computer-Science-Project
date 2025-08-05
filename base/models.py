@@ -25,7 +25,7 @@ Letcurer_status = (
 
 def get_year_choices():
     current_year = datetime.datetime.now().year
-    return [(year, year) for year in range(2020, current_year + 20)]
+    return [(year, year) for year in range(2010, current_year + 20)]
 
 
 
@@ -191,6 +191,22 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_code
+    
+
+
+class HOD(models.Model):
+    lecturer = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
+    started = models.IntegerField(max_length=20, choices=get_year_choices)
+    ended = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.lecturer.full_name
+    
+
+    class Meta:
+        ordering = ['-started']
+        verbose_name = 'HOD'
+        verbose_name_plural = 'HODs' 
 
 
 

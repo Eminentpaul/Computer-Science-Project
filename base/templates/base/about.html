@@ -63,17 +63,24 @@
                         <table class="table table-striped table-hover my-3 fw-bold">
                             <thead>
                                 <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Tenure</th>
+                                
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                </tr>
+                                
+                                {% for hod  in hods  %}
+                                    <tr class="mb-3" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                                hx-get="{% url 'lecturers_pop' hod.lecturer.id %}"
+                                hx-target='#modalcontent'
+                                hx-trigger="click">
+                                        <td class="p-3">{{hod.lecturer | title}}</td>
+                                        <td class="p-3">{{hod.started}} - {{hod.ended}}</td>
+                                        
+                                    </tr>
+                                {% endfor %}
+                                    
                                 
                             </tbody>
                             </table>
@@ -129,7 +136,7 @@
                         </div>
                         <div class="single-cta-item">
                             <h2 class="single-cta-item__title">Top 10</h2>
-                            <p>Colleges that Create Futures</p>
+                            <p>Department that Create Futures</p>
                         </div>
                         <div class="single-cta-item">
                             <h2 class="single-cta-item__title">No. 1</h2>
@@ -344,5 +351,29 @@
     </div>
     <!-- Testimonial end -->
 
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div id='modalcontent' class="modal-content">
+      <div class="modal-header">
+        {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="{% static 'img/naomi.png' %}" class="mb-3">
+        <div class="text-center">
+            <h3 my-3>fffffffffffNwachukwu Emmanuel</h3>
+            <p>President</p>
+
+        </div>
+        <p class="lead my-3" style="text-align: justify !important;">
+            {% lorem 9 p random %}
+        </p>
+      </div>
+      
+    </div>
+  </div>
+</div>
 
    {% endblock %}
