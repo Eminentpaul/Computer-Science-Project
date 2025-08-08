@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, HOD
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, HOD, Project_Team, Course
 from .blogs import AllBlogs
 from .forms import CommentForm 
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -48,8 +49,9 @@ def blog(request):
 
 def blog_details(request, pk):
     form = CommentForm()
-    blog = Blog.objects.get(id=pk)
-    comments = Comment.objects.all().filter(blog=blog)
+
+    blog = get_object_or_404(Blog, id=pk)
+    comments = blog.comment_set.all()
     images = Images.objects.all().filter(blog=blog)
     others = images[1:]
 
@@ -84,16 +86,6 @@ def blog_details(request, pk):
     }
     return render(request, 'base/blog-details.html', context)
 
-@login_required(login_url='login')
-def halls(request):
-    halls = Class_Timetable.objects.all()
-
-    context = {
-        'halls': halls,
-        'blogs': AllBlogs().blogs(),
-        'images': AllBlogs().images(),
-    }
-    return render(request, 'base/halls.html', context)
 
 def lecturer(request):
     lecturers = Staff.objects.all().filter(is_teaching=True)
@@ -106,7 +98,7 @@ def lecturer(request):
 
 
 def lecturer_details(request, pk):
-    lecturer = Staff.objects.get(id=pk)
+    lecturer = get_object_or_404(Staff, id=pk)
 
     context = {
         'lecturer': lecturer
@@ -139,7 +131,7 @@ def labs(request):
 
 
 def lab_pop(request, pk):
-    lab = Lab.objects.get(id=pk)
+    lab = get_object_or_404(Lab, id=pk)
     context = {
         'lab': lab
     }
@@ -158,7 +150,7 @@ def class_room(request):
 
 
 def class_pop(request, pk):
-    classroom = Class.objects.get(id=pk)
+    classroom = get_object_or_404(Class, id=pk)
     context = {
         'lab': classroom,
         'blogs': AllBlogs().blogs(),
@@ -171,18 +163,20 @@ def class_pop(request, pk):
 
 def class_timetable(request):
     timetables = Class.objects.all()
+    courses = Course.objects.all()
 
     context = {
         'timetables': timetables,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
         'timetable': True,
+        'courses': courses,
     }
     return render(request, 'base/class.html', context)
 
 
 def class_timetable_pop(request, pk):
-    timetable = Class.objects.get(id=pk)
+    timetable = get_object_or_404(Class, id=pk)
     context = {
         'timetable': timetable,
         'blogs': AllBlogs().blogs(),
@@ -250,7 +244,7 @@ def contact(request):
 
 
 def excos_pop(request, pk):
-    exco = Excos.objects.get(id=pk)
+    exco = get_object_or_404(Excos, id=pk)
     context = {
         'name': exco.name,
         'position': exco.position,
@@ -258,6 +252,31 @@ def excos_pop(request, pk):
         'year': exco.year
     }
     return render (request, 'base/partial/modal.html', context)
+
+
+
+
+
+def developer(request):
+    team = Project_Team.objects.all()
+
+    context = {
+        'team': team,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
+    }
+    return render(request, 'base/developer.html', context)
+
+
+def developer_pop(request, pk):
+    team = get_object_or_404(Project_Team, id=pk)
+    context = {
+        'team': team,
+        'blogs': AllBlogs().blogs(),
+        'images': AllBlogs().images(),
+    }
+    return render (request, 'base/partial/team.html', context)
+
 
 
 def _404(request, exception):

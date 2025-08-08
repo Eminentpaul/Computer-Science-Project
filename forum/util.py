@@ -20,7 +20,7 @@ def leader():
             leaderboard[f'{post.author.profile.id}'] = total 
 
     n = sorted(leaderboard.items(), key=lambda kv:kv[1], reverse=True)
-    # print(n)
+
 
 
     for v in n:

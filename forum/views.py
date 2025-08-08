@@ -9,6 +9,7 @@ from .forms import *
 from base.models import Blog, Images
 from django.contrib import messages as mg
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -21,7 +22,7 @@ pages = []
 
 @login_required(login_url='login')
 def dashboard(request, pk):
-    user_profile = Profile.objects.get(id=pk)
+    user_profile = get_object_or_404(Profile, id=pk)
     user_posts = Forum.objects.all().filter(author=user_profile.user, owner=None)
     notify = UserNotification(request.user)
     
@@ -40,8 +41,6 @@ def dashboard(request, pk):
         total_likes += post.likes.all().count()
     
 
-    for post in saved_posts:
-        print(post.item.likes.all().count(), post.item.author.profile.avatar)
 
     context = {
         'user_profile': user_profile,
@@ -58,7 +57,7 @@ def dashboard(request, pk):
 
 
 def edit_profile(request, pk):
-    user_profile = Profile.objects.get(id=pk)
+    user_profile = get_object_or_404(Profile, id=pk)
     user = request.user
     error_msg = ''
     notify = UserNotification(request.user)
@@ -69,7 +68,7 @@ def edit_profile(request, pk):
         level = request.POST.get('level')
         username = request.POST.get('username')
         tiktok = request.POST.get('tiktok')
-        print(level)
+
 
         tiktok = tiktok.strip()
 
@@ -106,7 +105,7 @@ def edit_profile(request, pk):
 
 
 def follow(request, pk):
-    profile = Profile.objects.get(id=pk)
+    profile = get_object_or_404(Profile, id=pk)
     notify = UserNotification(request.user)
 
     if request.user in profile.followers.all():
@@ -121,6 +120,7 @@ def follow(request, pk):
 @login_required(login_url='login')
 def forum(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
+
     forum = Forum.objects.filter(
         Q(title__icontains=q)|
         Q(author__first_name__icontains=q) |
@@ -128,6 +128,7 @@ def forum(request):
         Q(description__icontains=q) |
         Q(author__last_name__icontains=q) 
     )
+
     notify = UserNotification(request.user)
 
     referer = request.META.get('HTTP_REFERER')
@@ -150,7 +151,7 @@ def forum(request):
 
 @login_required(login_url='login')
 def edit_forum(request, pk):
-    forum = Forum.objects.get(id=pk)
+    forum = get_object_or_404(Forum, id=pk)
     form = ForumForm(instance=forum)
     edit = True
     notify = UserNotification(request.user)
@@ -177,7 +178,7 @@ def edit_forum(request, pk):
 
 @login_required(login_url='login')
 def forum_detail(request, pk):
-    forum = Forum.objects.get(id=pk)
+    forum = get_object_or_404(Forum, id=pk)
     forum_comment = forum.comment_set.all()
     notify = UserNotification(request.user)
 
@@ -233,15 +234,6 @@ def forum_post(request):
             mg.error(request, 'Not Successful!')
 
 
-        # title = request.POST.get('title')
-        # description = request.POST.get('description')
-
-        # forum = Forum.objects.create(
-        #     author=request.user,
-        #     title=title,
-        #     description=description
-        # )
-        # return redirect('forum')
 
     context = {
         'forum': other_forum,
@@ -253,7 +245,7 @@ def forum_post(request):
 
 @login_required(login_url='login')
 def repost(request, pk):
-    forum = Forum.objects.get(id=pk)
+    forum = get_object_or_404(Forum, id=pk)
     notify = UserNotification(request.user)
     
     referer = request.META.get('HTTP_REFERER')
@@ -274,7 +266,7 @@ def repost(request, pk):
 
 
 def read_notify(request, pk):
-    notify = Notification.objects.get(id=pk)
+    notify = get_object_or_404(Notification, id=pk)
 
     if notify.status == 'follow':
         notify.isRead = True
@@ -305,7 +297,7 @@ def delete_post(request, pk):
     # pages.clear()
     pages.append(referer)
     print(pages)
-    post = Forum.objects.get(id=pk)
+    post = get_object_or_404(Forum, id=pk)
     post.delete()
     mg.error(request, 'Post Deleted Successfully!!!')
     return redirect(f'{pages[-2]}')
@@ -314,7 +306,7 @@ def delete_post(request, pk):
 
 @login_required(login_url='login')
 def post_like(request, pk):
-    post = Forum.objects.get(id=pk)
+    post = get_object_or_404(Forum, id=pk)
     referer = request.META.get('HTTP_REFERER')
     notify = UserNotification(request.user)
 
@@ -330,11 +322,11 @@ def post_like(request, pk):
 
 @login_required(login_url='login')
 def save_post(request, pk):
-    post = Forum.objects.get(id=pk)
+    post = get_object_or_404(Forum, id=pk)
     referer = request.META.get('HTTP_REFERER')
 
     try:
-        save = SaveItem.objects.get(item=post)
+        save = get_object_or_404(SaveItem, item=post)
         if save:
             post.saved.remove(request.user)
             save.delete()
@@ -354,7 +346,7 @@ def save_post(request, pk):
 
 @login_required(login_url='login') 
 def post_detail_like(request, pk):
-    post = Forum.objects.get(id=pk)
+    post = get_object_or_404(Forum, id=pk)
 
     if request.user in post.likes.all():
         post.likes.remove(request.user)
@@ -366,8 +358,8 @@ def post_detail_like(request, pk):
 
 @login_required(login_url='login')
 def comment_like(request, pk, pd):
-    comment = Comment.objects.get(id=pk)
-    post = Forum.objects.get(id=pd)
+    comment = get_object_or_404(Comment, id=pk)
+    post = get_object_or_404(Forum, id=pd)
 
     if request.user in comment.likes.all():
         comment.likes.remove(request.user)
@@ -388,7 +380,9 @@ def events_post(request):
             blog = form.save(commit=False)
             blog.author = request.user
             blog.save()
+
             for i in files:
                 Images.objects.create(blog=blog, image=i)  
             return redirect('blog')
+        
     return render(request, 'forum/event.html')

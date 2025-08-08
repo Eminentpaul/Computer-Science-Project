@@ -20,6 +20,7 @@ def login(request):
             auth.login(request, user)
             return redirect('forum')
         else: mg.error(request, 'Invalid Email or Password')
+        
     return render(request, 'user_auth/login.html')
 
 

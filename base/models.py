@@ -183,6 +183,10 @@ class Course(models.Model):
     course_code = models.CharField(max_length=50, verbose_name='Course Code')
     course_title = models.CharField(max_length=500, verbose_name='Course Title', null=True, blank=True)
     credit_load = models.CharField(max_length=20, null=True, blank=True)
+    semester = models.CharField(max_length=200, choices=(
+        ('First Semester', 'First Semester'), 
+        ('Second Semester', 'Second Semester')
+    ))
     lecturer = models.ForeignKey(Staff, on_delete=models.SET_NULL, 
                                  null=True, related_name='lecturer', 
                                  verbose_name='Assigned Lecturer', 
@@ -196,7 +200,7 @@ class Course(models.Model):
 
 class HOD(models.Model):
     lecturer = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
-    started = models.IntegerField(max_length=20, choices=get_year_choices)
+    started = models.IntegerField(choices=get_year_choices)
     ended = models.CharField(max_length=20)
 
     def __str__(self):
@@ -259,3 +263,32 @@ class Class(models.Model):
 
 
 
+class Project_Team(models.Model):
+    full_name = models.CharField(max_length=400)
+    regno = models.CharField(max_length=50, verbose_name='Registration Number')
+    designation = models.CharField(max_length=200)
+    email = models.EmailField(unique=True)
+    phone_no = models.CharField(max_length=20, verbose_name='Phone Number')
+    image = models.ImageField(upload_to='Team')
+
+
+    def __str__(self):
+        return self.full_name
+    
+
+    def avatar(self):
+        if self.image:
+            return self.image.url
+    
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = imageResize(self.image)
+            super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+
+    
+    class Meta:
+        verbose_name = 'Project Team'
+        verbose_name_plural = 'Project Teams'
