@@ -19,6 +19,13 @@ Letcurer_status = (
 )
 
 
+classes = (
+    ('ND1', 'ND1'),
+    ('ND2', 'ND2'),
+    ('HND1', 'HND1'),
+    ('HND2', 'HND2')
+)
+
 
 
     
@@ -182,6 +189,7 @@ class Staff(models.Model):
 class Course(models.Model):
     course_code = models.CharField(max_length=50, verbose_name='Course Code')
     course_title = models.CharField(max_length=500, verbose_name='Course Title', null=True, blank=True)
+    level = models.CharField(max_length=20, choices=classes)
     credit_load = models.CharField(max_length=20, null=True, blank=True)
     semester = models.CharField(max_length=200, choices=(
         ('First Semester', 'First Semester'), 
@@ -195,6 +203,7 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_code
+        
     
 
 

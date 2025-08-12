@@ -18,10 +18,10 @@ class LecturerAdmin(ImportExportModelAdmin):
 
 
 class CourseAdmin(ImportExportModelAdmin):
-    list_display = ['course_code', 'course_title', 'semester', 'credit_load', 'lecturer']
-    list_display_links = ['course_code', 'course_title', 'semester', 'credit_load']
+    list_display = ['course_code', 'course_title', 'level', 'semester', 'credit_load', 'lecturer']
+    list_display_links = ['course_code', 'course_title', 'level', 'semester', 'credit_load']
     search_fields = ['course_code', 'course_title']
-    list_filter = ['semester']
+    list_filter = ['semester', 'level']
     list_editable = ['lecturer']
     
 
