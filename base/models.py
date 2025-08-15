@@ -27,6 +27,12 @@ classes = (
 )
 
 
+semester = (
+        ('First Semester', 'First Semester'), 
+        ('Second Semester', 'Second Semester')
+    )
+
+
 
     
 
@@ -191,10 +197,7 @@ class Course(models.Model):
     course_title = models.CharField(max_length=500, verbose_name='Course Title', null=True, blank=True)
     level = models.CharField(max_length=20, choices=classes)
     credit_load = models.CharField(max_length=20, null=True, blank=True)
-    semester = models.CharField(max_length=200, choices=(
-        ('First Semester', 'First Semester'), 
-        ('Second Semester', 'Second Semester')
-    ))
+    semester = models.CharField(max_length=200, choices=semester)
     lecturer = models.ForeignKey(Staff, on_delete=models.SET_NULL, 
                                  null=True, related_name='lecturer', 
                                  verbose_name='Assigned Lecturer', 
@@ -301,3 +304,8 @@ class Project_Team(models.Model):
     class Meta:
         verbose_name = 'Project Team'
         verbose_name_plural = 'Project Teams'
+
+
+
+class Semester(models.Model):
+    semester = models.CharField(max_length=200, choices=semester)

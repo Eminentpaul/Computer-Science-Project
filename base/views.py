@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, HOD, Project_Team, Course
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, HOD, Project_Team, Course, Semester
 from .blogs import AllBlogs
 from .forms import CommentForm 
 import datetime
@@ -162,8 +162,9 @@ def class_pop(request, pk):
 
 
 def class_timetable(request):
+    semester = Semester.objects.all().first()
     timetables = Class.objects.all()
-    courses = Course.objects.all()
+    courses = Course.objects.all().filter(semester=semester.semester)
 
     context = {
         'timetables': timetables,

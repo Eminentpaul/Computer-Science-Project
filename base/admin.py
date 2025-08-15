@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, Course, HOD, Project_Team
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, Course, HOD, Project_Team, Semester
 from import_export.admin import ImportExportModelAdmin
 
 
@@ -25,6 +25,12 @@ class CourseAdmin(ImportExportModelAdmin):
     list_editable = ['lecturer']
     
 
+
+
+class SemesterAdmin(ImportExportModelAdmin):
+    list_display = ['semester']
+    list_display_link = ['semester']
+    # list_editable = ['semester']
 
 
 class HODAdmin(ImportExportModelAdmin):
@@ -52,3 +58,4 @@ admin.site.register(Class)
 admin.site.register(HOD, HODAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Project_Team)
+admin.site.register(Semester, SemesterAdmin)
