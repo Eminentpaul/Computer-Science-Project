@@ -14,7 +14,7 @@ class LecturerAdmin(ImportExportModelAdmin):
     list_display_links = ['full_name', 'phone_no', 'email', 'status', 'qualifications']
     search_fields = ['full_name', 'phone_no']
     list_filter = ['status']
-    list_per_page = 10
+    list_per_page = 15
 
 
 class CourseAdmin(ImportExportModelAdmin):

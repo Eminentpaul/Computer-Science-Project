@@ -172,6 +172,7 @@ def class_timetable(request):
         'images': AllBlogs().images(),
         'timetable': True,
         'courses': courses,
+        'semester': semester,
     }
     return render(request, 'base/class.html', context)
 

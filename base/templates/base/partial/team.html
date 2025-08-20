@@ -9,6 +9,9 @@
   <div class="text-center">
       <h3 my-3>{{team.full_name}}</h3>
       <p>{{team.regno}}</p>
-      <span>{{team.designation}}</span>
+      <span>{{team.designation}}</span><hr>
+      <h5>Contact Information</h5>
+      <p><b>Email</b> {{team.email | urlize}}</p>
+      <p><b>Phone No:</b> +{{team.phone_no | urlize}}</p>
   </div>
 </div>
