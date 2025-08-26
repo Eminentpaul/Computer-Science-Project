@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="rts-section">
                     <div class="col-lg-4 col-md-5">
-                        <h3 class="rts-section-title">About the Department</h3>
+                        <h3 class="rts-section-title">History about the Department</h3>
                     </div>
                     <div class="col-lg-8 col-md-7">
                         <p class="rts-section-description">
@@ -45,45 +45,186 @@
             </div>
             <div class="row g-5 justify-content-md-center justify-content-start">
                 <div class="col-lg-7 col-xl-8 col-md-11">
-                    <div class="rts-about-section">
-                        <p>
-                            Our Computer Science Department typically offers a comprehensive curriculum that covers a wide range of topics such as programming, algorithms, data structures, software engineering, computer networks, artificial intelligence, and machine learning. Students are taught to think critically and solve complex problems using computational methods.
+                    <div class="rts-about-sectiocn d-block">
+                        <ul>
+                            <li class="fw-bold fs-3">1.	Roots in Systems Science (Early Foundations – 1970s to 1980s)</li>
+                            <p>
+                                The Computer Science Programme of the Institute of Management and Technology (IMT), Enugu, traces its origin to the erstwhile Systems Science Department, which uniquely embodied Computer Mathematics and Computer/Statistics. At that time, computation was approached more as an adjunct of mathematics and applied statistics, reflecting global trends in the 1970s when computer studies were still emerging disciplines in tertiary education.It was from this pioneering Department that the idea of Computer Science as a standalone programme was first conceived.
+                            </p>
 
-                        </p>
+                            <li class="fw-bold fs-3">2.	Policy-Driven Birth of Computer Science in IMT (Mid-1980s)</li>
+                            <p>
+                                Following the Federal Government’s national policy direction on mounting technology-based courses in tertiary institutions, and with the endorsement of the National Board for Technical Education (NBTE), IMT secured approval to establish a dedicated Computer Science Programme. This approval came after a rigorous and successful NBTE resource inspection exercise, which marked the official birth of the Programme in IMT, circa mid-1980s.
 
-                        <p>
-                            In addition to theoretical knowledge, the department often emphasizes practical experience through hands-on projects, internships, and collaboration with industry partners. Department members usually have diverse expertise and are engaged in cutting-edge research, providing students with opportunities to participate in innovative projects.
+                            </p>
 
-                        </p>
+                            <li class="fw-bold fs-3">3.	Early Struggles and Resource Constraints</li>
+                            <p>
+                                The early years of the Programme were defined by serious resource challenges:<br/>
+                                •	Classroom Deficits – The available classrooms could not accommodate the unusually large enrolments at both ND and HND levels.<br>
+                                •	Staffing Shortages – There were too few qualified lecturers to handle core Computer Science courses, resulting in an unhealthy student-to-lecturer ratio.<br>
+                                •	Inadequate Laboratories – The Programme lacked sufficient computing facilities, making students’ experiences more theoretical than practical.<br>
+                                Yet, out of self-help and pioneer spirit, the first cohorts of students mobilised themselves, raised funds, and purchased twelve (12) XT and AT PCs, which became the Department’s first laboratory stock. This heroic effort paved the way for the Department to secure its first NBTE accreditation
 
-                        <p>
-                            The department has been guided by visionary leaders who have shaped its excellence. Below are some of our distinguished Heads of Department:
 
-                        </p>
-                        <table class="table table-striped table-hover my-3 fw-bold">
-                            <thead>
-                                <tr>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Tenure</th>
-                                
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                {% for hod  in hods  %}
-                                    <tr class="mb-3" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
-                                hx-get="{% url 'lecturers_pop' hod.lecturer.id %}"
-                                hx-target='#modalcontent'
-                                hx-trigger="click">
-                                        <td class="p-3">{{hod.lecturer | title}}</td>
-                                        <td class="p-3">{{hod.started}} - {{hod.ended}}</td>
+                            </p>
+
+                            <li class="fw-bold fs-3">4.	Accreditation Stability and Steady Growth (1990s – Present)</li>
+                            <p>
+                                From inception until today, despite its resource-humbled beginnings, the Computer Science Department has never lost its accreditation status. In every reaccreditation exercise conducted by NBTE, the Department has retained full accreditation for both ND and HND programmes. This consistency is a testimony to the resilience of staff, the innovation of students, and the supportive management of IMT. Growth may have been steady and sometimes slow, but it has been progressive and unbroken.
+
+                            </p>
+
+                            <li class="fw-bold fs-3">5. Curriculum Evolution and Global Relevance</li>
+                            <p>
+                                The Department has kept pace with curriculum reviews approved by NBTE, ensuring alignment with emerging global ICT trends. The most significant transformation has been the unbundling of the HND Computer Science Curriculum into specialized pathways, reflecting the modern information ecosystem. The current specializations include:<br>
+                                1.	Artificial Intelligence<br>
+                                2.	Cybersecurity<br>
+                                3.	Network and Cloud Computing<br>
+                                4.	Software and Web Development<br>
+
+                                Through this, IMT’s Computer Science Department now mirrors the contemporary architecture of ICT education worldwide, preparing graduates for specialized roles in industry and research.
+
+
+                            </p>
+
+                            <li class="fw-bold fs-3">6.	Achievements and Student Impact</li>
+                            <p>
+                                Our students have excelled in both national and international software development competitions, consistently securing leading positions. These achievements stand as a living proof of the Department’s academic rigor and practical exposure.
+                                We give accolades to all student teams who have represented the Department with distinction, bringing honour to IMT, Enugu.
+                            </p>
+
+                            <li class="fw-bold fs-3">7.	Staff Commitment and Leadership Profile</li>
+                            <p class="mb-5">
+                                Over the years, the Department has been blessed with committed staff members – some still serving, some retired, and some late. Their dedication forms the backbone of the Department’s survival and progress.
+
+                                <b>Leadership Pathway of Heads of Department (HODs)</b>
+                                Since inception, the Department has been steered by a line of visionary leaders. Each HOD contributed uniquely to the Programme’s stability, growth, and accreditation history. Notably:
+                                The pioneer HODs laid the groundwork for NBTE approvals and established initial laboratories.
+                                Subsequent HODs expanded curriculum offerings, improved staffing levels, and ensured reaccreditation exercises were successful.<br><br>
+                                <strong>PROFIILE OF HODs FROM INCEPTION TILL DATE</strong>
+
+                                <table class="table table-striped table-hover my-3 fw-bold">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Tenure</th>
                                         
-                                    </tr>
-                                {% endfor %}
-                                    
-                                
-                            </tbody>
-                            </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        {% for hod  in hods  %}
+                                            <tr class="mb-3" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                                        hx-get="{% url 'lecturers_pop' hod.lecturer.id %}"
+                                        hx-target='#modalcontent'
+                                        hx-trigger="click">
+                                                <td class="p-3">{{hod.lecturer | title}}</td>
+                                                <td class="p-3">{{hod.started}} - {{hod.ended}}</td>
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                        
+                                        <tr>
+                                            <td class="p-3"> Mr. GOC Ugwuanyi</td>
+                                            <td class="p-3">2015 - 2017</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Mr. Bosa Orjimlukwe</td>
+                                            <td class="p-3">2012 - 2015</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Miss Mercy N. Nwangwu</td>
+                                            <td class="p-3">2011 - 2012</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Mr.  Israel C. Aneke</td>
+                                            <td class="p-3">2009 - 2011</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Miss Mercy Nwangwu</td>
+                                            <td class="p-3">2006 - 2009</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Mr.  Israel Aneke C.</td>
+                                            <td class="p-3">2003 - 2006</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Mrs Mercy Adibe</td>
+                                            <td class="p-3">2000 - 2003</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Mr. Oliver Ugwuaji </td>
+                                            <td class="p-3">1997 - 2000</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="p-3">Dr. Amby Odiari </td>
+                                            <td class="p-3"> 1994 - 1997</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </p>
+                            <br>
+
+                            <li class="fw-bold fs-3">8.	Alumni Impact and the Culture of Giving Back</li>
+                            <p>
+                                Our alumni are our greatest ambassadors. From those in the diaspora to those within Nigeria’s ICT and academic space, graduates of IMT Computer Science occupy influential roles across the globe.
+                                We particularly commend the Class of N91/H94 (COMSTA set) for pioneering a give-back initiative to support the Department. Their example is a call to action for all alumni to remember their alma mater. Truly, it is never too much to give back to one’s academic roots.
+
+                            </p>
+
+                            <li class="fw-bold fs-3">9.	Looking Ahead: The Department and the New Information Ecosystem</li>
+                            <p>
+                                The Department stands in tandem with emerging global directions in information processing, big data, AI, cybersecurity, and cloud services. With every curriculum review, research effort, and infrastructural expansion, we prepare our students not just for today’s ICT landscape but for the uncertain innovations of tomorrow.
+
+                            </p>
+                            <br>
+                            <li class="fw-bold fs-2">Timeline of the Computer Science Programme, IMT Enugu</li>
+                            <p>
+                                •	<b>1970s – 1980s</b> → Systems Science Department established, housing Computer Mathematics and Computer/Statistics. <br>
+                                •	<b>Earky-1990s</b> → Federal Policy & NBTE approval: Computer Science Programme officially mounted after resource inspection. <br>
+                                •	<b>Mid-1990s</b> → Pioneer students raised funds to purchase 12 XT and AT PCs, enabling first laboratory and NBTE accreditation. <br>
+                                •	<b>1990s – 2000s</b> → Steady expansion of classrooms and staff; consistent reaccreditation achieved. <br>
+                                •	<b>2010s</b> → NBTE-driven curriculum reforms adopted; IMT keeps pace with global ICT shifts. <br>
+                                •	<b>2020s</b> → Unbundling of HND into specializations: AI, Cybersecurity, Network & Cloud Computing, Software & Web Development. <br>
+                                •	<b>2025 and beyond</b> → Department aligns with the new data-driven information ecosystem, consolidating its leadership in ICT education.
+
+
+                            </p>
+
+                            <br>
+                            <li class="fw-bold fs-2">Conclusion: A Legacy of Resilience and Excellence</li>
+                            <p>
+                                From humble beginnings in Systems Science, through struggles of inadequate resources, to stability in accreditation, curriculum unbundling, alumni impact, and international competitiveness, the Computer Science Programme of IMT, Enugu, has charted a proud historical pathway.
+                                Our story is one of resilience, self-help, sacrifice, innovation, and steady growth. As we celebrate our achievements, we also extend a warm hand of welcome to our alumni, friends, and partners to continue the journey with us.
+                                The Department remains committed to its founding mandate: to train competent, innovative, and globally relevant Computer Scientists who will continue to shape the ICT landscape in Nigeria and beyond
+
+
+
+                            </p>
+                        </ul>
+                        
+
+                        <p>
+                            From the Desk of:<br>
+                            <strong>Aneke Israel Chinagolum</strong><br>
+                            <em>
+                                Director, ICT – IMT Enugu<br>
+                                Chief Lecturer & Three-Time Head of Department, Computer Science
+                            </em>
+
+                        </p>
+                        
+                        
                     </div>
                 </div>
                 <div class="col-lg-5 col-xl-4 col-md-11">
@@ -149,59 +290,7 @@
     </div>
 
 
-    <!-- mission -->
-    <section class="rts-mission">
-        <div class="container">
-            <div class="row justify-content-center rt-center">
-                <div class="rts-section mb--50">
-                    <h2 class="rts-section-title">Mission and Values</h2>
-                </div>
-            </div>
-            <!-- mission -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="rts-timeline-section">
-                        <div class="rts-timeline-content">
-                            <div class="left-side">
-                                <div class="single-timeline-item">
-                                    <h5 class="timeline-title">Diversity</h5>
-                                    <p> Celebrating a rich tapestry of backgrounds,
-                                        perspectives, and talents
-                                    </p>
-                                    <img src="{% static 'assets/images/about/mission-1.jpg' %}" alt="">
-                                </div>
-                                <div class="single-timeline-item">
-                                    <h5 class="timeline-title">Innovation</h5>
-                                    <p> Encouraging creativity, critical thinking, and a
-                                        spirit of innovation.
-                                    </p>
-                                    <img src="{% static 'assets/images/about/mission-2.jpg' %}" alt="">
-                                </div>
-                            </div>
-                            <div class="separator">
-                            </div>
-                            <div class="right-side">
-                                <div class="single-timeline-item">
-                                    <h5 class="timeline-title">Excellence</h5>
-                                    <p> Striving for academic and research excellence
-                                        in all endeavors.
-                                    </p>
-                                    <img src="{% static 'assets/images/about/mission-3.jpg' %}" alt="">
-                                </div>
-                                <div class="single-timeline-item">
-                                    <h5 class="timeline-title">Academic Excellence</h5>
-                                    <p> Our commitment to academic excellence is reflected in
-                                        the diverse range
-                                    </p>
-                                    <img src="{% static 'assets/images/about/mission-4.jpg' %}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
     
 
     <!-- Testimonial Start -->

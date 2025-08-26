@@ -17,6 +17,8 @@ class LecturerAdmin(ImportExportModelAdmin):
     list_per_page = 15
 
 
+
+
 class CourseAdmin(ImportExportModelAdmin):
     list_display = ['course_code', 'course_title', 'level', 'semester', 'credit_load', 'lecturer']
     list_display_links = ['course_code', 'course_title', 'level', 'semester', 'credit_load']
@@ -47,15 +49,15 @@ class ExcosAdmin(ImportExportModelAdmin):
 
 
 
-admin.site.register(HomeSlide)
+admin.site.register(HomeSlide, ImportExportModelAdmin)
 admin.site.register(Blog, BlogAdmin)
 # admin.site.register(Images)
 admin.site.register(Excos, ExcosAdmin)
 admin.site.register(Comment)
 admin.site.register(Staff, LecturerAdmin) 
-admin.site.register(Lab)
-admin.site.register(Class)
+admin.site.register(Lab, ImportExportModelAdmin)
+admin.site.register(Class, ImportExportModelAdmin)
 admin.site.register(HOD, HODAdmin)
 admin.site.register(Course, CourseAdmin)
-admin.site.register(Project_Team)
+admin.site.register(Project_Team, ImportExportModelAdmin)
 admin.site.register(Semester, SemesterAdmin)
