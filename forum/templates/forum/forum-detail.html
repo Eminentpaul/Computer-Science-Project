@@ -126,7 +126,7 @@
 												  <div class="post-text">{{post.comment_count}}</div>
 											   </a>
 											</div>
-											<div class="post-item">
+											{% comment %} <div class="post-item">
                                                 {% if user in post.saved.all  %}
                                                     <a style="cursor: pointer;"
                                                     hx-post="{% url 'save_post' post.id %}"
@@ -144,7 +144,7 @@
                                                         <div class="post-text">{{post.saved.all.count}}</div>
                                                     </a>
                                                 {% endif %}
-											</div>
+											</div> {% endcomment %}
 											<div class="post-item">
                                                 {% if user == post.author  %}
                                                     
@@ -168,10 +168,10 @@
                                                 {% endif %}
 											</div>
 											<div class="post-item">
-											   <a href="#">
+											   {% comment %} <a href="#">
 												 <div class="post-icon"><i class="bi bi-flag"></i></div>
 												 <div class="post-text">Report</div>
-											   </a>
+											   </a> {% endcomment %}
 											</div>
 										 </div>
 
@@ -187,7 +187,7 @@
                                                 <div class="avatar avatar-sm status-online me-2"><img class="rounded-circle" src="{{comment.user.profile.avatar}}" alt="User"></div>
                                                 <div class="flex-1">
                                                 <div class="align-items-center"><a class="fw-bold mb-0" href="{% url 'dashboard' comment.user.profile.id %}">{{comment.user.full_name}}</a></div>
-                                                <p class="mb-0">{{comment.comment | linebreaks}} </p>
+                                                <span class="text-info">{{comment.comment | linebreaks}}</span>
                                                 <div class="post-links d-flex mt-1">
                                                     
                                                     {% if user in comment.likes.all  %}

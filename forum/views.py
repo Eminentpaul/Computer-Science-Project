@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from .models import Forum, Comment, SaveItem, Notification
+from .models import Forum, Comment, Notification
 from django.db import transaction
 from django.core.paginator import Paginator
 from user_auth.models import Profile
@@ -29,7 +29,6 @@ def dashboard(request, pk):
     referer = request.META.get('HTTP_REFERER')
     pages.append(referer)
 
-    saved_posts = [post for post in SaveItem.objects.all().filter(user=user_profile.user)]
     total_comments = 0
     total_likes = 0
 
@@ -50,7 +49,6 @@ def dashboard(request, pk):
         'total_comments': total_comments,
         'total_likes': total_likes,
         'date': checkDate(),
-        'saved_posts': saved_posts,
         'my_notification': notify.myNotifiction()
     }
     return render(request, 'forum/author.html', context)

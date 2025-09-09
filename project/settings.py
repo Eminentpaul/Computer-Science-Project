@@ -50,6 +50,7 @@ THIRD_PARTY_APP = [
     'django_social_share',
     'import_export',
     'mathfilters',
+    'django_extensions',
     # 'allauth',
     # 'allauth.account',
 
@@ -177,6 +178,25 @@ MESSAGE_TAGS = {
 
 
 
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+  'app_labels': ["base", "user_auth", "forum"],
+}
+
+
+
+# #Email Settings
+# #Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'server166.web-hosting.com'
+EMAIL_HOST_USER = 'info@normatrusted.agency'
+EMAIL_HOST_PASSWORD = 'paulinho254780'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+
 
 
 # Third party settings #
@@ -214,14 +234,17 @@ JAZZMIN_SETTINGS: Dict[str, Any] = {
         {"name": "Home", "url": "admin:index",
             "permissions": ["user_auth.view_user"]},
         # external url that opens in a new window (Permissions can be added)
-        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues",
+        {"name": "Site Mail", "url": "https://google.com",
             "new_window": True},
+            
         # model admin to link to (Permissions checked against model)
         {"model": "user_auth.User"},
         # App with dropdown menu to all its models pages (Permissions checked against models)
         {"app": "user_auth"},
         {"app": "forum"},
         {"app": "base"},
+        
+        
     ],
     #############
     # User Menu #

@@ -8,7 +8,6 @@ class Forum(models.Model):
     description = models.TextField(null=True, blank=True)
     views = models.ManyToManyField(User, blank=True, related_name='post_views')
     likes = models.ManyToManyField(User, related_name='post_likes', blank=True)
-    saved = models.ManyToManyField(User, related_name='post_saved', blank=True)
     repost = models.ManyToManyField(User, related_name='repost', blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='owner')
     comment_count = models.IntegerField(default=0)
@@ -43,17 +42,17 @@ class Comment(models.Model):
 
 
 
-class SaveItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    item = models.ForeignKey(Forum, on_delete=models.CASCADE)
-    added = models.DateTimeField(auto_now_add=True)
+# class SaveItem(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     item = models.ForeignKey(Forum, on_delete=models.CASCADE)
+#     added = models.DateTimeField(auto_now_add=True)
 
 
-    def __str__(self):
-        return f'{self.user}' 
+#     def __str__(self):
+#         return f'{self.user}' 
     
-    class Meta:
-        ordering = ['-added']
+#     class Meta:
+#         ordering = ['-added']
 
 
 

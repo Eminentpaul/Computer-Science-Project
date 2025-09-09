@@ -223,7 +223,7 @@
                                                     
                                                     {% else %}
                                                         
-                                                        {% if user in post.saved.all  %}
+                                                        {% comment %} {% if user in post.saved.all  %}
                                                             <a style="cursor: pointer;"
                                                             hx-post="{% url 'save_post' post.id %}"
                                                             hx-trigger="click"
@@ -239,7 +239,7 @@
                                                                 <div class="post-icon"><i class="bi bi-bookmark"></i></div>
                                                                 <div class="post-text">{{post.saved.all.count}}</div>
                                                             </a>
-                                                        {% endif %}
+                                                        {% endif %} {% endcomment %}
                                                             
                                                     </div>
                                                     <div class="post-item">

@@ -22,8 +22,10 @@ Letcurer_status = (
 classes = (
     ('ND1', 'ND1'),
     ('ND2', 'ND2'),
-    ('HND1', 'HND1'),
-    ('HND2', 'HND2')
+    ('HND1 NCC', 'HND1 NCC'),
+    ('HND1 SWD', 'HND1 SWD'),
+    ('HND2 NCC', 'HND2 NCC'),
+    ('HND2 SWD', 'HND2 SWD'),
 )
 
 
@@ -206,6 +208,10 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_code
+    
+
+    class Meta:
+        ordering = ['level', 'semester']
         
     
 

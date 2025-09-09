@@ -78,31 +78,23 @@
                             <div class="card-body p-4 p-xl-5">
                                 <div class="login-header">
                                     <a href="/" class="nav-link"><img src="{% static 'assets/images/fav.svg' %}" alt="Logo"></a>
-                                    <p class="small mb-4">Sign in to your account to continue.</p>
+                                    <p class="small mb-4 text-info">RESET YOUR PASSWORD</p>
                                 </div>
                                 <form action="" method="post">
                                     {% csrf_token %}
                                     {% include 'message.html' %}
+                                    
                                     <div class="pb-3">
-                                        <label class="form-label rd-input-label focus not-empty">Email address</label> 
-                                        <input type="text" name="email" placeholder="name@example.com"></div>
-                                    <div class="pb-3">
-                                        <label class="form-label rd-input-label focus not-empty">Password</label> 
+                                        <label class="form-label rd-input-label focus not-empty text-success">New Password</label> 
                                         <input type="password" name="password" placeholder="***********">
                                     </div>
-                                    <div class="mb-4 d-flex justify-content-between">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label text-danger" for="exampleCheck1">Remember me</label>
-                                        </div>
-                                        <div class="text-primary-hover">
-                                            <a href="{% url 'forgot_password' %}" class="text-secondary">
-                                                <u>Forgot password?</u>
-                                            </a>
-                                        </div>
-                                    </div>    
-                                    <div class="pb-3"><button class="w-100 btn btn-mint">Log In</button></div>
-                                    <div class="text-center"><small class="text-danger">Not registered?</small> <a href="{% url 'register' %}" class="small font-weight-bold">Create account</a></div>
+                                    <div class="pb-3">
+                                        <label class="form-label rd-input-label focus not-empty text-success">Confirm Password</label> 
+                                        <input type="password" name="cpassword" placeholder="***********">
+                                    </div>
+                                        
+                                    <div class="pb-3"><button class="w-100 btn btn-mint">Reset Password</button></div>
+                                    
                                 </form>
 
                                 {% comment %} <div class="row">

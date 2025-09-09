@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype HTML>
 <html lang="en">
 <head>
@@ -14,9 +16,9 @@
 
     <!-- inject:css-->
 
-    <link rel="stylesheet" href="css/plugin.min.css">
+    <link rel="stylesheet" href="{% static 'css/plugin.min.css' %}">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
     <!-- endinject -->
 
@@ -38,7 +40,7 @@
                         <div class="breadcrumb">
                             <ul>
                                 <li>
-                                    <a href="#">Home</a>
+                                    <a href="/">Home</a>
                                 </li>
                                 <li class="active">
                                     <a href="#">Recover Password</a>
@@ -56,7 +58,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
-                    <form action="#">
+                    {% include 'message.html' %}
+                    <form action="" method="post">
+                        {% csrf_token %}
                         <div class="cardify recover_pass">
                             <div class="login--header">
                                 <p>Please enter the email address for your account. A verification code will be sent to you.
@@ -67,7 +71,7 @@
                             <div class="login--form">
                                 <div class="form-group">
                                     <label for="email_ad">Email Address</label>
-                                    <input id="email_ad" type="text" class="text_field" placeholder="Enter your email address">
+                                    <input id="email_ad" name="email" type="email" class="text_field" placeholder="Enter your email address">
                                 </div>
                                 <button class="btn btn--md register_btn btn-primary" type="submit">Send Recovery Email</button>
                             </div><!-- end .login--form -->
@@ -86,9 +90,9 @@
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDxflHHc5FlDVI-J71pO7hM1QJNW1dRp4U"></script>
     <!-- inject:js-->
 
-     <script src="js/plugins.min.js"></script>
+     <script src="{% static 'js/plugins.min.js' %}"></script>
 
-     <script src="js/script.min.js"></script>
+     <script src="{% static 'js/script.min.js' %}"></script>
 
      <!-- endinject-->
 </body>

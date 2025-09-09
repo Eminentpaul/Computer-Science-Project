@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import Forum, Comment, SaveItem, Notification
+from .models import Forum, Comment, Notification
 
 
 class ForumAdmin(ModelAdmin):
     list_display = ['author', 'title', 'created']
+    list_display_links = ['author', 'title', 'created']
 
 
 class SavedAdmin(ModelAdmin):
@@ -14,5 +15,4 @@ class SavedAdmin(ModelAdmin):
 
 admin.site.register(Forum, ForumAdmin)
 admin.site.register(Comment)
-admin.site.register(SaveItem, SavedAdmin)
 admin.site.register(Notification)
