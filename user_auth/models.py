@@ -7,10 +7,12 @@ import uuid
 
 # Create your models here.
 LEVEL = (
-    ('ND 1', 'ND 1'),
-    ('ND 2', 'ND 2'),
-    ('HND 1', 'HND 1'),
-    ('HND 2', 'HND 2')
+    ('ND1', 'ND1'),
+    ('ND2', 'ND2'),
+    ('HND1 NCC', 'HND1 NCC'),
+    ('HND1 SWD', 'HND1 SWD'),
+    ('HND2 NCC', 'HND2 NCC'),
+    ('HND2 SWD', 'HND2 SWD'),
 )
 
 
