@@ -211,7 +211,7 @@ class Course(models.Model):
     
 
     class Meta:
-        ordering = ['level', 'semester']
+        ordering = ['semester', '-level']
         
     
 
