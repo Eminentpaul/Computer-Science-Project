@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, HOD, Project_Team, Course, Semester
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, HOD, Project_Team, Course, Semester, Timetable, Level
 from .blogs import AllBlogs
 from .forms import CommentForm 
-import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from datetime import time, timedelta, datetime
 
 
 # Create your views here.
@@ -165,6 +165,43 @@ def class_timetable(request):
     semester = Semester.objects.all().first()
     timetables = Class.objects.all()
     courses = Course.objects.all().filter(semester=semester.semester)
+    
+    levels = []
+
+    for timetable in Timetable.objects.all():
+        if timetable.level not in levels:
+            levels.append(timetable.level)
+
+    days_of_week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+    
+    # Generate time slots from 8:00 to 16:00 (4:00 PM) in 1-hour intervals
+    time_slots = []
+    start_hour = 8
+    end_hour = 14
+    for i in range(start_hour, end_hour + 1, 2):
+        start_time = time(i, 0)
+        end_time = (datetime.combine(datetime.min, start_time) + timedelta(hours=2)).time()
+        time_slots.append((start_time, end_time))
+
+    # Retrieve all users and their events, then structure the data
+    levels_with_timetables = []
+    all_levels = Level.objects.all().prefetch_related('timetable_level')
+    
+
+    for level in all_levels:
+        events_matrix = {}
+        for day in days_of_week:
+            events_matrix[day] = {}
+            day_events = level.timetable_level.filter(day_of_week=day).order_by('start_time')
+            for event in day_events:
+                event_start_hour = event.start_time.hour
+                if start_hour <= event_start_hour <= end_hour:
+                    events_matrix[day][time(event_start_hour, 0)] = event
+        
+        levels_with_timetables.append({
+            'level': level,
+            'events_matrix': events_matrix,
+        })
 
     context = {
         'timetables': timetables,
@@ -173,6 +210,10 @@ def class_timetable(request):
         'timetable': True,
         'courses': courses,
         'semester': semester,
+        'days_of_week': days_of_week,
+        'time_slots': time_slots,  # Now a list of tuples (start, end)
+        'levels_with_timetables': levels_with_timetables,
+        'levels': levels
     }
     return render(request, 'base/class.html', context)
 
@@ -190,7 +231,7 @@ def class_timetable_pop(request, pk):
 
 
 def excos(request):
-    current_year = datetime.datetime.now().year
+    current_year = datetime.now().year
     excos = Excos.objects.all().filter(year=current_year)
 
     all_years = []

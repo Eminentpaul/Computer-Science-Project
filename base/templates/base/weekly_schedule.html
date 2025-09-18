@@ -1,0 +1,85 @@
+{% load timetable_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weekly Timetable</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .timetable-container { margin: 20px; }
+        .timetable-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .timetable-table th, .timetable-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .timetable-table th {
+            background-color: #f2f2f2;
+            text-transform: capitalize;
+        }
+        .day-header {
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: left;
+            background-color: #f9f9f9;
+        }
+        .event {
+            background-color: #e0f7fa;
+            border-left: 4px solid #00bcd4;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .event-title { font-weight: bold; }
+        .event-time { font-size: 0.9em; color: #555; }
+        .empty-slot {
+            height: 50px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="timetable-container">
+        <h1>Weekly Timetable</h1>
+        <table class="timetable-table">
+            <thead>
+                <tr>
+                    <th>Time / Day</th>
+                    {% for start_time, end_time in time_slots %}
+                        <th>
+                            {{ start_time|time:"H:i" }} - {{ end_time|time:"H:i" }}
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for day in days_of_week %}
+                    <tr>
+                        <td class="day-header">{{ day | upper}}</td>
+                        {% for start_time, end_time in time_slots %}
+                            <td>
+                                {% with event=events_matrix|get_item:day|get_item:start_time %}
+                                    {% if event %}
+                                        <div class="event">
+                                            <div class="event-title">{{ event.course | upper}}</div>
+                                        </div>
+                                    {% else %}
+                                        <div class="empty-slot"></div>
+                                    {% endif %}
+                                {% endwith %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

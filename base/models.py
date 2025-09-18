@@ -2,7 +2,7 @@ from django.db import models
 from .utils import imageResize
 from user_auth.models import User
 from django.utils.safestring import mark_safe
-import datetime
+from datetime import datetime
 
 categories = (
     ('Campus', 'Campus'),
@@ -22,10 +22,10 @@ Letcurer_status = (
 classes = (
     ('ND1', 'ND1'),
     ('ND2', 'ND2'),
-    ('HND1 NCC', 'HND1 NCC'),
-    ('HND1 SWD', 'HND1 SWD'),
-    ('HND2 NCC', 'HND2 NCC'),
-    ('HND2 SWD', 'HND2 SWD'),
+    ('HND1_NCC', 'HND1 NCC'),
+    ('HND1_SWD', 'HND1 SWD'),
+    ('HND2_NCC', 'HND2 NCC'),
+    ('HND2_SWD', 'HND2 SWD'),
 )
 
 
@@ -34,12 +34,29 @@ semester = (
         ('Second Semester', 'Second Semester')
     )
 
+# Updated choices to only include Monday to Friday
+DAYS_OF_WEEK = (
+    ('monday', 'Monday'),
+    ('tuesday', 'Tuesday'),
+    ('wednesday', 'Wednesday'),
+    ('thursday', 'Thursday'),
+    ('friday', 'Friday'),
+)
 
+CLASS_LEVEL = (
+    ('nd1', 'ND1'),
+    ('nd2', 'ND2'),
+    ('hnd1_ncc', 'HND1 NCC'),
+    ('hnd1_swd', 'HND1 SWD'),
+    ('hnd2_ncc', 'HND2 NCC'),
+    ('hnd2_swd', 'HND2 SWD'),
+
+)
 
     
 
 def get_year_choices():
-    current_year = datetime.datetime.now().year
+    current_year = datetime.now().year
     return [(year, year) for year in range(2010, current_year + 20)]
 
 
@@ -123,7 +140,7 @@ class Images(models.Model):
 class Excos(models.Model):
     name = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
-    year = models.IntegerField(choices=get_year_choices, default=datetime.datetime.now().year,)
+    year = models.IntegerField(choices=get_year_choices, default=datetime.now().year,)
     image = models.ImageField(upload_to='Excos')
 
     def __str__(self):
@@ -197,7 +214,7 @@ class Staff(models.Model):
 class Course(models.Model):
     course_code = models.CharField(max_length=50, verbose_name='Course Code')
     course_title = models.CharField(max_length=500, verbose_name='Course Title', null=True, blank=True)
-    level = models.CharField(max_length=20, choices=classes)
+    level = models.CharField(max_length=20, choices=classes, default='ND1')
     credit_load = models.CharField(max_length=20, null=True, blank=True)
     semester = models.CharField(max_length=200, choices=semester)
     lecturer = models.ForeignKey(Staff, on_delete=models.SET_NULL, 
@@ -257,6 +274,7 @@ class Class(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='Classes', blank=True, null=True, verbose_name='Class Image')
     timetable = models.ImageField(upload_to='Classes', blank=True, null=True)
+    level = models.CharField(max_length=10, choices=CLASS_LEVEL, default='nd1')
 
 
     def __str__(self):
@@ -315,3 +333,33 @@ class Project_Team(models.Model):
 
 class Semester(models.Model):
     semester = models.CharField(max_length=200, choices=semester)
+
+    def __str__(self):
+        return self.semester
+
+
+
+class Level(models.Model):
+    level = models.CharField(max_length=200, choices=CLASS_LEVEL)
+
+    def __str__(self):
+        return self.level
+    
+
+    class Meta:
+        ordering = ['-level']
+
+
+class Timetable(models.Model):
+    
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='timetable_level')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    day_of_week = models.CharField(max_length=10, choices=DAYS_OF_WEEK)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    class Meta:
+        ordering = ['day_of_week', 'start_time', 'level']
+
+    def __str__(self):
+        return f'{self.course} on {self.day_of_week}'

@@ -1,12 +1,17 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, Course, HOD, Project_Team, Semester
+from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, Course, HOD, Project_Team, Semester, Timetable, Level
 from import_export.admin import ImportExportModelAdmin
 
 
 # Register your models here.
 class BlogAdmin(ModelAdmin):
     list_display = ['title', 'category', 'created']
+
+
+class TimetableAdmin(ModelAdmin):
+    list_display = ['level', 'course', 'start_time', 'end_time', 'day_of_week']
+    list_display_links = ['level', 'course', 'start_time', 'end_time', 'day_of_week']
 
 
 class LecturerAdmin(ImportExportModelAdmin):
@@ -21,10 +26,10 @@ class LecturerAdmin(ImportExportModelAdmin):
 
 class CourseAdmin(ImportExportModelAdmin):
     list_display = ['course_code', 'course_title', 'level', 'semester', 'credit_load', 'lecturer']
-    list_display_links = ['course_code', 'course_title', 'level', 'semester', 'credit_load']
+    list_display_links = ['course_code', 'course_title', 'semester', 'credit_load']
     search_fields = ['course_code', 'course_title']
     list_filter = ['semester', 'level']
-    list_editable = ['lecturer']
+    list_editable = ['lecturer', 'level']
     
 
 
@@ -61,3 +66,5 @@ admin.site.register(HOD, HODAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Project_Team, ImportExportModelAdmin)
 admin.site.register(Semester, SemesterAdmin)
+admin.site.register(Timetable, TimetableAdmin)
+admin.site.register(Level)

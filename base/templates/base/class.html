@@ -1,5 +1,6 @@
 {% extends 'nav.html' %}
 {% load static %}
+{% load timetable_filters %}
     <!-- header banner -->
 
 
@@ -50,29 +51,102 @@
             {% if timetable %}
                 <div class="row g-5">
                 
-                    {% for lab in timetables  %}
-                        <!-- single item -->
-                        <div class="col-lg-4 col-md-6 col-sm-6"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
-                        hx-get="{% url 'class_timetable_pop' lab.id %}"
-                        hx-target='#modalcontent'
-                        hx-trigger="click"
-                        >
-                            <div class="single-item">
-                                <div class="single-item__content">
-                                    <div class="single-item__image">
-                                        <img src="{{lab.timetable.url}}" alt="item-image">
-                                    </div>
-                                    <h5 class="item-title my-3 text-center"><a href="#">{{lab.name}}</a></h5>
-                                    {% comment %} <div class="single-item__meta">
+                    
+                        <style>
+                            table, th, td {
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                                }
+                            th,td {
+                                font-weight: bolder;
+                            }
+                            th {
+                                text-align: center;
+                            }
+                        </style>
+                        
+                        <div class="overflow-x:auto">
+                            {% for level in levels %}
+                                {% for level_data in levels_with_timetables %}
+                                    
+                                    {% if level_data.level == level %}
                                         
-                                    </div> {% endcomment %}
-                                </div>
-                            </div>
+                                        <h3 class="text-success text-center">CLASS TIMETABLE FOR {{level_data.level | upper}} {{ semester | upper}}</h3>
+
+                                        <table cellpadding=5 border=1 cellspacing=0  class="table-responsive table table-striped table-hover my-5 fw-bold">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Time / Day</th>
+                                                        {% for start_time, end_time in time_slots %}
+                                                            <th>
+                                                                {{ start_time|time:"H:i" }} - {{ end_time|time:"H:i" }}
+                                                            </th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for day in days_of_week %}
+                                                        <tr>
+                                                            <td class="day-header">{{ day | upper }}</td>
+                                                            {% for start_time, end_time in time_slots %}
+                                                                <td>
+                                                                    {% with event=level_data.events_matrix|get_item:day|get_item:start_time %}
+                                                                        {% if event %}
+                                                                            <div class="event">
+                                                                                <div class="event-title">{{ event.course | upper}}</div>
+                                                                            </div>
+                                                                        {% else %}
+                                                                            <div class="empty-slot"></div>
+                                                                        {% endif %}
+                                                                    {% endwith %}
+                                                                </td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                        
+                                                    
+                                                </tbody>
+                                        </table>
+                                        
+                                    {% endif %}
+                                        
+                                {% endfor %}
+                                <hr class="my-4">
+                            {% endfor %}
                         </div>
-                        <!-- single item end -->
-                    {% endfor %}
-                        <hr class="my-4">
+                            
+                            
+                    
+                                
+                            <!-- single item -->
+                            {% comment %} <div class="col-lg-4 col-md-6 col-sm-6"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                            hx-get="{% url 'class_timetable_pop' lab.id %}"
+                            hx-target='#modalcontent'
+                            hx-trigger="click"
+                            >
+                                <div class="single-item">
+                                    <div class="single-item__content">
+                                        <div class="single-item__image">
+                                            <img src="{{lab.timetable.url}}" alt="item-image">
+                                        </div>
+                                        <h5 class="item-title my-3 text-center"><a href="#">{{lab.name}}</a></h5>
+                                        {% comment %} <div class="single-item__meta">
+                                            
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                            <!-- single item end -->
+                        
+                        
+                    
+                        
+
+
+
+
+                        
                         <div style='overflow-x:auto'>
                             <h3 class="text-success text-center">COURSES AND THE ASSIGNED LECTURERS</h3>
 
