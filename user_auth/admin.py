@@ -16,7 +16,10 @@ class UserAdmin(ModelAdmin):
 class ProfileAdmin(ModelAdmin):
     filter_horizontal = ['followers']
     list_per_page = 50
-    list_display = ['user', 'facebook', 'instagram', 'tiktok', 'x', 'github']
+    list_display = ['user', 'is_class_rep', 'facebook', 'instagram', 'tiktok', 'x', 'github']
+    list_filter = ['user']
+    search_field = ['user']
+    list_per_page = 50
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)

@@ -58,6 +58,7 @@ class Profile(models.Model):
     tiktok = models.CharField(max_length=200, blank=True, null=True)
     github = models.CharField(max_length=200, blank=True, null=True)
     permission = models.BooleanField(default=False, verbose_name='Give Blog Permission')
+    is_class_rep = models.BooleanField(default=False, verbose_name='Class Rep?')
 
     
     def __str__(self):

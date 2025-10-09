@@ -99,9 +99,19 @@
 								<div class="mt-3">
 									{% if user.profile.permission or user.is_staff %}
 										<!--  Add Post Start -->
-										<div class="h-col h-plus-toggle">
+										<div class="h-col h-plus-toggle mb-3">
 											<a class="btn btn-mint rounded" title="Add Post" href="{% url 'events' %}">
 												Add Events/News
+											</a>
+										</div>
+										<!-- Add Post END -->
+									{% endif %}
+										
+									{% if user.profile.is_class_rep %}
+										<!--  Add Post Start -->
+										<div class="h-col h-plus-toggle">
+											<a class="btn btn-mint rounded" title="Add Post" href="{% url 'events' %}">
+												Add Timetable
 											</a>
 										</div>
 										<!-- Add Post END -->
@@ -110,12 +120,7 @@
 									<a href="/" class="nav-link mt-3">
 										<i class="bi bi-bookmark-check-fill"></i> Home Page
 									</a>
-									<a href="#saved" class="nav-link mt-3">
-										<i class="bi bi-bookmark-check-fill"></i> Dressing Code
-									</a>
-									<a href="#saved" class="nav-link mt-3">
-										<i class="bi bi-bookmark-check-fill"></i> Examination Conducts
-									</a>
+									
 								</div>
 							</div>
 
