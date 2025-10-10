@@ -110,7 +110,7 @@
 									{% if user.profile.is_class_rep %}
 										<!--  Add Post Start -->
 										<div class="h-col h-plus-toggle">
-											<a class="btn btn-mint rounded" title="Add Post" href="{% url 'events' %}">
+											<a class="btn btn-mint rounded" title="Add Post" href="{% url 'timetable_dash' %}">
 												Add Timetable
 											</a>
 										</div>
@@ -156,6 +156,16 @@
 							<div class="h-col h-plus-toggle d-none d-lg-block">
 								<a class="btn btn-mint rounded" title="Add Post" href="{% url 'events' %}">
 									Add Events/News
+								</a>
+							</div>
+							<!-- Add Post END -->
+						{% endif %}
+
+						{% if user.profile.is_class_rep %}
+							<!--  Add Post Start -->
+							<div class="h-col h-plus-toggle d-none d-lg-block">
+								<a class="btn btn-mint rounded" title="Add Post" href="{% url 'timetable_dash' %}">
+									Timetable
 								</a>
 							</div>
 							<!-- Add Post END -->

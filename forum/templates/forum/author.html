@@ -30,7 +30,7 @@
                                 <h4>{{user_profile.user.full_name}}</h4>
                                 
                                 {% if user_profile.user.username %}
-                                <p>@{{user_profile.user.username | lower}} | {{user.level}} </p>
+                                <p>@{{user_profile.user.username | lower}} | {{user.level | upper}} </p>
                                 {% endif %}
                                     
                                 <p class="fs-7 mt-3">From: {{user_profile.state}} State | Joined {{user_profile.user.date_joined | date:'M, Y'}}</p>

@@ -42,7 +42,8 @@ PROJECT_APPS = [
 CUSTOM_APPS = [
     'base',
     'forum',
-    'user_auth'
+    'user_auth',
+    'timetable'
 ]
 
 THIRD_PARTY_APP = [
@@ -51,6 +52,7 @@ THIRD_PARTY_APP = [
     'import_export',
     'mathfilters',
     'django_extensions',
+    'widget_tweaks',
     # 'allauth',
     # 'allauth.account',
 

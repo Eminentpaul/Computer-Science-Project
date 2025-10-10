@@ -1,0 +1,172 @@
+{% extends 'timetable/dashboard/nav.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+    
+        <main class="h-full overflow-y-auto">
+          <div class="container px-6 mx-auto grid">
+            <h2
+              class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+            >
+              Dashboard
+            </h2>
+            <!-- CTA -->
+            
+            <!-- Cards -->
+            <div class="grid gap-6 mb-8 md:grid-cols xl:grid-cols">
+              <!-- Card -->
+              <div
+                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+              >
+                
+                <div class="w-full">
+                  
+                  {% if edit  %}
+                    <h1
+                    class="mb-2 fw-bold font-medium text-gray-600 dark:text-gray-400 text-upper"
+                  >
+                    EDIT COURSE DETAILS
+                  </h1>
+
+                  <style>
+                    .danger {
+                            background-color: #ffdddd;
+                            border-left: 6px solid #f44336;
+                            padding: 5px;
+                          }
+                  </style>
+
+                  <div class="danger">
+                    <p><strong>REMINDER!</strong></p>
+                    <ul>
+                      <li>For 8am: <strong>input 08:00</strong></li>
+                      <li>For 10am: <strong>input 10:00</strong></li>
+                      <li>For 12pm: <strong>input 12:00</strong></li>
+                      <li>For 2pm: <strong>input 14:00</strong></li>
+                      <li>For 4pm: <strong>input 16:00</strong></li>
+                    </ul>
+                  </div>
+                  {% else %}
+                    <h1
+                    class="mb-2 fw-bold font-medium text-gray-600 dark:text-gray-400 text-upper"
+                  >
+                    ADD A LECTURE TO THE TIMETABLE
+                  </h1>
+                  {% endif %}
+                    
+                  <form action="" method="post" class="mt-5">
+                    {% csrf_token %}
+                    
+                      {% include 'message.html' %}
+
+                    {% if edit %}
+                    <div class="row">
+                    {% for field in form %}
+                        <div class="col-lg-4 my-3">
+                      <label for="fname" class="form-label text-uppercase fw-bold">{{field.label}}</label>
+                     {{field|add_class:"form-control"}}
+                    </div>
+                        {% endfor %}
+                    
+                  </div>
+                  
+                    <div class="col-12 my-3">
+                    <button type="submit" class="btn btn-success">
+                      Update
+                    </button>
+                  </div>
+
+                {% else %}
+                    
+                    <div class="row">
+                      
+                          <div class="mb-3">
+                            <label for="course" class="form-label">COURSE</label>
+                            <select name="course" id="course" class="form-select" required>
+                              <option value="" disabled selected>Select Course</option>
+                              
+                              {% for course  in all_courses %}
+                                <option value="{{course.id}}">{{course.course_code}}</option>
+                              {% endfor %}
+                                
+                            </select>
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="day_of_week" class="form-label">LECTURE DAY</label>
+                            <select name="day_of_week" id="day_of_week" class="form-select" required>
+                              <option value="" disabled selected>Select Day</option>
+                              <option value="monday">Monday</option>
+                              <option value="tuesday">Tuesday</option>
+                              <option value="wednesday">Wednesday</option>
+                              <option value="thursday">Thursday</option>
+                              <option value="friday">Friday</option>
+                              
+                                
+                            </select>
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="start_time" class="form-label">LECTURE START TIME</label>
+                            <select name="start_time" id="start_time" class="form-select" required>
+                              <option value="" disabled selected>Select Starting Time</option>
+                              <option value="08:00">08:00</option>
+                              <option value="10:00">10:00</option>
+                              <option value="12:00">12:00</option>
+                              <option value="14:00">02:00</option>
+                              <option value="16:00">04:00</option>
+                              
+                                
+                            </select>
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="end_time" class="form-label">LECTURE END TIME</label>
+                            <select name="end_time" id="end_time" class="form-select" required>
+                              <option value="" disabled selected>Select Ending Time</option>
+                              <option value="08:00">08:00</option>
+                              <option value="10:00">10:00</option>
+                              <option value="12:00">12:00</option>
+                              <option value="14:00">02:00</option>
+                              <option value="16:00">04:00</option>
+                              
+                                
+                            </select>
+                          </div>
+                                        
+
+
+                    </div>
+                      
+
+                    
+                    
+
+                        
+                    
+
+
+                  
+                <div class="col-12 my-3">
+                    <button type="submit" class="btn btn-success">
+                      Submit
+                    </button>
+                  </div>
+                  {% endif %}
+                  
+                  </form>
+                </div>
+              </div>
+              <!-- Card -->
+              
+            </div>
+
+            
+
+           
+            
+          </div>
+        </main>
+      {% endblock %}

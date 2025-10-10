@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('base.urls')),
     path('Forum/', include('forum.urls')),
     path('User/', include('user_auth.urls')),
+    path('Timetable/', include('timetable.urls')),
     # path('accounts/', include('allauth.urls')), 
 ]
 

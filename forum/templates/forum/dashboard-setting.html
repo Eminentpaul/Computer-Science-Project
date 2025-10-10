@@ -38,7 +38,7 @@
                             <div class="col-12">
                                 <div class="tab-content" data-aos="fade-up" data-aos-easing="linear">
                                     <div class="tab-pane active show" id="tab-1" role="tabpanel">
-
+										{% include 'message.html' %}
 										<div class="dashboard-card">
 											<div class="dashboard-header">
                                                 <h4>Profile Details</h4> 
@@ -55,7 +55,6 @@
                                                           <form action="" method="post" enctype="multipart/form-data">
                                                             {% csrf_token %}
         
-                                                            {% include 'message.html' %}
                                                           <!-- <label for="formFile" class="form-label"> -->
                                                             <label for="formFile" class="btn btn-mint btn-shadow btn-sm mb-2">
                                                                 <i class="bi bi-arrow-repeat me-2"></i>Change <span class="d-none d-sm-inline">avatar</span>
@@ -159,12 +158,12 @@
                                                                 <option disabled selected>Select Youl Level</option>
                                                             {% endif %}
                                                                 
-															<option value="ND 1">ND 1</option>
-															<option value="ND 2">ND 2</option>
-															<option value="HND1 NCC">HND1 NCC</option>
-															<option value="HND1 SWD">HND1 SWD</option>
-															<option value="HND2 NCC">HND2 NCC</option>
-															<option value="HND2 SWD">HND2 SWD</option>
+															<option value="nd1">ND 1</option>
+															<option value="nd2">ND 2</option>
+															<option value="hnd1_ncc">HND1 NCC</option>
+															<option value="hnd1_swd">HND1 SWD</option>
+															<option value="hnd2_ncc">HND2 NCC</option>
+															<option value="hnd2_swd">HND2 SWD</option>
 															
 															
 														</select>
