@@ -6,7 +6,6 @@ urlpatterns = [
     path('about-us', views.about, name='about'),
     path('blogs/', views.blog, name='blog'),
     path('blogs/<str:pk>/details/', views.blog_details, name='blog_details'), 
-    # path('Examination/halls/', views.halls, name='halls'),
     path('Lecturers/Non-Teaching/', views.non_lecturers, name='non_lecturers'),
     path('Lecturers/', views.lecturer, name='lecturers'),
     path('Lecturers/<str:pk>', views.lecturer_details, name='lecturers_pop'),

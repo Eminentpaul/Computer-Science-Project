@@ -17,15 +17,7 @@
             <div class="row">
                 <div class="col-12">
                     
-                    {% if timetable %}
-                        <div class="breadcrumb-content">
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Departmental Timetable</li>
-                            </ul>
-                            <h2 class="section-title">Departmental Timetable </h2>
-                        </div>
-                    {% else %}
+                    
                         <div class="breadcrumb-content">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -33,7 +25,7 @@
                             </ul>
                             <h2 class="section-title">Departmental Classrooms </h2>
                         </div>
-                    {% endif %}
+                    
                         
                 </div>
             </div>
@@ -46,145 +38,7 @@
     <!-- single section -->
     <div class="rts-campus-section rts-section-padding">
         <div class="container">
-            
-            
-            {% if timetable %}
-                <div class="row g-5">
-                
-                    
-                        <style>
-                            table, th, td {
-                                border: 1px solid black;
-                                border-collapse: collapse;
-                                }
-                            th,td {
-                                font-weight: bolder;
-                            }
-                            th {
-                                text-align: center;
-                            }
-                        </style>
-                        
-                        <div class="overflow-x:auto">
-                            {% for level in levels %}
-                                {% for level_data in levels_with_timetables %}
-                                    
-                                    {% if level_data.level == level %}
-                                        
-                                        <h3 class="text-success text-center">CLASS TIMETABLE FOR {{level_data.level | upper}} {{ semester | upper}}</h3>
-
-                                        <table cellpadding=5 border=1 cellspacing=0  class="table-responsive table table-striped table-hover my-5 fw-bold">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Time / Day</th>
-                                                        {% for start_time, end_time in time_slots %}
-                                                            <th>
-                                                                {{ start_time|time:"H:i" }} - {{ end_time|time:"H:i" }}
-                                                            </th>
-                                                        {% endfor %}
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for day in days_of_week %}
-                                                        <tr>
-                                                            <td class="day-header">{{ day | upper }}</td>
-                                                            {% for start_time, end_time in time_slots %}
-                                                                <td>
-                                                                    {% with event=level_data.events_matrix|get_item:day|get_item:start_time %}
-                                                                        {% if event %}
-                                                                            <div class="event">
-                                                                                <div class="event-title">{{ event.course | upper}}</div>
-                                                                            </div>
-                                                                        {% else %}
-                                                                            <div class="empty-slot"></div>
-                                                                        {% endif %}
-                                                                    {% endwith %}
-                                                                </td>
-                                                            {% endfor %}
-                                                        </tr>
-                                                    {% endfor %}
-                                                        
-                                                    
-                                                </tbody>
-                                        </table>
-                                        
-                                    {% endif %}
-                                        
-                                {% endfor %}
-                                <hr class="my-4">
-                            {% endfor %}
-                        </div>
-                            
-                            
-                    
-                                
-                            <!-- single item -->
-                            {% comment %} <div class="col-lg-4 col-md-6 col-sm-6"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
-                            hx-get="{% url 'class_timetable_pop' lab.id %}"
-                            hx-target='#modalcontent'
-                            hx-trigger="click"
-                            >
-                                <div class="single-item">
-                                    <div class="single-item__content">
-                                        <div class="single-item__image">
-                                            <img src="{{lab.timetable.url}}" alt="item-image">
-                                        </div>
-                                        <h5 class="item-title my-3 text-center"><a href="#">{{lab.name}}</a></h5>
-                                        {% comment %} <div class="single-item__meta">
-                                            
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div> {% endcomment %}
-                            <!-- single item end -->
-                        
-                        
-                    
-                        
-
-
-
-
-                        
-                        <div style='overflow-x:auto'>
-                            <h3 class="text-success text-center">COURSES AND THE ASSIGNED LECTURERS</h3>
-
-                            <table cellpadding=5 border=1 cellspacing=0  class="table-responsive table table-striped table-hover my-5 fw-bold">
-                                    <thead>
-                                        <tr>
-                                        
-                                        <th scope="col">#Levels</th>
-                                        <th scope="col">Course Code</th>
-                                        <th scope="col">Course Title</th>
-                                        <th scope="col">Assigned Lecturer</th>
-                                        <th scope="col">Lecturer's Phone Number</th>
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% regroup courses by level as level_list %}
-                                        {% for level  in level_list  %}
-                                        <td class="bg-success text-center fw-bold text-white" colspan='5'>{{ level.grouper }} {{semester.semester | upper}} COURSES</td>
-                                        {% for course  in level.list  %}
-                                            <tr class="mb-3"> 
-                                                <td class="p-3">{{forloop.counter}}</td>
-                                                <td class="p-3">{{course.course_code | upper}}</td>
-                                                <td class="p-3">{{course.course_title | upper}}</td>
-                                                <td class="p-3">{{course.lecturer | title}}</td>
-                                                <td class="p-3">
-                                                {% if course.lecturer %}+{% endif %}{{course.lecturer.phone_no}}</td>
-                                            </tr>
-                                            {% endfor %}
-                                        {% endfor %}
-                                            
-                                        
-                                    </tbody>
-                            </table>
-                        </div>
-                    
-                </div>
-            {% else %}
+  
                 <div class="row g-5">
                 
                     {% for lab in labs  %}
@@ -212,7 +66,7 @@
                         
                     
                 </div>
-            {% endif %}
+
                 
         </div>
     </div>

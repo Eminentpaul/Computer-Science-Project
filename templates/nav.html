@@ -49,7 +49,7 @@
 
 </head>
 
-<body>
+<body id="myTimetableTab">
 
     <!-- Button trigger modal -->
 <div class="container-fluid d-flex gap-lg-5 fw-bold justify-content-center" style="background-color: #09A24F;">
@@ -97,7 +97,7 @@
                                             <a href="javascript:void(0);" class="navigation__menu--item__link">Classes/Labs</a>
                                             <ul class="submenu sub__style">
                                                 <li><a href="{% url 'class_room' %}">Class Rooms</a></li>
-                                                <li><a href="{% url 'class_timetable' %}">Class Timetables</a></li>
+                                                <li><a href="{% url 'class_timetable' %}?q=nd1">Class Timetables</a></li>
                                                 <li><a href="{% url 'labs' %}">Practical Labs</a></li>
                                                 <li><a href="{% url 'contact' %}">CS Block</a></li>
                                                 {% comment %} <li><a href="{% url 'excos' %}">Our Excos</a></li> {% endcomment %}
