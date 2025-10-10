@@ -10,6 +10,11 @@
   <div class="text-center">
       <h3 my-3>{{name}}</h3>
       <p>{{position}}</p>
+      
+      {% if contact %}
+        <p class="text-success fw-bold">Contact: {{contact}}</p>
+      {% endif %}
+        
       <span>Exco Member - {{ year|sub:1 }}/{{year}}</span>
   </div>
 </div>

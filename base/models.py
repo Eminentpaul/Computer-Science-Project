@@ -141,6 +141,7 @@ class Excos(models.Model):
     name = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
     year = models.IntegerField(choices=get_year_choices, default=datetime.now().year,)
+    contact = models.CharField(max_length=200, null=True, blank=True)
     image = models.ImageField(upload_to='Excos')
 
     def __str__(self):
@@ -346,8 +347,8 @@ class Level(models.Model):
         return self.level
     
 
-    class Meta:
-        ordering = ['-level']
+    # class Meta:
+    #     ordering = ['-level']
 
 
 class Timetable(models.Model):

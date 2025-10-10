@@ -249,7 +249,8 @@ def excos_pop(request, pk):
         'name': exco.name,
         'position': exco.position,
         'image': exco.image.url, 
-        'year': exco.year
+        'year': exco.year, 
+        'contact': exco.contact
     }
     return render (request, 'base/partial/modal.html', context)
 

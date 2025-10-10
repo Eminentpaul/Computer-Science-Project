@@ -49,7 +49,7 @@
                         hx-target='#myTimetableTab'
                         hx-trigger="click"
                         hx-swap="innerHTML"
-                        >{{level | upper}}</button>
+                        >{{level.level | upper}}</button>
                         </li>
                     {% endfor %}
                         
@@ -73,8 +73,11 @@
                                         th,td {
                                             font-weight: bolder;
                                         }
-                                        th {
+                                        thead {
                                             text-align: center;
+                                            font-weight: bolder;
+                                            background-color: green;
+                                            color: white;
                                         }
                                     </style>
                                     
@@ -178,7 +181,7 @@
                                                 <tbody>
                                                     {% regroup courses by level as level_list %}
                                                     {% for level  in level_list  %}
-                                                    <td class="bg-success text-center fw-bold text-white" colspan='5'>{{ level.grouper }} {{semester.semester | upper}} COURSES</td>
+                                                    <td class="bg-danger text-center fw-bold text-white" colspan='5'>{{ level.grouper }} {{semester.semester | upper}} COURSES</td>
                                                     {% for course  in level.list  %}
                                                         <tr class="mb-3"> 
                                                             <td class="p-3">{{forloop.counter}}</td>

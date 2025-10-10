@@ -17,7 +17,7 @@ def timetable_dash(request):
         return redirect('edit_profile', request.user.profile.id)
     
 
-    level_query = get_object_or_404(Level, level=str(request.user.level).replace('_', ' '))
+    level_query = get_object_or_404(Level, level=str(request.user.level))
     
     courses = Timetable.objects.all().filter(level=level_query)
     
@@ -74,7 +74,7 @@ def create_timetable(request):
     semester = Semester.objects.all().first()
     all_courses = Course.objects.all().filter(level=level, semester=semester)
 
-    level_query = get_object_or_404(Level, level=str(request.user.level).replace('_', ' '))
+    level_query = get_object_or_404(Level, level=str(request.user.level))
     
 
     if request.method == 'POST':
@@ -101,7 +101,9 @@ def create_timetable(request):
                     timetable.level = level_query
                     timetable.save()
 
-                    return redirect('timetable_dash')
+                    mg.success(request, f'{course} created sucessfully')
+                    return redirect('add_lecture')
+                
                 else: mg.error(request, 'Invalid Input')
         
 
