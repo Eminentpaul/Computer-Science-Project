@@ -1,8 +1,9 @@
 from django.db import models
 from .utils import imageResize
-from user_auth.models import User
+from user_auth.models import User, Level
 from django.utils.safestring import mark_safe
 from datetime import datetime
+from simple_history. models import HistoricalRecords
 
 categories = (
     ('Campus', 'Campus'),
@@ -137,6 +138,10 @@ class Images(models.Model):
 
 
 
+
+
+
+
 class Excos(models.Model):
     name = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
@@ -215,13 +220,14 @@ class Staff(models.Model):
 class Course(models.Model):
     course_code = models.CharField(max_length=50, verbose_name='Course Code')
     course_title = models.CharField(max_length=500, verbose_name='Course Title', null=True, blank=True)
-    level = models.CharField(max_length=20, choices=classes, default='ND1')
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, null=True, blank=True)
     credit_load = models.CharField(max_length=20, null=True, blank=True)
     semester = models.CharField(max_length=200, choices=semester)
     lecturer = models.ForeignKey(Staff, on_delete=models.SET_NULL, 
                                  null=True, related_name='lecturer', 
                                  verbose_name='Assigned Lecturer', 
                                  blank=True)
+    history = HistoricalRecords()
 
 
     def __str__(self):
@@ -340,15 +346,8 @@ class Semester(models.Model):
 
 
 
-class Level(models.Model):
-    level = models.CharField(max_length=200, choices=CLASS_LEVEL)
 
-    def __str__(self):
-        return self.level
     
-
-    # class Meta:
-    #     ordering = ['-level']
 
 
 class Timetable(models.Model):

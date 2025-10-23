@@ -16,11 +16,32 @@ LEVEL = (
 )
 
 
+
+CLASS_LEVEL = (
+    ('nd1', 'ND1'),
+    ('nd2', 'ND2'),
+    ('hnd1_ncc', 'HND1 NCC'),
+    ('hnd1_swd', 'HND1 SWD'),
+    ('hnd2_ncc', 'HND2 NCC'),
+    ('hnd2_swd', 'HND2 SWD'),
+
+)
+
+
+
+
+class Level(models.Model):
+    level = models.CharField(max_length=200, choices=CLASS_LEVEL)
+
+    def __str__(self):
+        return self.level
+
+
 class User(AbstractUser):
     first_name = models.CharField(max_length=200, null=True)
     last_name = models.CharField(max_length=200, null=True)
     regno = models.CharField(max_length=20, null=True)
-    level = models.CharField(max_length=20, choices=LEVEL, null=True, blank=True)
+    level = models.ForeignKey(Level, models.SET_NULL, null=True, blank=True)
     username = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(unique=True)
     

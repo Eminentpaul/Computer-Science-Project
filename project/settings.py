@@ -53,6 +53,7 @@ THIRD_PARTY_APP = [
     'mathfilters',
     'django_extensions',
     'widget_tweaks',
+    'simple_history',
     # 'allauth',
     # 'allauth.account',
 
@@ -77,6 +78,8 @@ MIDDLEWARE = [
 
     # Add the account middleware:
     # "allauth.account.middleware.AccountMiddleware",
+
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'

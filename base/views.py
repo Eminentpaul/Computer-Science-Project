@@ -11,9 +11,11 @@ from .timetable import timetable_values
 # Create your views here.
 
 def home(request):
+    post_images = ''
+    blog = ''
     home_slide = HomeSlide.objects.all()
     blog = Blog.objects.all().first()
-    post_images = Images.objects.filter(blog=blog)[0]
+
 
     context = {
         'home_slide': home_slide,
@@ -167,6 +169,11 @@ def class_timetable(request):
     
     values = timetable_values(q)
 
+    if values:
+        print('normal')
+    else: print('Not normal')
+    
+
     context = {
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
@@ -255,6 +262,16 @@ def excos_pop(request, pk):
     return render (request, 'base/partial/modal.html', context)
 
 
+
+def courses(request):
+    semester = Semester.objects.all().first()
+    courses = Course.objects.all().filter(semester=semester)
+
+
+    context = {
+        'courses': courses,
+    }
+    return render(request, 'base/courses.html', context)
 
 
 

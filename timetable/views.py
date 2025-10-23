@@ -70,11 +70,11 @@ def edit_course(request, pk):
 
 @login_required(login_url='login')
 def create_timetable(request):
-    level = request.user.level.upper()
+    level = request.user.level
     semester = Semester.objects.all().first()
     all_courses = Course.objects.all().filter(level=level, semester=semester)
 
-    level_query = get_object_or_404(Level, level=str(request.user.level))
+    level_query = get_object_or_404(Level, level=level)
     
 
     if request.method == 'POST':

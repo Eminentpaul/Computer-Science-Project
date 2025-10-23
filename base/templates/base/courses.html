@@ -1,0 +1,103 @@
+{% extends 'nav.html' %}
+{% load static %}
+{% load timetable_filters %}
+    <!-- header banner -->
+
+
+{% block title %}
+    IMT - Computer Science
+{% endblock title %}
+    
+    
+    {% block content %}
+
+<div >
+
+
+    <!-- BREADCRUMB AREA -->
+    <section class="rts-breadcrumb breadcrumb-height breadcumb-bg" style="background-image: url({% static 'assets/images/banner/breadcrumb.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    
+                        <div class="breadcrumb-content">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Computer Science Courses</li>
+                            </ul>
+                            <h2 class="section-title">Computer Science Courses</h2>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BREADCRUMB AREA END -->
+
+
+    <!-- section one -->
+    <!-- single section -->
+<section class="rts-campus-section rts-section-padding">
+                    <div class="container">
+                        <div style='overflow-x:auto'>
+                                        <h3 class="text-success text-center">{{current_level | upper}} {{semester | upper}} COURSES AND THE ASSIGNED LECTURERS</h3>
+
+                                        <table cellpadding=5 border=1 cellspacing=0  class="table-responsive table table-striped table-hover my-5 fw-bold">
+                                                <thead>
+                                                    <tr>
+                                                    
+                                                    <th scope="col">#Levels</th>
+                                                    <th scope="col">Course Code</th>
+                                                    <th scope="col">Course Title</th>
+                                                    <th scope="col">Assigned Lecturer</th>
+                                                    <th scope="col">Lecturer's Phone Number</th>
+                                                    
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% regroup courses by level as level_list %}
+                                                    {% for level  in level_list  %}
+                                                    <td class="bg-success text-center fw-bold text-white" colspan='5'>{{ level.grouper | upper}} {{semester.semester | upper}} COURSES</td>
+                                                    {% for course  in level.list  %}
+                                                        <tr class="mb-3"> 
+                                                            <td class="p-3">{{forloop.counter}}</td>
+                                                            <td class="p-3">{{course.course_code | upper}}</td>
+                                                            <td class="p-3">{{course.course_title | upper}}</td>
+                                                            <td class="p-3">{{course.lecturer | title}}</td>
+                                                            <td class="p-3">
+                                                            {% if course.lecturer %}+{% endif %}{{course.lecturer.phone_no}}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                        
+                                                    
+                                                </tbody>
+                                        </table>
+                                    </div>
+                            
+                    </div>
+                </section>
+    <!-- single section end -->
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+
+>
+  <div class="modal-dialog" style="position: absolute; left: 0px;">
+    <div id='modalcontent' class="modal-content" style="min-width: 50vw;">
+      <div class="modal-header">
+        {% comment %} <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% comment %} <img src="{% static 'img/naomi.png' %}" class="mb-3">
+        <div class="text-center">
+            <h3 my-3>Nwachukwu Emmanuel</h3>
+            <p>President</p> {% endcomment %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

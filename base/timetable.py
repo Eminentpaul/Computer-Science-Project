@@ -7,12 +7,12 @@ from datetime import time, datetime, timedelta
 
 
 def timetable_values(lev):
-    current_level = get_object_or_404(Level, level=lev)
+    current_level = get_object_or_404(Level, id=lev)
 
 
     semester = Semester.objects.all().first()
     # timetables = Class.objects.all()
-    courses = Course.objects.all().filter(semester=semester.semester, level=str(current_level).upper())
+    courses = Course.objects.all().filter(semester=semester.semester, level=current_level)
     
     levels = Level.objects.all()
 

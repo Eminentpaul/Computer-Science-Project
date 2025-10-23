@@ -12,6 +12,7 @@ urlpatterns = [
     path('excos_year/<str:pk>', views.excos_year, name='excos_year'),
     path('excos/', views.excos, name='excos'),
     path('contact/', views.contact, name='contact'),
+    path('courses/all/', views.courses, name='courses'),
     path('labs/', views.labs, name='labs'),
     path('Class/Rooms/', views.class_room, name='class_room'),
     path('Class/Rooms/<str:pk>/pop/', views.class_pop, name='class_pop'),

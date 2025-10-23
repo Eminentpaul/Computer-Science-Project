@@ -88,6 +88,7 @@
                                             <ul class="submenu sub__style">
                                                 <li><a href="{% url 'lecturers' %}">Teaching Staff</a></li>
                                                 <li><a href="{% url 'non_lecturers' %}">Non-Teaching Staff</a></li>
+                                                <li><a href="{% url 'courses' %}">All Courses</a></li>
                                                 
                                                 
                                             </ul>
@@ -97,7 +98,7 @@
                                             <a href="javascript:void(0);" class="navigation__menu--item__link">Classes/Labs</a>
                                             <ul class="submenu sub__style">
                                                 <li><a href="{% url 'class_room' %}">Class Rooms</a></li>
-                                                <li><a href="{% url 'class_timetable' %}?q=nd1">Class Timetables</a></li>
+                                                <li><a href="{% url 'class_timetable' %}?q=1">Class Timetables</a></li>
                                                 <li><a href="{% url 'labs' %}">Practical Labs</a></li>
                                                 <li><a href="{% url 'contact' %}">CS Block</a></li>
                                                 {% comment %} <li><a href="{% url 'excos' %}">Our Excos</a></li> {% endcomment %}
@@ -316,13 +317,16 @@
                         <a href="{% url 'class_timetable' %}" class="main">Class Timetables</a>
                     </li>
                     <li>
+                        <a href="{% url 'courses' %}" class="main">All Courses</a>
+                    </li>
+                    <li>
                         <a href="{% url 'lecturers' %}" class="main">Teaching Staff</a>
                     </li>
                     <li>
                         <a href="{% url 'non_lecturers' %}" class="main">Non-Teaching Staff</a>
                     </li>
                     <li>
-                        <a href="{% url 'forum' %}" class="main">Join Student Forum</a>
+                        <a href="{% url 'forum' %}" class="main">Student Forum</a>
                     </li>
                     
                     <li>

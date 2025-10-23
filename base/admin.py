@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from .models import HomeSlide, Blog, Images, Excos, Comment, Staff, Lab, Class, Course, HOD, Project_Team, Semester, Timetable, Level
 from import_export.admin import ImportExportModelAdmin
+from simple_history.admin import SimpleHistoryAdmin
 
 
 # Register your models here.
@@ -24,7 +25,7 @@ class LecturerAdmin(ImportExportModelAdmin):
 
 
 
-class CourseAdmin(ImportExportModelAdmin):
+class CourseAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
     list_display = ['course_code', 'course_title', 'level', 'semester', 'credit_load', 'lecturer']
     list_display_links = ['course_code', 'course_title', 'semester', 'credit_load']
     search_fields = ['course_code', 'course_title']
@@ -35,9 +36,9 @@ class CourseAdmin(ImportExportModelAdmin):
 
 
 class SemesterAdmin(ImportExportModelAdmin):
-    list_display = ['semester']
+    list_display = ['id', 'semester']
     list_display_link = ['semester']
-    # list_editable = ['semester']
+    list_editable = ['semester']
 
 
 class HODAdmin(ImportExportModelAdmin):
@@ -68,3 +69,4 @@ admin.site.register(Project_Team, ImportExportModelAdmin)
 admin.site.register(Semester, SemesterAdmin)
 admin.site.register(Timetable, TimetableAdmin)
 admin.site.register(Level)
+admin.site.register(Images) 

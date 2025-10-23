@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from .models import Forum, Comment, Notification
 from django.db import transaction
 from django.core.paginator import Paginator
-from user_auth.models import Profile
+from user_auth.models import Profile, Level
 from .forms import *
 from base.models import Blog, Images
 from django.contrib import messages as mg
@@ -79,7 +79,7 @@ def edit_profile(request, pk):
         if form.is_valid():
             user.first_name = first_name
             user.last_name = last_name
-            user.level = level
+            user.level = get_object_or_404(Level, id=level)
             user.username = username
             user.save()
 

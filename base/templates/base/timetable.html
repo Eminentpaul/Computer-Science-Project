@@ -45,7 +45,7 @@
                     {% for level  in levels %}
                         <li class="nav-item mx-3" role="presentation" >
                         <button class="nav-link text-white fw-bold fs-2  text-uppercase bg-success " id="home-tab" type="button" role="tab" aria-controls="home" aria-selected="true"
-                        hx-get="{% url 'class_timetable' %}?q={{level.level}}"
+                        hx-get="{% url 'class_timetable' %}?q={{level.id}}"
                         hx-target='#myTimetableTab'
                         hx-trigger="click"
                         hx-swap="innerHTML"
@@ -133,35 +133,6 @@
                                         
                                         
                                 
-                                            
-                                        <!-- single item -->
-                                        {% comment %} <div class="col-lg-4 col-md-6 col-sm-6"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
-                                        hx-get="{% url 'class_timetable_pop' lab.id %}"
-                                        hx-target='#modalcontent'
-                                        hx-trigger="click"
-                                        >
-                                            <div class="single-item">
-                                                <div class="single-item__content">
-                                                    <div class="single-item__image">
-                                                        <img src="{{lab.timetable.url}}" alt="item-image">
-                                                    </div>
-                                                    <h5 class="item-title my-3 text-center"><a href="#">{{lab.name}}</a></h5>
-                                                    {% comment %} <div class="single-item__meta">
-                                                        
-                                                    </div> 
-                                                </div>
-                                            </div>
-                                        </div> {% endcomment %}
-                                        <!-- single item end -->
-                                    
-                                    
-                                
-                                    
-
-
-
-
                                     
                                     <div style='overflow-x:auto'>
                                         <h3 class="text-success text-center">{{current_level | upper}} {{semester | upper}} COURSES AND THE ASSIGNED LECTURERS</h3>
@@ -181,7 +152,7 @@
                                                 <tbody>
                                                     {% regroup courses by level as level_list %}
                                                     {% for level  in level_list  %}
-                                                    <td class="bg-danger text-center fw-bold text-white" colspan='5'>{{ level.grouper }} {{semester.semester | upper}} COURSES</td>
+                                                    <td class="bg-danger text-center fw-bold text-white" colspan='5'>{{ level.grouper | upper}} {{semester.semester | upper}} COURSES</td>
                                                     {% for course  in level.list  %}
                                                         <tr class="mb-3"> 
                                                             <td class="p-3">{{forloop.counter}}</td>
