@@ -1,6 +1,7 @@
 {% extends 'nav.html' %}
 {% load static %}
 {% load timetable_filters %}
+{% load mathfilters %}
     <!-- header banner -->
 
 
@@ -23,9 +24,9 @@
                         <div class="breadcrumb-content">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Computer Science Courses</li>
+                                <li class="breadcrumb-item active" aria-current="page">Courses and the Past Assigned Lecturers</li>
                             </ul>
-                            <h2 class="section-title">Computer Science Courses</h2>
+                            <h2 class="section-title">Courses and the Past Assigned Lecturers</h2>
                         </div>
                     
                 </div>
@@ -40,49 +41,79 @@
 <section class="rts-campus-section rts-section-padding">
                     <div class="container mb-5">
                         <div style='overflow-x:auto'>
-                                        <h3 class="text-success text-center">{{current_level | upper}} {{semester | upper}} COURSES AND THE ASSIGNED LECTURERS</h3>
 
+                            
+                                <style>
+                                    th {
+                                        font-weight: bolder;
+                                        color: green;
+                                    }
+                                </style>
+
+                                        
+                                        {% if course %}
+                                            <h3 class="text-success text-center">{{course}} Past Assigned Lecturers</h3>
+                                        {% else %}
+                                            <h3 class="text-success text-center">Courses and the Past Assigned Lecturers</h3>
+                                        {% endif %}
+                                            
+
+
+                                        {% if changes %}
                                         <table cellpadding=5 border=1 cellspacing=0  class="table-responsive table table-striped table-hover my-5 fw-bold">
                                                 <thead>
                                                     <tr>
                                                     
-                                                    <th scope="col">#Levels</th>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Levels</th>
                                                     <th scope="col">Course Code</th>
-                                                    <th scope="col">Course Title</th>
-                                                    <th scope="col">Assigned Lecturer</th>
-                                                    <th scope="col">Lecturer's Phone Number</th>
-                                                    <th scope="col">Action</th>
+                                                    <th scope="col">NEW LECTURER</th>
+                                                    <th scope="col">OLD LECTURER</th>
+                                                    <th scope="col">SESSION</th>
+                                                   
                                                     
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {% regroup courses by level as level_list %}
-                                                    {% for level  in level_list  %}
-                                                    <td class="bg-success text-center fw-bold text-white" colspan='5'>{{ level.grouper | upper}} {{semester.semester | upper}} COURSES</td>
-                                                    {% for course  in level.list  %}
+                                                    
+                                                    {% for course  in changes  %}
                                                         <tr class="mb-3"> 
                                                             <td class="p-3">{{forloop.counter}}</td>
-                                                            <td class="p-3">{{course.course_code | upper}}</td>
-                                                            <td class="p-3">{{course.course_title | upper}}</td>
-                                                            <td class="p-3">{{course.lecturer | title}}</td>
+                                                            <td class="p-3">{{course.level | upper}}</td>
+                                                            <td class="p-3">{{course.course}}</td>
                                                             <td class="p-3">
-                                                            {% if course.lecturer %}+{% endif %}{{course.lecturer.phone_no}}</td>
+                                                            {% for changed in course.field_changes %}
+                                                                {{changed.new}}
+                                                            {% endfor %}
+                                                                </td>
                                                             <td class="p-3">
-                                                                <a href="{% url 'each_course_history' course.id %}" class="btn btn-danger nav-link text-white">History</a>
-                                                            </td>
+                                                            {% for changed in course.field_changes %}
+                                                                {{changed.old}}
+                                                            {% endfor %}
+                                                                </td>
+                                                            <td class="p-3">{{course.date|date:"Y"|sub:1}}/{{course.date|date:"Y"}}</td>
+                                                            
+                                                            
                                                         </tr>
-                                                        {% endfor %}
+                                                        
                                                     {% endfor %}
                                                         
                                                     
                                                 </tbody>
                                         </table>
+                                        {% else %}
+                                            <p>No history available for any book.</p>
+                                        {% endif %}
                                     </div>
                             
                     </div>
-                    <center>
-                        <a href="{% url 'courses_history' %}" class="btn btn-success fs-2">Course History</a>
-                    </center>
+                    
+                    {% if course  %}
+                        <center>
+                            <a href="{% url 'courses_history' %}" class="btn btn-success fs-2">All Course History</a>
+                        </center>
+                    {% endif %}
+                        
                 </section>
     <!-- single section end -->
 </div>

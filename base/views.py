@@ -270,24 +270,115 @@ def courses(request):
 
     context = {
         'courses': courses,
+        'semester': semester
     }
     return render(request, 'base/courses.html', context)
+
+
+def courses_history(request):
+    all_historical_records = Course.history.all().filter(history_type='~').order_by('-history_date')
+    # Course.history.all().delete()
+
+    changes = []
+    for record in all_historical_records:
+        previous_record = record.prev_record
+        print(previous_record)
+        if previous_record:
+            delta = record.diff_against(previous_record)
+            
+            field_changes = []
+            for change in delta.changes:
+                if change.old:
+                    field_changes.append({
+                    'field': change.field,
+                    'old': get_object_or_404(Staff, id=change.old),
+                    'new': get_object_or_404(Staff, id=change.new),
+                })
+                else:
+                    field_changes.append({
+                    'field': change.field,
+                    'old': 'NONE',
+                    'new': get_object_or_404(Staff, id=change.new),
+                })
+            
+            changes.append({
+                'date': record.history_date,
+                'user': record.history_user,
+                'course': record.history_object, # Get the book title from the record 
+                'field_changes': field_changes,
+                'level': record.level,
+            })
+
+
+    print(changes)
+    context = {
+        'changes': changes,
+    }
+    
+    return render(request, 'base/course_history.html', context) 
+
+
+def each_course_history(request, pk):
+
+    course = get_object_or_404(Course, id=pk)
+
+    all_historical_records = course.history.filter(history_type='~').order_by('-history_date')
+
+    changes = []
+    for record in all_historical_records:
+        previous_record = record.prev_record
+        if previous_record:
+            delta = record.diff_against(previous_record)
+            
+            field_changes = []
+            for change in delta.changes:
+                if change.old:
+                    field_changes.append({
+                    'field': change.field,
+                    'old': get_object_or_404(Staff, id=change.old),
+                    'new': get_object_or_404(Staff, id=change.new),
+                })
+                else:
+                    field_changes.append({
+                    'field': change.field,
+                    'old': 'NONE',
+                    'new': get_object_or_404(Staff, id=change.new),
+                })
+            
+            changes.append({
+                'date': record.history_date,
+                'user': record.history_user,
+                'course': record.history_object, # Get the book title from the record 
+                'field_changes': field_changes,
+                'level': record.level,
+            })
+
+    context = {
+        'changes': changes,
+        'course': course
+    }
+
+    return render(request, 'base/course_history.html', context) 
 
 
 
 def developer(request):
     team = Project_Team.objects.all()
+    supervisor = get_object_or_404(Staff, id=6)
 
     context = {
         'team': team,
         'blogs': AllBlogs().blogs(),
         'images': AllBlogs().images(),
+        'supervisor': supervisor
     }
     return render(request, 'base/developer.html', context)
 
 
 def developer_pop(request, pk):
     team = get_object_or_404(Project_Team, id=pk)
+    supervisor = get_object_or_404(Staff, id=6)
+    
     context = {
         'team': team,
         'blogs': AllBlogs().blogs(),
