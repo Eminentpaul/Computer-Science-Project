@@ -343,6 +343,22 @@ class Semester(models.Model):
 
     def __str__(self):
         return self.semester
+    
+
+    # def clean(self):
+    #     if self.semester == 'First Semester':
+    #         timetables = Timetable.objects.all().filter(semester=self.semester)
+
+    #         for values in timetables:
+    #             values.delete()
+    #     else:
+    #         timetables = Timetable.objects.all().filter(semester=self.semester)
+
+    #         for values in timetables:
+    #             values.delete()
+
+            
+
 
 
 
