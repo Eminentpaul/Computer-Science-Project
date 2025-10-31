@@ -345,25 +345,12 @@ class Semester(models.Model):
         return self.semester
     
 
-    # def clean(self):
-    #     if self.semester == 'First Semester':
-    #         timetables = Timetable.objects.all().filter(semester=self.semester)
-
-    #         for values in timetables:
-    #             values.delete()
-    #     else:
-    #         timetables = Timetable.objects.all().filter(semester=self.semester)
-
-    #         for values in timetables:
-    #             values.delete()
-
-            
-
-
-
-
-
-    
+    def clean(self):
+        timetables = Timetable.objects.all()  #.filter(day_of_week='monday')
+        timetables.delete()
+        return None
+        
+ 
 
 
 class Timetable(models.Model):
