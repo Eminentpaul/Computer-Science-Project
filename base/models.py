@@ -212,7 +212,7 @@ class Staff(models.Model):
 
     
     class Meta:
-        ordering = ['status']
+        ordering = ['id']
         verbose_name_plural = 'Staff List'
 
 
