@@ -15,6 +15,8 @@ def home(request):
     blog = ''
     home_slide = HomeSlide.objects.all()
     blog = Blog.objects.all().first()
+    if blog:
+        post_images = blog.images_set.all().first()
 
 
     context = {

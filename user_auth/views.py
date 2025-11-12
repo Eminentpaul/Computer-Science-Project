@@ -32,21 +32,25 @@ def register(request):
 
     if request.method == 'POST':
         regno = request.POST.get('regno').upper()
-        if User.objects.filter(regno=regno).first():
-            mg.error(request, f"This Regno: {regno} is already taken")
+
+        if "CS/N" not in regno and "CS/H" not in regno:
+            mg.error(request, "Regno is not acceptable")
         else:
-            form = UserForm(request.POST)
-
-            if form.is_valid():
-                user = form.save()
-                auth.login(request, user)
-                return redirect('forum')
+            if User.objects.filter(regno=regno).first():
+                mg.error(request, f"This Regno: {regno} is already taken")
             else:
-                errors = form.errors.get_json_data(escape_html=True)
-                for error in errors:
-                    error_msg = errors[error][0]['message']
+                form = UserForm(request.POST)
 
-                mg.error(request, error_msg)
+                if form.is_valid():
+                    user = form.save()
+                    auth.login(request, user)
+                    return redirect('forum')
+                else:
+                    errors = form.errors.get_json_data(escape_html=True)
+                    for error in errors:
+                        error_msg = errors[error][0]['message']
+
+                    mg.error(request, error_msg)
 
     return render(request, 'user_auth/signup.html')
 

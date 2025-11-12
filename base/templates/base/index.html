@@ -382,52 +382,56 @@
 
     
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Latest News/Events</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+
+{% if blog  %}
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Latest News/Events</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
 
 
-        <div class="single-blog">
-            <div class="blog single-blog__content">
-                <div class="blog__thumb" style="max-height: 200px; overflow: hidden;">
-                    
-                    
-                            <a href="{% url 'blog_details' blog.id %}">
-                                <img src="{{post_images.image.url}}" alt="blog thumbnail">
-                            </a>
+            <div class="single-blog">
+                <div class="blog single-blog__content">
+                    <div class="blog__thumb" style="max-height: 200px; overflow: hidden;">
                         
                         
-                </div>
-                <div class="blog__meta">
-                    <div class="blog__meta--da">
-                        <div class="blog-date">
-                            <span><i class="fal fa-calendar"></i></span>
-                            <span>{{blog.created}}</span>
-                        </div>
-                        <div class="blog-author">
-                            <span><i class="far fa-user"></i>
-                            </span>
-                            <span><a href="#">{{blog.author}}</a></span>
-                        </div>
+                                <a href="{% url 'blog_details' blog.id %}">
+                                    <img src="{{post_images.image.url}}" alt="blog thumbnail">
+                                </a>
+                            
+                            
                     </div>
-                    <h5 class="blog__title"> <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:70}} </a></h5>
-                    <a href="{% url 'blog_details' blog.id %}" class="rts-theme-btn primary with-arrow lh-100">Read More <span><i class="fa-thin fa-arrow-right"></i></span></a>
+                    <div class="blog__meta">
+                        <div class="blog__meta--da">
+                            <div class="blog-date">
+                                <span><i class="fal fa-calendar"></i></span>
+                                <span>{{blog.created}}</span>
+                            </div>
+                            <div class="blog-author">
+                                <span><i class="far fa-user"></i>
+                                </span>
+                                <span><a href="#">{{blog.author}}</a></span>
+                            </div>
+                        </div>
+                        <h5 class="blog__title"> <a href="{% url 'blog_details' blog.id %}">{{blog.title | truncatechars:70}} </a></h5>
+                        <a href="{% url 'blog_details' blog.id %}" class="rts-theme-btn primary with-arrow lh-100">Read More <span><i class="fa-thin fa-arrow-right"></i></span></a>
+                    </div>
                 </div>
             </div>
         </div>
-      </div>
-      {% comment %} <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div> {% endcomment %}
+        {% comment %} <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+        </div> {% endcomment %}
+        </div>
     </div>
-  </div>
-</div>
+    </div>
+{% endif %}
+    
 
 
 <script>

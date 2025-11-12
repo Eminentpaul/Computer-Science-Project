@@ -100,7 +100,7 @@
 									{% if user.profile.permission or user.is_staff %}
 										<!--  Add Post Start -->
 										<div class="h-col h-plus-toggle mb-3">
-											<a class="btn btn-mint rounded" title="Add Post" href="{% url 'events' %}">
+											<a class="btn btn-mint rounded" title="Add Event" href="{% url 'events' %}">
 												Add Events/News
 											</a>
 										</div>
@@ -110,14 +110,14 @@
 									{% if user.profile.is_class_rep %}
 										<!--  Add Post Start -->
 										<div class="h-col h-plus-toggle">
-											<a class="btn btn-mint rounded" title="Add Post" href="{% url 'timetable_dash' %}">
+											<a class="btn btn-mint rounded" title="Add Timetable" href="{% url 'timetable_dash' %}">
 												Add Timetable
 											</a>
 										</div>
 										<!-- Add Post END -->
 									{% endif %}
 
-									<a href="/" class="nav-link mt-3">
+									<a href="/" class="nav-link mt-3" title="Home Page">
 										<i class="bi bi-bookmark-check-fill"></i> Home Page
 									</a>
 									
@@ -146,7 +146,7 @@
 					</div>
 					<div style="margin-left: -200px !important;" class="header-end d-flex gap-0 justify-content-end">	
 						<div class="h-col h-plus-toggle d-none d-lg-block">
-							<a class="btn btn-mint rounded" title="Add Post" href="/">
+							<a class="btn btn-mint rounded" title="Home Page" href="/">
 								<i class="bi bi-house"></i>
 							</a>
 						</div>
@@ -154,7 +154,7 @@
 						{% if user.profile.permission or user.is_staff %}
 							<!--  Add Post Start -->
 							<div class="h-col h-plus-toggle d-none d-lg-block">
-								<a class="btn btn-mint rounded" title="Add Post" href="{% url 'events' %}">
+								<a class="btn btn-mint rounded" title="Add News/Events" href="{% url 'events' %}">
 									Add Events/News
 								</a>
 							</div>
@@ -164,7 +164,7 @@
 						{% if user.profile.is_class_rep %}
 							<!--  Add Post Start -->
 							<div class="h-col h-plus-toggle d-none d-lg-block">
-								<a class="btn btn-mint rounded" title="Add Post" href="{% url 'timetable_dash' %}">
+								<a class="btn btn-mint rounded" title="Add Timetable" href="{% url 'timetable_dash' %}">
 									Timetable
 								</a>
 							</div>
@@ -181,124 +181,7 @@
                                 
 						 
 				
-						<!-- Messages dropdown START -->
-						{% comment %} <div class="nav-item dropdown h-col d-none d-lg-block">
-
-							<a class="h-message-icon h-icon" href="#header_message_bar"  data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-								<i class="bi bi-chat-left-text"></i> <sup>4</sup>
-							</a>
-
-							<!-- Notification dropdown menu START -->
-							<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
-								<div class="card bg-transparent border-0">
-									<div class="card-header bg-transparent py-4 d-flex justify-content-between align-items-center">
-										<h6 class="m-0">Messages <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
-										<a class="small" href="#">Clear all</a>
-									</div>
-									<div data-simplebar class="card-body p-0 dropdown-body">
-										<ul class="list-group list-unstyled list-group-flush">
-											
-											<li>
-												<a href="#" class="list-group-item-action border-0 d-flex p-3">
-													<div class="me-3">
-														<div class="avatar avatar-md">
-															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/17.jpg' %}" alt="avatar">
-														</div>
-													</div>
-													<div>
-														<h6 class="mb-1">Oliver Carpenter</h6>
-														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
-														<small class="text-muted fs-xs">5 min ago</small>
-													</div>
-												</a>
-											</li><!-- Notif item -->
-											
-											<li>
-												<a href="#" class="list-group-item-action border-0 d-flex p-3">
-													<div class="me-3">
-														<div class="avatar avatar-md">
-															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/16.jpg' %}" alt="avatar">
-														</div>
-													</div>
-													<div>
-														<h6 class="mb-1">Samantha Hall</h6>
-														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
-														<small class="text-muted fs-xs">10 min ago</small>
-													</div>
-												</a>
-											</li><!-- Notif item -->
-											
-											<li>
-												<a href="#" class="list-group-item-action border-0 d-flex p-3">
-													<div class="me-3">
-														<div class="avatar avatar-md">
-															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/15.jpg' %}" alt="avatar">
-														</div>
-													</div>
-													<div>
-														<h6 class="mb-1">Jorge Dean</h6>
-														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
-														<small class="text-muted fs-xs">14 min ago</small>
-													</div>
-												</a>
-											</li><!-- Notif item -->
-											
-											<li>
-												<a href="#" class="list-group-item-action border-0 d-flex p-3">
-													<div class="me-3">
-														<div class="avatar avatar-md">
-															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/14.jpg' %}" alt="avatar">
-														</div>
-													</div>
-													<div>
-														<h6 class="mb-1">Kathleen Murray</h6>
-														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
-														<small class="text-muted fs-xs">1 hr ago</small>
-													</div>
-												</a>
-											</li><!-- Notif item -->
-											
-											<li>
-												<a href="#" class="list-group-item-action border-0 d-flex p-3">
-													<div class="me-3">
-														<div class="avatar avatar-md">
-															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/13.jpg' %}" alt="avatar">
-														</div>
-													</div>
-													<div>
-														<h6 class="mb-1">Timothy Spencer</h6>
-														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
-														<small class="text-muted fs-xs">3 hr ago</small>
-													</div>
-												</a>
-											</li><!-- Notif item -->
-											
-											<li>
-												<a href="#" class="list-group-item-action border-0 d-flex p-3">
-													<div class="me-3">
-														<div class="avatar avatar-md">
-															<img class="avatar-img rounded-circle" src="{% static 'assets/assets/img/avatar/12.jpg' %}" alt="avatar">
-														</div>
-													</div>
-													<div>
-														<h6 class="mb-1">Stacey Long</h6>
-														<p class="small m-0">Lorem ipsum dolor sit amet, conse...</p>
-														<small class="text-muted fs-xs">5 hr ago</small>
-													</div>
-												</a>
-											</li><!-- Notif item -->
-											
-										</ul>
-									</div>
-									<!-- Button -->
-									<div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
-										<a href="#" class="stretched-link">See all incoming activity</a>
-									</div>
-								</div>
-							</div>
-							<!-- Notification dropdown menu END -->
-						</div> {% endcomment %}
-						<!-- Messages dropdown END -->						
+										
 				
 						<!-- Notification dropdown START -->
 							{% include 'forum/notification.html' %}
